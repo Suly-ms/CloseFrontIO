@@ -203,11 +203,11 @@
       "missile_silo": "Utilisé pour lancer des bombes nucléaires",
       "port": "Envoie des bateaux de commerce pour produire de l'or",
       "sam_launcher": "Protège contre les bombes nucléaires",
-      "warship": "Capture les bateaux de commerce, détruit les navires de guerre et les bateaux de transport"
+      "warship": "Capture les bateaux de commerce, détruit les sous-marins et les bateaux de transport"
     },
     "not_enough_money": "Pas assez d'argent",
     "upgrade_amount": "x{amount}",
-    "warship_shift_hint": "Maintenir la touche Maj et glisser le curseur pour sélectionner plusieurs navires de guerre à la fois"
+    "warship_shift_hint": "Maintenir la touche Maj et glisser le curseur pour sélectionner plusieurs sous-marins à la fois"
   },
   "change_username_modal": {
     "title": "Changer le nom d'utilisateur",
@@ -219,7 +219,7 @@
       "attack": "Attaque [P1] !",
       "betray": "Trahis [P1] !",
       "build_sams": "Construis/Améliore des SAMs !",
-      "build_warships": "Construis des navires de guerre !",
+      "build_warships": "Construis des sous-marins !",
       "crown": "Attaque la couronne !",
       "finish": "Finissons [P1] !",
       "focus": "Concentre l'attaque sur [P1] !",
@@ -821,7 +821,7 @@
       "structures": "Structures",
       "train": "Train",
       "transportShipTrail": "Trainée des bateaux",
-      "warship": "Navire de guerre"
+      "warship": "Sous-marin"
     }
   },
   "emoji_table": {
@@ -968,7 +968,7 @@
     "pirate": "Pirate",
     "players": "Joueurs",
     "retry": "Réessayer",
-    "stolen_gold": "Volé avec des navires de guerre",
+    "stolen_gold": "Volé avec des sous-marins",
     "survival_time": "Temps de survie",
     "total_gold": "Total",
     "train_trade": "Train",
@@ -1056,8 +1056,8 @@
     "cosmetics_trains_label": "Trains",
     "cosmetics_transport_ship_trails_desc": "Effet des trainées des bateaux personnalisés",
     "cosmetics_transport_ship_trails_label": "Trainées des bateaux",
-    "cosmetics_warships_desc": "Couleurs de navires de guerre personnalisées",
-    "cosmetics_warships_label": "Navires de guerre",
+    "cosmetics_warships_desc": "Couleurs de sous-marins personnalisées",
+    "cosmetics_warships_label": "Sous-marins",
     "fallout_desc": "Montrer la lueur des radiations sur les territoires irradiés. Désactiver pour améliorer les performances",
     "fallout_label": "Effets de radiation",
     "highland_color_desc": "Couleur de base pour le terrain de hauteur moyenne.",
@@ -1163,8 +1163,8 @@
     "action_quick_chat": "Ouvrir le tchat rapide",
     "action_ratio_change": "Diminuer/Augmenter le ratio d'attaque",
     "action_reset_gfx": "Réinitialiser les graphismes",
-    "action_warship_multiselect": "Sélectionner plusieurs navires de guerre (cliquer et glisser pour dessiner le carré de sélection)",
-    "action_warship_selectall": "Sélectionne tous vos navires de guerre",
+    "action_warship_multiselect": "Sélectionner plusieurs sous-marins (cliquer et glisser pour dessiner le carré de sélection)",
+    "action_warship_selectall": "Sélectionne tous vos sous-marins",
     "action_zoom": "Zoomer/Dézoomer",
     "ally_betray": "Trahison de votre allié, mettant donc fin à l'alliance et arrêtant le commerce tout en affaiblissant votre défense. Le commerce entre vous est suspendu pendant 5 minutes (ou jusqu'à ce que vous redeveniez alliés), d'autres joueurs peuvent aussi cesser le commerce. A moins que l'autre joueur ne soit lui-même un traître, vous aurez le statut de traître pendant 30 secondes. Pendant ce temps, une icône sera présente au-dessus de votre nom et votre défense sera affaiblie de 50%. Les tribus sont moins susceptibles de s'allier avec vous et plus susceptibles de vous attaquer.",
     "ally_donate": "Donner une partie de vos troupes à un allié. Utilisé lorsqu'ils manquent de troupes et sont attaqués, ou lorsqu'ils ont besoin de puissance supplémentaire pour écraser un ennemi.",
@@ -1181,10 +1181,10 @@
     "build_menu_title": "Menu de construction",
     "build_mirv_desc": "La bombe la plus puissante du jeu. Se divise en un maximum de 350 bombes atomiques qui couvriront une vaste zone du territoire. Ne fait des dégâts qu'au joueur sur lequel vous avez cliqué pour la construire. Apparaît depuis le Silo à missiles le plus proche et atterrit dans la zone cliquée.",
     "build_name": "Nom",
-    "build_port_desc": "Peut seulement être construit à proximité de l'eau. Permet de construire des navires de guerre. Envoie automatiquement des bateaux de commerce entre les ports de votre pays et ceux d'autres pays (sauf lorsque le commerce est arrêté), donnant de l'or aux deux parties. La transaction avec un joueur s'arrête automatiquement lorsque vous attaquez ou êtes attaqué par un joueur. Il reprend après 5 minutes ou si vous devenez alliés. Vous pouvez basculer manuellement le commerce avec \"Arrêter le commerce\" ou \"Commencer le commerce\".",
+    "build_port_desc": "Peut seulement être construit à proximité de l'eau. Permet de construire des sous-marins. Envoie automatiquement des bateaux de commerce entre les ports de votre pays et ceux d'autres pays (sauf lorsque le commerce est arrêté), donnant de l'or aux deux parties. La transaction avec un joueur s'arrête automatiquement lorsque vous attaquez ou êtes attaqué par un joueur. Il reprend après 5 minutes ou si vous devenez alliés. Vous pouvez basculer manuellement le commerce avec \"Arrêter le commerce\" ou \"Commencer le commerce\".",
     "build_sam_desc": "Peut intercepter les missiles ennemis dans un rayon de 100 pixels. Le SAM a un temps de recharge de 12 secondes.",
     "build_silo_desc": "Permet de lancer des missiles.",
-    "build_warship_desc": "Patrouille dans une zone, capturant les bateaux de commerce ennemis et détruisant leurs bateaux de transport et navires de guerre. Apparaît dans le Port le plus proche et patrouille la zone où vous avez cliqué pour le construire. Vous pouvez contrôler les navires de guerre en cliquant sur eux (voir Attaque sous Raccourcis) puis en cliquant sur la nouvelle zone vers laquelle vous voulez les déplacer. La touche F peut être utilisée pour sélectionner tous vous navires et vous pouvez maintenir votre touche Maj pour sélectionner ceux d'une zone définie. Les navires de guerre peuvent monter de niveau (max 3) en capturant des bateaux de commerce et en détruisant des bateaux de transports ainsi que d'autres navires de guerre.",
+    "build_warship_desc": "Patrouille dans une zone, capturant les bateaux de commerce ennemis et détruisant leurs bateaux de transport et sous-marins. Apparaît dans le Port le plus proche et patrouille la zone où vous avez cliqué pour le construire. Vous pouvez contrôler les sous-marins en cliquant sur eux (voir Attaque sous Raccourcis) puis en cliquant sur la nouvelle zone vers laquelle vous voulez les déplacer. La touche F peut être utilisée pour sélectionner tous vos sous-marins et vous pouvez maintenir votre touche Maj pour sélectionner ceux d'une zone définie. Les sous-marins peuvent monter de niveau (max 3) en capturant des bateaux de commerce et en détruisant des bateaux de transports ainsi que d'autres sous-marins.",
     "drag": "glisser",
     "exit_confirmation": "Êtes-vous sûr de vouloir quitter le jeu ?",
     "game_id_tooltip": "ID de la partie",
@@ -1240,7 +1240,7 @@
     "ui_options": "Options",
     "ui_options_desc": "Les éléments suivants peuvent être trouvés à l'intérieur :",
     "ui_playeroverlay": "Informations sur le joueur",
-    "ui_playeroverlay_desc": "Lorsque que vous survolez un territoire, l'affichage des informations de Joueur sont affichées. Cela montre le type de joueur (Humain, Nation ou Tribu), l'attitude d'une Nation envers vous (d'Hostile à Amicale), ainsi que les troupes en défense, l'or, et le nombre de structures et navires de guerre possédées par le joueur.",
+    "ui_playeroverlay_desc": "Lorsque que vous survolez un territoire, l'affichage des informations de Joueur sont affichées. Cela montre le type de joueur (Humain, Nation ou Tribu), l'attitude d'une Nation envers vous (d'Hostile à Amicale), ainsi que les troupes en défense, l'or, et le nombre de structures et sous-marins possédés par le joueur.",
     "ui_section": "IU du jeu",
     "ui_wilderness": "Région sauvage",
     "ui_your_team": "Votre équipe :",
@@ -1373,7 +1373,7 @@
     "trainTradeGoldPerMin": "Or des trains/min",
     "troops": "Troupes",
     "type": "Type",
-    "warships": "Navires de guerre"
+    "warships": "Sous-marins"
   },
   "leaderboard_modal": {
     "clan": "Clan",
@@ -1836,7 +1836,7 @@
       "trans": "Bateau de transport"
     },
     "war": "Guerre",
-    "warship_stats": "Statistiques des navires de guerre",
+    "warship_stats": "Statistiques des sous-marins",
     "weapon": "Arme",
     "workers": "Ouvriers"
   },
@@ -1882,7 +1882,7 @@
     "stats_troops_incoming_per_game": "Attaques reçues",
     "stats_troops_sent_per_game": "Attaques envoyées",
     "stats_victories": "Victoires",
-    "stats_warships_built_per_game": "Navires de guerre construits",
+    "stats_warships_built_per_game": "Sous-marins construits",
     "stats_win_rate": "Taux de Victoire"
   },
   "player_type": {
@@ -2437,7 +2437,7 @@
       "buy_factory": "Construisez maintenant une Usine : cliquez sur {key}, puis cliquez sur votre territoire pour la placer de telle sorte qu'elle relie d'autres bâtiments.",
       "buy_port": "Ensuite, construisez un Port : appuyez sur {key}, puis cliquez sur votre littoral ou dans une rivière pour l'y placer.",
       "buy_silo": "Enfin, construisez un Silo à missiles : appuyez sur {key}, puis cliquez sur votre territoire pour le placer. Les silos permettent de lancer des bombes atomiques, des bombes à hydrogène et des MIRVs.",
-      "buy_warship": "Construisez maintenant un Navire de guerre : appuyez sur {key}, puis cliquez en pleine mer près de votre port. Les navires de guerre capturent des bateaux de commerce et protègent vos côtes contre les transports ennemis.",
+      "buy_warship": "Construisez maintenant un Sous-marin : appuyez sur {key}, puis cliquez en pleine mer près de votre port. Les sous-marins capturent des bateaux de commerce et protègent vos côtes contre les transports ennemis.",
       "capture_tribes": "Capturer des tribus est un excellent moyen de gagner de l’or. Les plus proches sont signalées par une cible sur la carte. Éliminez-les jusqu’à obtenir {cost} or pour construire une Ville.",
       "earn_gold": "Attaquez vos voisins pour voler leur territoire, puis éliminez-les pour prendre leur or. Vous avez besoin de {cost} pour construire un {unit}.",
       "factory_info": "Les usines sont reliées aux villes, aux ports, et aux autres usines par des rails et font apparaître des trains qui rapportent de l’or.",
@@ -2446,7 +2446,7 @@
       "mirv_info": "MIRV, une attaque massive de bombes atomiques destinée à affaiblir lourdement et rapidement l’ennemi.",
       "no_coast": "Vous n’avez pas encore d'accès à l'eau. L’accès à la mer est très important : il vous permet d’envoyer des bateaux, de construire des ports et de commercer par voie maritime. Étendez votre territoire jusqu’à atteindre un littoral.",
       "port_info_ships": "Les ports envoient des bateaux de commerce qui vous rapportent de l’or.",
-      "port_info_warships": "Les ports permettent également de construire des navires de guerre.",
+      "port_info_warships": "Les ports permettent également de construire des sous-marins.",
       "propose_alliance": "Les nations peuvent devenir de puissants alliés. Faites un clic droit sur la nation indiquée par une cible et proposez-lui une alliance.",
       "sam_info": "Le lanceur SAM, il vous protège contre les frappes nucléaires en abattant les missiles ennemis.",
       "send_boat": "Les bateaux transportent vos troupes sur l’eau. Faites un clic droit sur une côte ennemie située de l’autre côté de l’eau pour ouvrir le menu radial, puis sélectionnez le bateau. Vous pouvez aussi survoler la côte convoitée et presser la touche \"B\".",
@@ -2465,7 +2465,7 @@
       "buy_factory": "Construisez maintenant une Usine : touchez votre territoire pour la placer de telle sorte qu'elle relie d'autres bâtiments, ouvrez le menu Construction puis sélectionnez l'icône d'usine.",
       "buy_port": "Ensuite, construisez un Port : touchez votre littoral, ouvrez le menu Construction, puis sélectionnez l'icône d'ancre.",
       "buy_silo": "Enfin, construisez un Silo à missiles : touchez votre territoire, ouvrez le menu Construction, puis sélectionnez l'icône de missile. Les silos permettent de lancer des bombes atomiques, des bombes à hydrogène et des MIRV.",
-      "buy_warship": "Construisez maintenant un Navire de guerre : touchez la mer près de votre port, ouvrez le menu de combat, puis sélectionnez l'icône de bateau. Les navires de guerre capturent des bateaux de commerce et protègent vos côtes contre les transports ennemis.",
+      "buy_warship": "Construisez maintenant un Sous-marin : touchez la mer près de votre port, ouvrez le menu de combat, puis sélectionnez l'icône de bateau. Les sous-marins capturent des bateaux de commerce et protègent vos côtes contre les transports ennemis.",
       "launch_atom": "Votre silo est paré à faire feu ! Touchez le territoire d'un voisin, ouvrez le menu de combat, puis sélectionnez l'icône nucléaire.",
       "propose_alliance": "Les nations peuvent devenir de puissants alliés. Touchez la nation indiquée par une cible, puis l’icône de poignée de main pour leur proposer une alliance.",
       "send_boat": "Les bateaux transportent vos troupes sur l’eau. Touchez une côte ennemie située de l’autre côté de l’eau pour ouvrir le menu circulaire, puis sélectionnez le bateau.",
@@ -2484,7 +2484,7 @@
     "missile_silo": "Silo à missiles",
     "port": "Port",
     "sam_launcher": "Lanceur de SAM",
-    "warship": "Navire de guerre"
+    "warship": "Sous-marin"
   },
   "update_available": {
     "desktop": "Une nouvelle version d’OpenFront est disponible. Elle sera téléchargée en arrière-plan ; une fois prête, rechargez la page depuis la barre de mise à jour.",
@@ -2530,8 +2530,8 @@
     "audio_test_muted": "Augmentez le volume de cette catégorie pour entendre les sons de test.",
     "boat_attack": "Attaque navale",
     "boat_attack_desc": "Envoyer un bateau de transport au pixel sous votre curseur.",
-    "box_select_warships": "Carré de sélection pour les navires de guerre",
-    "box_select_warships_desc": "Maintenir cette touche et glisser le curseur de votre souris pour sélectionner plusieurs navires de guerre à la fois.",
+    "box_select_warships": "Carré de sélection pour les sous-marins",
+    "box_select_warships_desc": "Maintenir cette touche et glisser le curseur de votre souris pour sélectionner plusieurs sous-marins à la fois.",
     "break_alliance": "Briser une Alliance (Trahir)",
     "break_alliance_desc": "Brise l'alliance avec le joueur en dessous de votre curseur.",
     "build_atom_bomb": "Envoyer une bombe atomique",
@@ -2555,8 +2555,8 @@
     "build_port_desc": "Construire un port sous votre curseur.",
     "build_sam_launcher": "Construire un lanceur SAM",
     "build_sam_launcher_desc": "Construire un lanceur SAM sous votre curseur.",
-    "build_warship": "Construire un navire de guerre",
-    "build_warship_desc": "Construire un navire de guerre sous votre curseur.",
+    "build_warship": "Construire un sous-marin",
+    "build_warship_desc": "Construire un sous-marin sous votre curseur.",
     "camera_movement": "Mouvement de la caméra",
     "center_camera": "Centrer la caméra",
     "center_camera_desc": "Centrer la caméra sur le joueur",
@@ -2648,8 +2648,8 @@
     "reset_gfx_desc": "Appuyez tout en maintenant la touche de modification pour réinitialiser le rendu en cas de problème d’affichage.",
     "retaliate_attack": "Riposter",
     "retaliate_attack_desc": "Envoyez une riposte pour amortir/contrer la puissance de l'attaque la plus récente. Uniquement disponible lorsque quelqu'un vous attaque.",
-    "select_all_warships": "Sélectionne tous vos navires de guerre",
-    "select_all_warships_desc": "Sélectionne tous vos vaisseaux de guerre sur la carte.",
+    "select_all_warships": "Sélectionne tous vos sous-marins",
+    "select_all_warships_desc": "Sélectionne tous vos sous-marins sur la carte.",
     "special_effects_desc": "Activer/désactiver les effets spéciaux. Désactiver pour améliorer les performances",
     "special_effects_label": "Effets spéciaux",
     "steam_lobby_links_desc": "Ouvre les liens de salons dans Steam plutôt que dans ce navigateur",
