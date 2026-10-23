@@ -7,7 +7,19 @@
  */
 
 import type { GhostPreviewData } from "../../types";
-import { UT_MIRV, UT_WARSHIP } from "../../types";
+import {
+  UT_AIRCRAFT_CARRIER,
+  UT_MIRV,
+  UT_SUBMARINE,
+  UT_WARSHIP,
+} from "../../types";
+
+const CROSSHAIR_GHOSTS: ReadonlySet<string> = new Set([
+  UT_WARSHIP,
+  UT_SUBMARINE,
+  UT_AIRCRAFT_CARRIER,
+  UT_MIRV,
+]);
 import { createProgram } from "../utils/GlUtils";
 
 import fragSrc from "../shaders/crosshair/crosshair.frag.glsl?raw";
@@ -98,7 +110,7 @@ export class CrosshairPass {
   }
 
   updateGhostPreview(data: GhostPreviewData | null): void {
-    if (data && (data.ghostType === UT_WARSHIP || data.ghostType === UT_MIRV)) {
+    if (data && CROSSHAIR_GHOSTS.has(data.ghostType)) {
       this.active = true;
       this.centerX = data.tileX;
       this.centerY = data.tileY;

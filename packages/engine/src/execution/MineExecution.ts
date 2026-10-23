@@ -32,7 +32,6 @@ export class MineExecution implements Execution {
       return;
     }
     const owner = this.mine.owner();
-    if (!owner.isInMaritimeZone(this.mine.tile())) return;
     const victim = this.mg
       .nearbyUnits(
         this.mine.tile(),
@@ -40,11 +39,7 @@ export class MineExecution implements Execution {
         MINE_TARGETS,
         (e) => {
           const o = e.unit.owner();
-          return (
-            o !== owner &&
-            !owner.isFriendly(o as Player) &&
-            owner.isInMaritimeZone(e.unit.tile())
-          );
+          return o !== owner && !owner.isFriendly(o as Player);
         },
       )
       .sort((a, b) => a.distSquared - b.distSquared)[0]?.unit;

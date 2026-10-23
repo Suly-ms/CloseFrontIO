@@ -79,9 +79,14 @@ export class UnitImpl implements Unit {
       "targetTile" in params ? (params.targetTile ?? undefined) : undefined;
     this._targetPlayer =
       "targetPlayer" in params ? (params.targetPlayer ?? undefined) : undefined;
-    if ("trajectory" in params || "waitTicks" in params) {
+    // Aircraft carry a nuke state too so SAMs can mark them as targeted.
+    if (
+      "trajectory" in params ||
+      "waitTicks" in params ||
+      _type === UnitType.Aircraft
+    ) {
       this._nukeState = {
-        trajectory: params.trajectory ?? [],
+        trajectory: "trajectory" in params ? (params.trajectory ?? []) : [],
         waitTicks: 0,
         trajectoryIndex: 0,
         targetedBySam: false,
@@ -120,9 +125,9 @@ export class UnitImpl implements Unit {
     switch (this._type) {
       case UnitType.Warship:
       case UnitType.Submarine:
+      case UnitType.AircraftCarrier:
       case UnitType.Port:
       case UnitType.MilitaryPort:
-      case UnitType.NavalBeacon:
       case UnitType.MissileSilo:
       case UnitType.DefensePost:
       case UnitType.SAMLauncher:
@@ -252,9 +257,9 @@ export class UnitImpl implements Unit {
     switch (this._type) {
       case UnitType.Warship:
       case UnitType.Submarine:
+      case UnitType.AircraftCarrier:
       case UnitType.Port:
       case UnitType.MilitaryPort:
-      case UnitType.NavalBeacon:
       case UnitType.MissileSilo:
       case UnitType.DefensePost:
       case UnitType.SAMLauncher:
@@ -391,10 +396,10 @@ export class UnitImpl implements Unit {
         case UnitType.MissileSilo:
         case UnitType.Port:
         case UnitType.MilitaryPort:
-        case UnitType.NavalBeacon:
         case UnitType.SAMLauncher:
         case UnitType.Warship:
         case UnitType.Submarine:
+        case UnitType.AircraftCarrier:
         case UnitType.Factory:
           this.mg.stats().unitDestroy(destroyer, this._type);
           this.mg.stats().unitLose(this.owner(), this._type);
@@ -583,6 +588,23 @@ export class UnitImpl implements Unit {
 
   samLauncherState(): SamLauncherState | undefined {
     return this._samLauncherState;
+  }
+
+  /**
+   * Carriers publish their hangar through the missile timer queue, which already
+   * reaches the client and replays: one entry per unavailable aircraft, 0 while
+   * airborne, else the tick it is ready again.
+   */
+  setHangar(unavailable: number[]): void {
+    const q = this._missileTimerQueue;
+    if (
+      q.length === unavailable.length &&
+      q.every((t, i) => t === unavailable[i])
+    ) {
+      return;
+    }
+    this._missileTimerQueue = unavailable;
+    this.mg.addUpdate(this.toUpdate());
   }
 
   reloadMissile(): void {

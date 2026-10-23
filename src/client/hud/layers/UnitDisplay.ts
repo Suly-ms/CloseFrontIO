@@ -24,10 +24,10 @@ import {
   hydrogenBombIcon,
   mirvIcon,
   militaryPortIcon,
-  navalBeaconIcon,
   missileSiloIcon,
   portIcon,
   samLauncherIcon,
+  aircraftCarrierIcon,
   submarineIcon,
   warshipIcon,
 } from "../HotbarIcons";
@@ -46,8 +46,8 @@ export class UnitDisplay extends LitElement implements Controller {
   private _missileSilo = 0;
   private _port = 0;
   private _militaryPorts = 0;
-  private _navalBeacons = 0;
   private _submarines = 0;
+  private _carriers = 0;
   private _defensePost = 0;
   private _samLauncher = 0;
   private allDisabled = false;
@@ -109,6 +109,7 @@ export class UnitDisplay extends LitElement implements Controller {
         );
       case UnitType.Warship:
       case UnitType.Submarine:
+      case UnitType.AircraftCarrier:
         return (
           this.cost(item) <= (player?.gold() ?? 0n) &&
           (player
@@ -131,8 +132,8 @@ export class UnitDisplay extends LitElement implements Controller {
     this._missileSilo = player.totalUnitLevels(UnitType.MissileSilo);
     this._port = player.totalUnitLevels(UnitType.Port);
     this._militaryPorts = player.totalUnitLevels(UnitType.MilitaryPort);
-    this._navalBeacons = player.totalUnitLevels(UnitType.NavalBeacon);
     this._submarines = player.totalUnitLevels(UnitType.Submarine);
+    this._carriers = player.totalUnitLevels(UnitType.AircraftCarrier);
     this._defensePost = player.totalUnitLevels(UnitType.DefensePost);
     this._samLauncher = player.totalUnitLevels(UnitType.SAMLauncher);
     this._factories = player.totalUnitLevels(UnitType.Factory);
@@ -186,13 +187,6 @@ export class UnitDisplay extends LitElement implements Controller {
             this.keybinds["buildMilitaryPort"]?.key ?? "V",
           )}
           ${this.renderUnitItem(
-            navalBeaconIcon,
-            this._navalBeacons,
-            UnitType.NavalBeacon,
-            "naval_beacon",
-            this.keybinds["buildNavalBeacon"]?.key ?? "I",
-          )}
-          ${this.renderUnitItem(
             defensePostIcon,
             this._defensePost,
             UnitType.DefensePost,
@@ -226,6 +220,13 @@ export class UnitDisplay extends LitElement implements Controller {
             UnitType.Submarine,
             "submarine",
             this.keybinds["buildSubmarine"]?.key ?? "O",
+          )}
+          ${this.renderUnitItem(
+            aircraftCarrierIcon,
+            this._carriers,
+            UnitType.AircraftCarrier,
+            "aircraft_carrier",
+            this.keybinds["buildAircraftCarrier"]?.key ?? "J",
           )}
           ${this.renderUnitItem(
             atomBombIcon,
@@ -339,6 +340,7 @@ export class UnitDisplay extends LitElement implements Controller {
                 break;
               case UnitType.Warship:
               case UnitType.Submarine:
+              case UnitType.AircraftCarrier:
                 this.eventBus?.emit(
                   new ToggleStructureEvent([UnitType.MilitaryPort]),
                 );

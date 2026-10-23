@@ -190,6 +190,7 @@
   },
   "build_menu": {
     "desc": {
+      "aircraft_carrier": "Launches aircraft that strike enemy ships and structures",
       "atom_bomb": "Small explosion",
       "city": "Increases max population",
       "defense_post": "Increases defenses of nearby borders",
@@ -198,7 +199,6 @@
       "military_port": "Builds warships and submarines, launches troop transports",
       "mirv": "Huge explosion, only targets selected player",
       "missile_silo": "Used to launch nukes",
-      "naval_beacon": "Claims a 30-tile maritime zone for naval combat",
       "port": "Sends trade ships to generate gold",
       "sam_launcher": "Defends against incoming nukes",
       "submarine": "Lays mines that damage enemy ships",
@@ -1164,6 +1164,11 @@
     "territory_alpha_label": "Territory opacity",
     "territory_sat_desc": "How vivid the territory fill colors are (lower mutes them)",
     "territory_sat_label": "Territory saturation"
+  },
+  "hangar": {
+    "airborne": "Airborne: {count}",
+    "ready": "Aircraft ready: {ready}/{max}",
+    "reloading": "Reloading: {times}"
   },
   "heads_up_message": {
     "catching_up": "Catching up...",
@@ -2566,6 +2571,8 @@
     "title": "Tutorial"
   },
   "unit_type": {
+    "aircraft": "Aircraft",
+    "aircraft_carrier": "Aircraft Carrier",
     "atom_bomb": "Atom Bomb",
     "boat": "Boat",
     "city": "City",
@@ -2576,7 +2583,6 @@
     "mine": "Mine",
     "mirv": "MIRV",
     "missile_silo": "Missile Silo",
-    "naval_beacon": "Naval Beacon",
     "port": "Port",
     "sam_launcher": "SAM Launcher",
     "submarine": "Submarine",
@@ -2630,6 +2636,8 @@
     "box_select_warships_desc": "Hold this key and drag to select multiple warships.",
     "break_alliance": "Break Alliance (Betray)",
     "break_alliance_desc": "Break alliance with the player whose tile is under your cursor.",
+    "build_aircraft_carrier": "Build Aircraft Carrier",
+    "build_aircraft_carrier_desc": "Build an Aircraft Carrier under your cursor.",
     "build_atom_bomb": "Build Atom Bomb",
     "build_atom_bomb_desc": "Build an Atom Bomb under your cursor.",
     "build_city": "Build City",
@@ -2649,8 +2657,6 @@
     "build_mirv_desc": "Build a MIRV under your cursor.",
     "build_missile_silo": "Build Missile Silo",
     "build_missile_silo_desc": "Build a Missile Silo under your cursor.",
-    "build_naval_beacon": "Build Naval Beacon",
-    "build_naval_beacon_desc": "Place a beacon in the sea to claim a maritime zone.",
     "build_port": "Build Port",
     "build_port_desc": "Build a Port under your cursor.",
     "build_sam_launcher": "Build SAM Launcher",

@@ -79,7 +79,11 @@ export interface UnitParamsMap {
 
   [UnitType.Mine]: Record<string, never>;
 
-  [UnitType.NavalBeacon]: Record<string, never>;
+  [UnitType.AircraftCarrier]: {
+    patrolTile: TileRef;
+  };
+
+  [UnitType.Aircraft]: Record<string, never>;
 
   [UnitType.AtomBomb]: {
     targetTile?: number;
@@ -290,6 +294,9 @@ export interface Unit extends UnitLike {
   missileTimerQueue(): number[];
   samLauncherState(): SamLauncherState | undefined;
 
+  // Aircraft carriers
+  setHangar(unavailable: number[]): void;
+
   // Trade Ships
   setSafeFromPirates(): void; // Only for trade ships
   isSafeFromPirates(): boolean; // Only for trade ships
@@ -413,7 +420,6 @@ export interface Player extends PlayerLike {
     targetTile: TileRef,
     validTiles?: TileRef[] | null,
   ): TileRef | false;
-  isInMaritimeZone(tile: TileRef): boolean;
   buildUnit<T extends UnitType>(
     type: T,
     spawnTile: TileRef,

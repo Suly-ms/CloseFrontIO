@@ -27,6 +27,7 @@ const INTERCEPTED_UNIT_TRANSLATION_KEYS: Partial<Record<UnitType, string>> = {
   [UnitType.AtomBomb]: "unit_type.atom_bomb",
   [UnitType.HydrogenBomb]: "unit_type.hydrogen_bomb",
   [UnitType.MIRVWarhead]: "unit_type.mirv",
+  [UnitType.Aircraft]: "unit_type.aircraft",
 };
 
 export class SAMMissileExecution implements Execution {
@@ -64,6 +65,7 @@ export class SAMMissileExecution implements Execution {
       UnitType.AtomBomb,
       UnitType.HydrogenBomb,
       UnitType.MIRVWarhead,
+      UnitType.Aircraft,
     ];
     if (
       !this.target.isActive() ||
@@ -101,9 +103,11 @@ export class SAMMissileExecution implements Execution {
         this.SAMMissile.delete(false);
 
         // Record stats
-        this.mg
-          .stats()
-          .bombIntercept(this._owner, this.target.type() as NukeType, 1);
+        if (this.target.type() !== UnitType.Aircraft) {
+          this.mg
+            .stats()
+            .bombIntercept(this._owner, this.target.type() as NukeType, 1);
+        }
         return;
       } else if (result.status === PathStatus.NEXT) {
         this.SAMMissile.move(result.node);

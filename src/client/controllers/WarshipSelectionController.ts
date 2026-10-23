@@ -19,6 +19,12 @@ import { MoveWarshipIntentEvent } from "../Transport";
 import { GameView, UnitView } from "../view";
 
 const WARSHIP_SELECTION_RADIUS = 10;
+/** Ships the player can select and move with a move_warship intent. */
+const MOVABLE_SHIPS = [
+  UnitType.Warship,
+  UnitType.Submarine,
+  UnitType.AircraftCarrier,
+] as const;
 
 /**
  * Controller for warship selection state + click handling.
@@ -143,7 +149,7 @@ export class WarshipSelectionController implements Controller {
     const myPlayer = this.game.myPlayer();
     if (!myPlayer) return [];
     return this.game
-      .units(UnitType.Warship)
+      .units(...MOVABLE_SHIPS)
       .filter(
         (unit) =>
           unit.isActive() &&
@@ -257,7 +263,7 @@ export class WarshipSelectionController implements Controller {
     const myPlayer = this.game.myPlayer();
     if (!myPlayer) return;
 
-    const selected = this.game.units(UnitType.Warship).filter((unit) => {
+    const selected = this.game.units(...MOVABLE_SHIPS).filter((unit) => {
       if (!unit.isActive() || unit.owner() !== myPlayer) return false;
       const screen = this.transformHandler.worldToScreenCoordinates(
         new Cell(this.game.x(unit.tile()), this.game.y(unit.tile())),
@@ -278,7 +284,7 @@ export class WarshipSelectionController implements Controller {
     const myPlayer = this.game.myPlayer();
     if (!myPlayer) return [];
     return this.game
-      .units(UnitType.Warship)
+      .units(...MOVABLE_SHIPS)
       .filter((u) => u.isActive() && u.owner() === myPlayer);
   }
 

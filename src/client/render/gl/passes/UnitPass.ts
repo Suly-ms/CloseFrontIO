@@ -38,6 +38,8 @@ import type { RendererConfig, UnitState } from "../../types";
 import {
   SMOOTHED_NUKE_TYPES,
   TrainType,
+  UT_AIRCRAFT,
+  UT_AIRCRAFT_CARRIER,
   UT_ATOM_BOMB,
   UT_HYDROGEN_BOMB,
   UT_MIRV,
@@ -88,6 +90,8 @@ const UNIT_ORDER = [
   "TrainCarriage",
   "TrainCarriageLoaded",
   UT_MINE,
+  UT_SUBMARINE,
+  UT_AIRCRAFT_CARRIER,
 ] as const;
 
 const ATLAS_COLS = UNIT_ORDER.length;
@@ -101,6 +105,7 @@ const WARSHIP_COL = UNIT_ORDER.indexOf(UT_WARSHIP);
 /** First atlas column of the train sprites (engine, carriage, loaded
  *  carriage are contiguous) — gates the train cosmetic effect. */
 const TRAIN_FIRST_COL = UNIT_ORDER.indexOf("TrainEngine");
+const TRAIN_LAST_COL = UNIT_ORDER.indexOf("TrainCarriageLoaded");
 
 // ---------------------------------------------------------------------------
 // Instance data layout
@@ -289,7 +294,8 @@ export class UnitPass {
         this.typeToAtlasCol.set(header.unitTypes[i], col);
       }
     }
-    this.typeToAtlasCol.set(UT_SUBMARINE, WARSHIP_COL);
+    // shortcut: aircraft reuse the SAM missile sprite, add an atlas column if they need their own look.
+    this.typeToAtlasCol.set(UT_AIRCRAFT, UNIT_ORDER.indexOf(UT_SAM_MISSILE));
 
     // Compile shaders
     this.program = createProgram(
@@ -301,6 +307,7 @@ export class UnitPass {
         WARSHIP_COL,
         WARSHIP_EFFECT_ROW_BASE: WARSHIP_EFFECT_BLOCK * MAX_TRAIL_COLORS,
         TRAIN_FIRST_COL,
+        TRAIN_LAST_COL,
         TRAIN_EFFECT_ROW_BASE: TRAIN_EFFECT_BLOCK * MAX_TRAIL_COLORS,
       }),
       "UnitPass",

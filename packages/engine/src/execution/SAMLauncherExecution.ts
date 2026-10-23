@@ -207,6 +207,23 @@ class SAMTargetingSystem {
     return true;
   }
 
+  /** Closest hostile aircraft in range; it is shot at its current tile. */
+  public getAircraftTarget(ticks: number): Target | undefined {
+    const samTile = this.sam.tile();
+    const range = this.mg.config().dynamicSamRange(this.sam, ticks);
+    const closest = this.mg
+      .nearbyUnits(
+        samTile,
+        range,
+        [UnitType.Aircraft],
+        this.isTargetableNearbyUnit,
+      )
+      .sort((a, b) => a.distSquared - b.distSquared)[0]?.unit;
+    return closest === undefined
+      ? undefined
+      : { unit: closest, tile: closest.tile() };
+  }
+
   private computeTargetScore(target: Target): number {
     const samTile = this.sam.tile();
     const unit = target.unit;
@@ -378,15 +395,17 @@ export class SAMLauncherExecution implements Execution {
     // them (unit ids are unique). unitCount(type) is memoised per unit-list version — one shared
     // walk a tick, not one a launcher — and unlike units(type) a hit allocates nothing. A nuke's
     // level is always 1, so a zero count is exactly an empty list.
-    if (
+    const noNukes =
       this.mg.unitCount(UnitType.AtomBomb) === 0 &&
       this.mg.unitCount(UnitType.HydrogenBomb) === 0 &&
-      this.mg.unitCount(UnitType.MIRVWarhead) === 0
-    ) {
-      return;
-    }
+      this.mg.unitCount(UnitType.MIRVWarhead) === 0;
+    // Nukes first; aircraft only get the missiles left over.
     // target is already filtered to exclude nukes targeted by other SAMs
-    const targets = this.targetingSystem.getValidTargets(ticks);
+    const targets = noNukes ? [] : this.targetingSystem.getValidTargets(ticks);
+    if (this.mg.unitCount(UnitType.Aircraft) > 0) {
+      const aircraft = this.targetingSystem.getAircraftTarget(ticks);
+      if (aircraft !== undefined) targets.push(aircraft);
+    }
     for (const target of targets) {
       if (this.sam.isInCooldown()) {
         break;

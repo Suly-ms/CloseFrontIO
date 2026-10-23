@@ -134,8 +134,13 @@ export class WarshipExecution implements Execution {
       return;
     }
 
-    // Priority 2: Fight enemy warship if in range
-    if (this.warship.targetUnit()?.type() === UnitType.Warship) {
+    // Priority 2: Fight enemy warship, carrier or aircraft if in range
+    const targetType = this.warship.targetUnit()?.type();
+    if (
+      targetType === UnitType.Warship ||
+      targetType === UnitType.AircraftCarrier ||
+      targetType === UnitType.Aircraft
+    ) {
       this.shootTarget();
       this.patrol();
       return;
@@ -247,12 +252,23 @@ export class WarshipExecution implements Execution {
   }
 
   private findRetreatAggroTarget(): Unit | undefined {
-    return this.findBestTarget([UnitType.TransportShip, UnitType.Warship]);
+    return this.findBestTarget([
+      UnitType.TransportShip,
+      UnitType.Warship,
+      UnitType.AircraftCarrier,
+      UnitType.Aircraft,
+    ]);
   }
 
   private findTargetUnit(): Unit | undefined {
     return this.findBestTarget(
-      [UnitType.TransportShip, UnitType.Warship, UnitType.TradeShip],
+      [
+        UnitType.TransportShip,
+        UnitType.Warship,
+        UnitType.AircraftCarrier,
+        UnitType.Aircraft,
+        UnitType.TradeShip,
+      ],
       true,
     );
   }
@@ -272,9 +288,6 @@ export class WarshipExecution implements Execution {
     const mg = this.mg;
     const config = mg.config();
     const owner = this.warship.owner();
-    if (!owner.isInMaritimeZone(this.warship.tile())) {
-      return undefined;
-    }
 
     const ships = mg.nearbyUnits(
       this.warship.tile(),
@@ -297,7 +310,6 @@ export class WarshipExecution implements Execution {
         unit === this.warship ||
         unit.owner() === owner ||
         !owner.canAttackPlayer(unit.owner(), true) ||
-        !owner.isInMaritimeZone(unit.tile()) ||
         this.alreadySentShell.has(unit) ||
         (unit.type() === UnitType.Warship &&
           unit.warshipState().state === "docked")
@@ -341,7 +353,13 @@ export class WarshipExecution implements Execution {
       }
 
       const typePriority =
-        type === UnitType.TransportShip ? 0 : type === UnitType.Warship ? 1 : 2;
+        type === UnitType.TransportShip
+          ? 0
+          : type === UnitType.Warship || type === UnitType.AircraftCarrier
+            ? 1
+            : type === UnitType.Aircraft
+              ? 2
+              : 3;
 
       if (
         bestUnit === undefined ||

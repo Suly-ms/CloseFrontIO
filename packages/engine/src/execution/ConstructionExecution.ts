@@ -14,6 +14,7 @@ import type {
   SnapshotReader,
   SnapshotWriter,
 } from "../snapshot/SnapshotContext";
+import { AircraftCarrierExecution } from "./AircraftCarrierExecution";
 import { CityExecution } from "./CityExecution";
 import { DefensePostExecution } from "./DefensePostExecution";
 import { FactoryExecution } from "./FactoryExecution";
@@ -149,11 +150,18 @@ export class ConstructionExecution implements Execution {
         this.mg.addExecution(new PortExecution(this.structure!));
         break;
       case UnitType.MilitaryPort:
-      case UnitType.NavalBeacon:
         break;
       case UnitType.Submarine:
         this.mg.addExecution(
           new SubmarineExecution({ owner: player, patrolTile: this.tile }),
+        );
+        break;
+      case UnitType.AircraftCarrier:
+        this.mg.addExecution(
+          new AircraftCarrierExecution({
+            owner: player,
+            patrolTile: this.tile,
+          }),
         );
         break;
       case UnitType.MissileSilo:
@@ -185,7 +193,6 @@ export class ConstructionExecution implements Execution {
     switch (type) {
       case UnitType.Port:
       case UnitType.MilitaryPort:
-      case UnitType.NavalBeacon:
       case UnitType.MissileSilo:
       case UnitType.DefensePost:
       case UnitType.SAMLauncher:

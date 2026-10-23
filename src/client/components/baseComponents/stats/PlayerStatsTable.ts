@@ -17,14 +17,13 @@ import { translateText } from "../../../Utils";
 const BUILDING_ORDER = {
   city: 1,
   port: 2,
-  beac: 8,
   mport: 7,
   fact: 3,
   defp: 4,
   silo: 5,
   saml: 6,
 } as const satisfies Record<
-  Exclude<(typeof otherUnits)[number], "wshp" | "sub">,
+  Exclude<(typeof otherUnits)[number], "wshp" | "sub" | "carr">,
   number
 >;
 
@@ -39,12 +38,12 @@ const buildingUnits = (
 // compilation if a new stat unit lands without a label.
 const UNIT_LABEL_KEYS = {
   city: "unit_type.city",
-  beac: "unit_type.naval_beacon",
   defp: "unit_type.defense_post",
   fact: "unit_type.factory",
   port: "unit_type.port",
   mport: "unit_type.military_port",
   sub: "unit_type.submarine",
+  carr: "unit_type.aircraft_carrier",
   saml: "unit_type.sam_launcher",
   silo: "unit_type.missile_silo",
   wshp: "unit_type.warship",

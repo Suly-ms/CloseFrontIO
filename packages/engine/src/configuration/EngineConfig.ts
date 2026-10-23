@@ -348,13 +348,16 @@ export class EngineConfig extends Config {
           (numUnits: number) => Math.min(750_000, (numUnits + 1) * 150_000),
           UnitType.Submarine,
         );
+      case UnitType.AircraftCarrier:
+        return this.costWrapper(
+          (numUnits: number) => Math.min(2_000_000, (numUnits + 1) * 500_000),
+          UnitType.AircraftCarrier,
+        );
       case UnitType.MilitaryPort:
         return this.costWrapper(
           (numUnits: number) => Math.min(1_000_000, pow2(numUnits) * 125_000),
           UnitType.MilitaryPort,
         );
-      case UnitType.NavalBeacon:
-        return this.costWrapper(() => 250_000, UnitType.NavalBeacon);
       case UnitType.Port:
         return this.costWrapper(
           (numUnits: number) => Math.min(1_000_000, pow2(numUnits) * 125_000),
@@ -399,6 +402,7 @@ export class EngineConfig extends Config {
           UnitType.Port,
         );
       case UnitType.Mine:
+      case UnitType.Aircraft:
       case UnitType.TransportShip:
       case UnitType.Shell:
       case UnitType.SAMMissile:
@@ -778,6 +782,27 @@ export class EngineConfig extends Config {
 
   mineDamage(): number {
     return 500;
+  }
+
+  /** Radius around the carrier in which its aircraft pick targets. */
+  aircraftRange(): number {
+    return 80;
+  }
+
+  aircraftSpeed(): number {
+    return 2;
+  }
+
+  aircraftDamage(): number {
+    return 300;
+  }
+
+  aircraftRearmTicks(): number {
+    return 300;
+  }
+
+  aircraftRebuildTicks(): number {
+    return 300;
   }
 
   warshipTargettingRange(): number {

@@ -35,7 +35,8 @@ const missileSiloIcon = assetUrl("images/MissileSiloIconWhite.svg");
 const hydrogenBombIcon = assetUrl("images/MushroomCloudIconWhite.svg");
 const atomBombIcon = assetUrl("images/NukeIconWhite.svg");
 const portIcon = assetUrl("images/PortIcon.svg");
-const navalBeaconIcon = assetUrl("images/NavalBeaconIcon.svg");
+const submarineIcon = assetUrl("images/SubmarineIcon.svg");
+const aircraftCarrierIcon = assetUrl("images/AircraftCarrierIcon.svg");
 const samlauncherIcon = assetUrl("images/SamLauncherIconWhite.svg");
 const shieldIcon = assetUrl("images/ShieldIconWhite.svg");
 
@@ -92,17 +93,17 @@ export const buildTable: BuildItemDisplay[][] = [
       countable: true,
     },
     {
-      unitType: UnitType.NavalBeacon,
-      icon: navalBeaconIcon,
-      description: "build_menu.desc.naval_beacon",
-      key: "unit_type.naval_beacon",
+      unitType: UnitType.Submarine,
+      icon: submarineIcon,
+      description: "build_menu.desc.submarine",
+      key: "unit_type.submarine",
       countable: true,
     },
     {
-      unitType: UnitType.Submarine,
-      icon: warshipIcon,
-      description: "build_menu.desc.submarine",
-      key: "unit_type.submarine",
+      unitType: UnitType.AircraftCarrier,
+      icon: aircraftCarrierIcon,
+      description: "build_menu.desc.aircraft_carrier",
+      key: "unit_type.aircraft_carrier",
       countable: true,
     },
     {

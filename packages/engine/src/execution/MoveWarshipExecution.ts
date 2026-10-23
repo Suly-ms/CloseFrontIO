@@ -27,7 +27,7 @@ export class MoveWarshipExecution implements Execution {
     // Cache warship list and build a lookup map — avoids repeated iteration
     const warshipMap = new Map(
       this.owner
-        .units(UnitType.Warship, UnitType.Submarine)
+        .units(UnitType.Warship, UnitType.Submarine, UnitType.AircraftCarrier)
         .map((u) => [u.id(), u]),
     );
     // Deduplicate ids so each warship is only moved once

@@ -165,6 +165,9 @@ export class Config {
   msPerTick(): number {
     return 100;
   }
+  carrierMaxAircraft(): number {
+    return 3;
+  }
   SAMCooldown(): number {
     return 90;
   }
@@ -203,10 +206,6 @@ export class Config {
     return 110;
   }
 
-  maritimeZoneRadius(): number {
-    return 30;
-  }
-
   unitInfo(type: UnitType): UnitInfo {
     const cached = this.unitInfoCache.get(type);
     if (cached !== undefined) {
@@ -221,10 +220,11 @@ export class Config {
       case UnitType.Submarine:
         info = { maxHealth: 600 };
         break;
-      case UnitType.NavalBeacon:
-        info = {
-          constructionDuration: this.instantBuild() ? 0 : 5 * 10,
-        };
+      case UnitType.AircraftCarrier:
+        info = { maxHealth: 1200 };
+        break;
+      case UnitType.Aircraft:
+        info = { maxHealth: 1 };
         break;
       case UnitType.Mine:
         info = {};
