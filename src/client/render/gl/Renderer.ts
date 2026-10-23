@@ -51,6 +51,7 @@ import { PointLightPass } from "./passes/PointLightPass";
 import { RailroadPass } from "./passes/RailroadPass";
 import { RangeCirclePass } from "./passes/RangeCirclePass";
 import { SAMRadiusPass } from "./passes/SamRadiusPass";
+import { SeaZonePass } from "./passes/SeaZonePass";
 import { SelectionBoxPass } from "./passes/SelectionBoxPass";
 import { SkinAtlasArray } from "./passes/SkinAtlasArray";
 import { SmallPlayerGlowPass } from "./passes/SmallPlayerGlowPass";
@@ -136,6 +137,7 @@ export class GPURenderer {
   private fxPass: FxPass;
   private rangeCirclePass: RangeCirclePass;
   private samRadiusPass: SAMRadiusPass;
+  private seaZonePass: SeaZonePass;
   private crosshairPass: CrosshairPass;
   private railroadPass: RailroadPass;
   private barPass: BarPass;
@@ -558,6 +560,14 @@ export class GPURenderer {
     // --- SAM radius overlay (dashed green circles during build mode) ---
     this.samRadiusPass = new SAMRadiusPass(gl, mapW, this.settings);
     this.samRadiusPass.setPaletteData(paletteData);
+    this.seaZonePass = new SeaZonePass(
+      gl,
+      config.maritimeZoneRadius(),
+      mapW,
+      mapH,
+      this.paletteTex,
+      this.terrainBytesTex!,
+    );
 
     // --- Crosshair (warship placement) ---
     this.crosshairPass = new CrosshairPass(gl);
@@ -966,6 +976,21 @@ export class GPURenderer {
       }
     }
     this.defenseCoveragePass.updateDefensePosts(posts);
+    this.seaZonePass.updateBeacons(
+      Array.from(units.values())
+        .filter(
+          (u) =>
+            u.unitType === "Naval Beacon" &&
+            u.isActive &&
+            !u.underConstruction &&
+            !u.markedForDeletion,
+        )
+        .map((u) => ({
+          x: u.pos % w,
+          y: (u.pos / w) | 0,
+          ownerID: u.ownerID,
+        })),
+    );
   }
 
   applyDeadUnits(deadUnits: DeadUnitFx[]): void {
@@ -1352,6 +1377,7 @@ export class GPURenderer {
       if (this.altView && layerPass.placement === 0) continue;
       layerPass.draw(cam);
     }
+    this.seaZonePass.draw(cam);
     if (pe.territory) this.territoryPass.draw(cam);
   }
 
@@ -1481,6 +1507,7 @@ export class GPURenderer {
    */
   dispose({ releaseContext = true }: { releaseContext?: boolean } = {}): void {
     this.stopLoop();
+    this.seaZonePass.dispose();
     for (const p of this.mapLayerPasses.values()) p.dispose();
     this.mapLayerPasses.clear();
     if (this.terrainBytesTex) {

@@ -74,6 +74,10 @@ function getStructureRatios(
       ratioPerCity: 0.25,
       perceivedCostIncreasePerOwned: 1,
     },
+    [UnitType.NavalBeacon]: {
+      ratioPerCity: 0.5,
+      perceivedCostIncreasePerOwned: 0.5,
+    },
     [UnitType.SAMLauncher]: {
       ratioPerCity: SAM_RATIO_BY_DIFFICULTY[difficulty],
       perceivedCostIncreasePerOwned: 0.3,
@@ -657,6 +661,7 @@ export class NationStructureBehavior {
     const buildOrder: UnitType[] = [
       UnitType.Port,
       UnitType.MilitaryPort,
+      UnitType.NavalBeacon,
       UnitType.Factory,
       UnitType.SAMLauncher,
       UnitType.MissileSilo,
@@ -676,7 +681,8 @@ export class NationStructureBehavior {
       // Skip ports if no coastal tiles
       if (
         (structureType === UnitType.Port ||
-          structureType === UnitType.MilitaryPort) &&
+          structureType === UnitType.MilitaryPort ||
+          structureType === UnitType.NavalBeacon) &&
         !hasCoastalTiles
       ) {
         continue;

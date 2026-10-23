@@ -18,8 +18,6 @@ import {
 import { ClientEnv } from "src/client/ClientEnv";
 import { renderNavVersion } from "src/client/GameVersion";
 import { responseHasLinkedIdentity } from "./AccountIdentity";
-import { adGatekeeper } from "./AdGatekeeper";
-import { loadAdmiral, onAdmiralMeasured } from "./Admiral";
 import {
   getUserMe,
   invalidateUserMe,
@@ -65,7 +63,6 @@ import {
   isDesktopShell,
   type DesktopUpdateState,
 } from "./DesktopShell";
-import "./FeaturedStream";
 import { loadGameClient, prefetchGameClient } from "./GameClientLoader";
 import "./GameModeSelector";
 import {
@@ -76,10 +73,7 @@ import {
 } from "./GameModeSelector";
 import { gamePortal } from "./GamePortal";
 import { GameStartingModal } from "./GameStartingModal";
-import { syncHashedEmail } from "./HashedEmail";
 import type { HelpModal } from "./HelpModal";
-import "./HomepagePromos";
-import type { HomepagePromos } from "./HomepagePromos";
 import type { HostLobbyModal as HostPrivateLobbyModal } from "./HostLobbyModal";
 import { showInGameAlert, showInGameConfirm } from "./InGameModal";
 import type { JoinLobbyModal } from "./JoinLobbyModal";
@@ -159,7 +153,6 @@ import { UserSettings } from "./UserSettings";
 import "./components/BannedModal";
 import "./components/DesktopStatusBar";
 import "./components/MarketingConsentToast";
-import "./components/PurchaseNudgeModal";
 import {
   installCtrlWheelZoomBlocker,
   installDoubleTapZoomBlocker,
@@ -191,53 +184,14 @@ import "./styles/core/variables.css";
 import "./styles/layout/container.css";
 import "./styles/layout/header.css";
 
-type RampUserProfile = { format: "UUP1"; heid: { sha256: string } };
-
 declare global {
   interface Window {
     turnstile?: TurnstileApi;
-    adsEnabled: boolean;
     gtag?: (...args: any[]) => void;
     PageOS: {
       session: {
         newPageView: () => void;
       };
-    };
-    ramp: {
-      que: Array<() => void>;
-      passiveMode: boolean;
-      spaAddAds: (ads: Array<{ type: string; selectorId?: string }>) => void;
-      destroyUnits: (adType: string | string[]) => Promise<void>;
-      settings?: {
-        slots?: any;
-      };
-      spaNewPage: (url?: string) => void;
-      // Hashed email (HEM): `up` is read once at init, setUserProfile after.
-      up?: RampUserProfile;
-      setUserProfile: (profile: RampUserProfile) => void;
-      spaAds: (config?: {
-        ads?: Array<{ type: string; selectorId?: string }>;
-        countPageview?: boolean;
-        path?: string;
-      }) => void;
-      // Video ad methods
-      onPlayerReady: (() => void) | null;
-      addUnits: (units: Array<{ type: string }>) => Promise<void>;
-      displayUnits: () => void;
-    };
-    Bolt: {
-      on: (unitType: string, event: string, callback: () => void) => void;
-      BOLT_AD_REQUEST_START: string;
-      BOLT_AD_IMPRESSION: string;
-      BOLT_AD_STARTED: string;
-      BOLT_FIRST_QUARTILE: string;
-      BOLT_MIDPOINT: string;
-      BOLT_THIRD_QUARTILE: string;
-      BOLT_AD_COMPLETE: string;
-      BOLT_AD_ERROR: string;
-      BOLT_AD_PAUSED: string;
-      BOLT_AD_CLICKED: string;
-      SHOW_HIDDEN_CONTAINER: string;
     };
     currentPageId?: string;
     showPage?: (pageId: string) => void;
@@ -478,19 +432,10 @@ class Client {
     // Register modals with the URL router. Lobby modals (join/host) and
     // matchmaking are intentionally omitted — they own their own URL state
     // (path-based) or none at all.
-    modalRouter.register("store", {
-      tag: "store-modal",
-      pageId: "page-item-store",
-    });
     modalRouter.register("settings", {
       tag: "user-setting",
       pageId: "page-settings",
     });
-    modalRouter.register("leaderboard", {
-      tag: "leaderboard-modal",
-      pageId: "page-leaderboard",
-    });
-    modalRouter.register("clan", { tag: "clan-modal", pageId: "page-clan" });
     modalRouter.register("account", {
       tag: "account-modal",
       pageId: "page-account",
@@ -530,10 +475,6 @@ class Client {
     modalRouter.register("troubleshooting", {
       tag: "troubleshooting-modal",
       pageId: "page-troubleshooting",
-    });
-    modalRouter.register("inventory", {
-      tag: "inventory-modal",
-      pageId: "page-inventory",
     });
 
     // Kick the server-list fetch off here, before anything below awaits the
@@ -772,29 +713,6 @@ class Client {
       } else {
         updateAccountNavButton(userMeResponse);
       }
-      const isAdFree =
-        userMeResponse !== false && userMeResponse.player?.adfree === true;
-      window.adsEnabled =
-        !isAdFree && !gamePortal.isOnGamePortal() && !isDesktopShell();
-      syncHashedEmail(userMeResponse, window.adsEnabled).catch((e) =>
-        console.warn("Hashed email sync failed", e),
-      );
-      // Ad-eligible users only: paid/adfree users must never load Admiral (its
-      // adblock popup fires autonomously once the payload runs). Start watching
-      // adblock state; once a blocker is ever detected the in-game ad is
-      // suppressed forever (persisted) — those users are highly ad-sensitive.
-      if (window.adsEnabled) {
-        loadAdmiral();
-        // Admiral's read is more reliable than our DOM bait, so use it as a
-        // fast initial signal. A blocker that whitelists this site still shows
-        // ads, so "blocked" means adblocking AND not whitelisted.
-        onAdmiralMeasured((res) => {
-          adGatekeeper.seed(
-            res.adblocking === true && res.whitelisted !== true,
-          );
-        });
-        adGatekeeper.start();
-      }
       // Before the dispatch: <username-input> reads this store when it picks
       // the lapse notice's wording, and the record has to be current by then.
       const grantStoreBefore = parseSteamGrantStore(
@@ -990,7 +908,7 @@ class Client {
     // A profile request issued before a logout can still be in flight when the
     // session goes, and its 200 was fetched with a JWT that was valid at the
     // time. Applying it afterwards would put the expired account back in the
-    // nav and re-disable ads, so a response is only applied while the session
+    // nav, so a response is only applied while the session
     // it was fetched under is still current.
     let authGeneration = 0;
 
@@ -1003,7 +921,7 @@ class Client {
     // A session dropped in the background — an expired refresh token, a 401 on
     // any endpoint — clears itself deep inside Auth, where none of the above
     // is reachable. Routing it through onUserMe means the nav button, its
-    // cached profile and window.adsEnabled all follow, rather than only the
+    // cached profile follows, rather than only the
     // components listening for userMeResponse.
     document.addEventListener("session-cleared", () => {
       authGeneration++;
@@ -1279,7 +1197,6 @@ class Client {
       "change-username-modal",
       "subscription-modal",
       "lang-selector",
-      "homepage-promos",
     ].forEach((tag) => {
       const modal = document.querySelector(tag) as HTMLElement & {
         close?: () => void;
@@ -1327,8 +1244,7 @@ class Client {
       this.replayViewerID = null;
       return;
     }
-    // The same teardown as starting a game: the featured stream, ads and
-    // menu music stop, and the menu's modals close.
+    // The same teardown as starting a game: menu music stops and modals close.
     const hash = window.location.hash;
     // Set first, as at game prestart: a menu-audio import that finishes
     // later must not start the menu theme under the viewer.
@@ -1341,11 +1257,6 @@ class Client {
     this.loadedHostModal()?.closeWithoutLeaving();
     this.loadedJoinModal()?.closeWithoutLeaving();
     this.closeMenu();
-    // close() keeps a lobby's bottom rail for the spawn phase, which the
-    // viewer never reaches.
-    (
-      document.querySelector("homepage-promos") as HomepagePromos | null
-    )?.destroyBottomRail?.();
     // Closing a modal the router opened clears the hash. Put the viewer's
     // back, so a reload opens the replay again.
     if (window.location.hash !== hash) {
@@ -1587,16 +1498,7 @@ class Client {
     if (modalRouter.routeFromHash()) {
       return;
     }
-    if (decodedHash.startsWith("#affiliate=")) {
-      const affiliateCode = decodedHash.replace("#affiliate=", "");
-      strip();
-      if (affiliateCode) {
-        loadModal("store-modal").then(
-          () => this.storeModal?.open({ affiliateCode }),
-          (err) => console.error("store-modal failed to load:", err),
-        );
-      }
-    }
+    if (decodedHash.startsWith("#affiliate=")) strip();
     if (decodedHash.startsWith("#refresh")) {
       window.location.href = homeHref();
     }
@@ -1894,7 +1796,7 @@ class Client {
 
     this.lobbyHandle.prestart.then(() => {
       // The game is actually starting now (lobby wait is over). Let listeners that stay up
-      // through the wait (e.g. the featured-stream panel) hide at this point instead of on join.
+      // through the wait hide at this point instead of on join.
       this.menuTornDown = true;
       document.dispatchEvent(new CustomEvent("game-starting"));
       // Earliest point the lobby is provably closed: the server has stopped

@@ -30,6 +30,7 @@ export const unitTypeToBoatUnit = {
 
 export const otherUnits = [
   "city",
+  "beac",
   "defp",
   "port",
   "wshp",
@@ -50,7 +51,8 @@ export type OtherUnitType =
   | UnitType.Warship
   | UnitType.Factory
   | UnitType.MilitaryPort
-  | UnitType.Submarine;
+  | UnitType.Submarine
+  | UnitType.NavalBeacon;
 
 export const unitTypeToOtherUnit = {
   [UnitType.City]: "city",
@@ -62,6 +64,7 @@ export const unitTypeToOtherUnit = {
   [UnitType.Factory]: "fact",
   [UnitType.MilitaryPort]: "mport",
   [UnitType.Submarine]: "sub",
+  [UnitType.NavalBeacon]: "beac",
 } as const satisfies Record<OtherUnitType, OtherUnit>;
 
 // Attacks

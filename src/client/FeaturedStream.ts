@@ -55,7 +55,6 @@ declare global {
 export type Corner = "tl" | "tr" | "bl" | "br";
 const CORNER_KEY = "featured-stream-corner";
 const MIN_KEY = "featured-stream-minimized";
-const CLOSED_KEY = "featured-stream-closed"; // "hide for today" (ad-free), scoped to the day
 
 // Local calendar day, used to scope the "closed" and "minimized" states to the current stream:
 // each is stored with the day it was set and ignored once the day changes, so the panel resets
@@ -140,7 +139,6 @@ export class FeaturedStream extends LitElement {
   @state() private dragPos: { x: number; y: number } | null = null; // free pos while dragging
   @state() private dismissed = false; // closed for this visit; only ⊘ persists it
   @state() private stream: LiveStream | null = null; // broadcast the API reports live
-  @state() private adFree = false; // entitlement from /user/me; gates "hide for today"
 
   private player?: TwitchPlayer;
   private mountGen = 0; // bumped each mount; events from older mounts are ignored
@@ -173,17 +171,12 @@ export class FeaturedStream extends LitElement {
     // Stay up through the lobby/queue wait; hide only once the game actually starts.
     document.addEventListener("game-starting", this.onGameStart);
     document.addEventListener("leave-lobby", this.onLeave);
-    // Covers login, logout and a session dropped mid-visit, all of which route through
-    // Main's onUserMe and re-dispatch this.
-    document.addEventListener("userMeResponse", this.syncAdFree);
-    this.syncAdFree(); // /user/me may already have resolved before we mounted
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener("game-starting", this.onGameStart);
     document.removeEventListener("leave-lobby", this.onLeave);
-    document.removeEventListener("userMeResponse", this.syncAdFree);
     this.unsubscribe?.();
     this.unsubscribe = null;
     this.teardownPlayer();
@@ -195,15 +188,6 @@ export class FeaturedStream extends LitElement {
     // Steam's no-in-game-ads rules (and can't satisfy Twitch's parent-domain check in the
     // shell). Matches how the rest of the app suppresses promos off the open web.
     if (gamePortal.isOnGamePortal() || isDesktopShell()) return;
-    // An ad-free user who chose "hide for today" stays hidden for the rest of that day
-    // (only that button writes this key, so an ordinary close never suppresses a later visit).
-    // A value from an earlier day is stale: drop it so the next day's stream shows again.
-    const closedDay = localStorage.getItem(CLOSED_KEY);
-    if (closedDay === todayKey()) {
-      this.dismissed = true;
-      return;
-    }
-    if (closedDay) localStorage.removeItem(CLOSED_KEY);
     // The shared poller owns the fetch cadence and stops itself in-game and while the
     // tab is hidden; this component only reacts to what it is handed.
     this.unsubscribe = streamsFeed.subscribe((feed) => {
@@ -403,14 +387,12 @@ export class FeaturedStream extends LitElement {
       ) as HTMLElement | null;
       const cx = this.dragPos.x + (card?.offsetWidth ?? 360) / 2;
       const cy = this.dragPos.y + (card?.offsetHeight ?? 200) / 2;
-      // Touch only: flicking the panel off the edge closes it for this page visit. A
-      // flick is a casual gesture, so it deliberately never persists — hiding for the
-      // day is only ever the explicit ⊘.
+      // Touch only: flicking the panel off the edge closes it for this page visit.
       if (
         isCoarsePointer() &&
         isOffFrame(cx, cy, window.innerWidth, window.innerHeight)
       ) {
-        this.dismiss(false);
+        this.dismiss();
         return;
       }
       this.corner = cornerFromCenter(
@@ -434,12 +416,8 @@ export class FeaturedStream extends LitElement {
     this.dragPos = null;
   };
 
-  // Close the panel. For ad-free users (the x button, or a flick) the close persists for the
-  // current day via CLOSED_KEY, so it stays gone across reloads that day and resets for the next
-  // day's stream; for ad-supported users the mobile flick is session-only. Either way, stop
-  // probing and tear the player down so nothing keeps streaming behind the hidden panel.
-  private dismiss(persist: boolean) {
-    if (persist) localStorage.setItem(CLOSED_KEY, todayKey());
+  // Stop probing and tear the player down so it cannot keep streaming while hidden.
+  private dismiss() {
     this.dismissed = true;
     this.dragPos = null;
     this.mountGen++; // stale player callbacks fail fresh() and become no-ops
@@ -457,23 +435,7 @@ export class FeaturedStream extends LitElement {
     this.kickPlay(); // resume playback after the resize either way
   };
 
-  // Everyone can minimize and close; ad-free users additionally get "hide for today"
-  // (any shop purchase makes a user adfree for life, which zeroes window.adsEnabled).
-  // Checked with `=== false` so the extra button doesn't flash before /user/me resolves
-  // the entitlement — a click landing before then simply closes for the visit instead.
-  //
-  // It must be reactive state fed by the userMeResponse event, not a read of
-  // window.adsEnabled at render time: the entitlement lands one round trip after load and
-  // the panel renders as soon as the feed does, so a plain read is very often taken while
-  // the flag is still undefined, and no later state change re-renders the header.
-  private syncAdFree = () => {
-    this.adFree = window.adsEnabled === false;
-  };
-
-  // Everyone can close. ✕ is always just for this page visit; only the ad-free ⊘ makes it
-  // stick, so a close never silently outlives the visit the user expected it to.
-  private onClose = () => this.dismiss(false);
-  private onHideToday = () => this.dismiss(true);
+  private onClose = () => this.dismiss();
 
   render() {
     if (this.stream === null || this.dismissed) return html``;
@@ -541,16 +503,6 @@ export class FeaturedStream extends LitElement {
             >
               ✕
             </button>
-            ${this.adFree
-              ? html`<button
-                  class="px-1 text-lg leading-none text-white/70 hover:text-white"
-                  aria-label=${translateText("featured_stream.hide_today")}
-                  title=${translateText("featured_stream.hide_today")}
-                  @click=${this.onHideToday}
-                >
-                  ⊘
-                </button>`
-              : ""}
           </div>
         </div>
         <div

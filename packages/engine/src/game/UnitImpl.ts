@@ -122,6 +122,7 @@ export class UnitImpl implements Unit {
       case UnitType.Submarine:
       case UnitType.Port:
       case UnitType.MilitaryPort:
+      case UnitType.NavalBeacon:
       case UnitType.MissileSilo:
       case UnitType.DefensePost:
       case UnitType.SAMLauncher:
@@ -253,6 +254,7 @@ export class UnitImpl implements Unit {
       case UnitType.Submarine:
       case UnitType.Port:
       case UnitType.MilitaryPort:
+      case UnitType.NavalBeacon:
       case UnitType.MissileSilo:
       case UnitType.DefensePost:
       case UnitType.SAMLauncher:
@@ -389,6 +391,7 @@ export class UnitImpl implements Unit {
         case UnitType.MissileSilo:
         case UnitType.Port:
         case UnitType.MilitaryPort:
+        case UnitType.NavalBeacon:
         case UnitType.SAMLauncher:
         case UnitType.Warship:
         case UnitType.Submarine:

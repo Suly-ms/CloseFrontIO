@@ -203,6 +203,10 @@ export class Config {
     return 110;
   }
 
+  maritimeZoneRadius(): number {
+    return 30;
+  }
+
   unitInfo(type: UnitType): UnitInfo {
     const cached = this.unitInfoCache.get(type);
     if (cached !== undefined) {
@@ -216,6 +220,11 @@ export class Config {
         break;
       case UnitType.Submarine:
         info = { maxHealth: 600 };
+        break;
+      case UnitType.NavalBeacon:
+        info = {
+          constructionDuration: this.instantBuild() ? 0 : 5 * 10,
+        };
         break;
       case UnitType.Mine:
         info = {};

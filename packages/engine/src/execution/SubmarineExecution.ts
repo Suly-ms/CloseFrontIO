@@ -115,6 +115,7 @@ export class SubmarineExecution implements Execution {
     this.lastMineTick = this.mg.ticks();
     if (
       !this.mg.isWater(tile) ||
+      !this.sub.owner().isInMaritimeZone(tile) ||
       this.mg.hasUnitNearby(tile, 2, UnitType.Mine)
     ) {
       this.sub.setTargetTile(this.wanderTile());

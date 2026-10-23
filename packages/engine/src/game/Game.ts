@@ -79,6 +79,8 @@ export interface UnitParamsMap {
 
   [UnitType.Mine]: Record<string, never>;
 
+  [UnitType.NavalBeacon]: Record<string, never>;
+
   [UnitType.AtomBomb]: {
     targetTile?: number;
     trajectory: TrajectoryTile[];
@@ -411,6 +413,7 @@ export interface Player extends PlayerLike {
     targetTile: TileRef,
     validTiles?: TileRef[] | null,
   ): TileRef | false;
+  isInMaritimeZone(tile: TileRef): boolean;
   buildUnit<T extends UnitType>(
     type: T,
     spawnTile: TileRef,

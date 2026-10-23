@@ -149,6 +149,7 @@ export class ConstructionExecution implements Execution {
         this.mg.addExecution(new PortExecution(this.structure!));
         break;
       case UnitType.MilitaryPort:
+      case UnitType.NavalBeacon:
         break;
       case UnitType.Submarine:
         this.mg.addExecution(
@@ -184,6 +185,7 @@ export class ConstructionExecution implements Execution {
     switch (type) {
       case UnitType.Port:
       case UnitType.MilitaryPort:
+      case UnitType.NavalBeacon:
       case UnitType.MissileSilo:
       case UnitType.DefensePost:
       case UnitType.SAMLauncher:

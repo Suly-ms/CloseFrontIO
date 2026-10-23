@@ -1342,6 +1342,16 @@ export class UserSettingModal extends BaseModal {
       ></setting-keybind>
 
       <setting-keybind
+        action="buildNavalBeacon"
+        label=${translateText("user_setting.build_naval_beacon")}
+        description=${translateText("user_setting.build_naval_beacon_desc")}
+        defaultKey=${this.defaultKeybinds.buildNavalBeacon}
+        .value=${this.getKeyValue("buildNavalBeacon")}
+        .display=${this.getKeyChar("buildNavalBeacon")}
+        @change=${this.handleKeybindChange}
+      ></setting-keybind>
+
+      <setting-keybind
         action="buildDefensePost"
         label=${translateText("user_setting.build_defense_post")}
         description=${translateText("user_setting.build_defense_post_desc")}

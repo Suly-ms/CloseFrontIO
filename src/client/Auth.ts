@@ -317,7 +317,7 @@ export async function logOut(allSessions: boolean = false): Promise<boolean> {
 //
 // Distinct from userMeResponse, which Main dispatches: account state lives
 // partly outside that event (the nav button's imperative avatar and its cached
-// profile, window.adsEnabled), so Main answers this by running the same
+// profile), so Main answers this by running the same
 // no-session path it runs at startup, which broadcasts userMeResponse itself.
 function announceLoggedOut(): void {
   document.dispatchEvent(

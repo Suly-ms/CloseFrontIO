@@ -272,6 +272,9 @@ export class WarshipExecution implements Execution {
     const mg = this.mg;
     const config = mg.config();
     const owner = this.warship.owner();
+    if (!owner.isInMaritimeZone(this.warship.tile())) {
+      return undefined;
+    }
 
     const ships = mg.nearbyUnits(
       this.warship.tile(),
@@ -294,6 +297,7 @@ export class WarshipExecution implements Execution {
         unit === this.warship ||
         unit.owner() === owner ||
         !owner.canAttackPlayer(unit.owner(), true) ||
+        !owner.isInMaritimeZone(unit.tile()) ||
         this.alreadySentShell.has(unit) ||
         (unit.type() === UnitType.Warship &&
           unit.warshipState().state === "docked")

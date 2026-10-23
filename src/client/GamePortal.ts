@@ -11,9 +11,9 @@ export type GamePortalName = "crazygames" | "poki";
 
 /**
  * The web game portal (CrazyGames or Poki) framing us. Portals own the
- * player's account, ads and gameplay events, and allow no purchases, outside
- * ads or our own login. Each call routes to the portal's SDK and is a no-op
- * (or null/false) on the open web.
+ * player's account and gameplay events, and allow no purchases or our own
+ * login. Each supported call routes to the portal's SDK and is a no-op (or
+ * null/false) on the open web; portal ad APIs are intentionally unused.
  */
 function active(): typeof crazyGamesSDK | typeof pokiSDK | null {
   // Poki first: CrazyGames claims any iframe it can't identify.
@@ -57,5 +57,4 @@ export const gamePortal = {
     (await active()?.createInviteLink(gameId)) ?? null,
   getInviteGameId: async (): Promise<string | null> =>
     (await active()?.getInviteGameId()) ?? null,
-  requestMidgameAd: async (): Promise<void> => active()?.requestMidgameAd(),
 };

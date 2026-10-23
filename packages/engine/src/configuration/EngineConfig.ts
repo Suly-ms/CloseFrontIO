@@ -353,6 +353,8 @@ export class EngineConfig extends Config {
           (numUnits: number) => Math.min(1_000_000, pow2(numUnits) * 125_000),
           UnitType.MilitaryPort,
         );
+      case UnitType.NavalBeacon:
+        return this.costWrapper(() => 250_000, UnitType.NavalBeacon);
       case UnitType.Port:
         return this.costWrapper(
           (numUnits: number) => Math.min(1_000_000, pow2(numUnits) * 125_000),

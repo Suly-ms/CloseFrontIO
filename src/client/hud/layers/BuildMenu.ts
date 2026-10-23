@@ -35,6 +35,7 @@ const missileSiloIcon = assetUrl("images/MissileSiloIconWhite.svg");
 const hydrogenBombIcon = assetUrl("images/MushroomCloudIconWhite.svg");
 const atomBombIcon = assetUrl("images/NukeIconWhite.svg");
 const portIcon = assetUrl("images/PortIcon.svg");
+const navalBeaconIcon = assetUrl("images/NavalBeaconIcon.svg");
 const samlauncherIcon = assetUrl("images/SamLauncherIconWhite.svg");
 const shieldIcon = assetUrl("images/ShieldIconWhite.svg");
 
@@ -88,6 +89,13 @@ export const buildTable: BuildItemDisplay[][] = [
       icon: portIcon,
       description: "build_menu.desc.military_port",
       key: "unit_type.military_port",
+      countable: true,
+    },
+    {
+      unitType: UnitType.NavalBeacon,
+      icon: navalBeaconIcon,
+      description: "build_menu.desc.naval_beacon",
+      key: "unit_type.naval_beacon",
       countable: true,
     },
     {

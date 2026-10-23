@@ -24,6 +24,7 @@ import {
   hydrogenBombIcon,
   mirvIcon,
   militaryPortIcon,
+  navalBeaconIcon,
   missileSiloIcon,
   portIcon,
   samLauncherIcon,
@@ -45,6 +46,7 @@ export class UnitDisplay extends LitElement implements Controller {
   private _missileSilo = 0;
   private _port = 0;
   private _militaryPorts = 0;
+  private _navalBeacons = 0;
   private _submarines = 0;
   private _defensePost = 0;
   private _samLauncher = 0;
@@ -109,9 +111,10 @@ export class UnitDisplay extends LitElement implements Controller {
       case UnitType.Submarine:
         return (
           this.cost(item) <= (player?.gold() ?? 0n) &&
-          (player?.units(UnitType.MilitaryPort).some(
-            (port) => port.isActive() && !port.isUnderConstruction(),
-          ) ?? false)
+          (player
+            ?.units(UnitType.MilitaryPort)
+            .some((port) => port.isActive() && !port.isUnderConstruction()) ??
+            false)
         );
       default:
         return this.cost(item) <= (player?.gold() ?? 0n);
@@ -128,6 +131,7 @@ export class UnitDisplay extends LitElement implements Controller {
     this._missileSilo = player.totalUnitLevels(UnitType.MissileSilo);
     this._port = player.totalUnitLevels(UnitType.Port);
     this._militaryPorts = player.totalUnitLevels(UnitType.MilitaryPort);
+    this._navalBeacons = player.totalUnitLevels(UnitType.NavalBeacon);
     this._submarines = player.totalUnitLevels(UnitType.Submarine);
     this._defensePost = player.totalUnitLevels(UnitType.DefensePost);
     this._samLauncher = player.totalUnitLevels(UnitType.SAMLauncher);
@@ -179,7 +183,14 @@ export class UnitDisplay extends LitElement implements Controller {
             this._militaryPorts,
             UnitType.MilitaryPort,
             "military_port",
-            this.keybinds["buildMilitaryPort"]?.key ?? "P",
+            this.keybinds["buildMilitaryPort"]?.key ?? "V",
+          )}
+          ${this.renderUnitItem(
+            navalBeaconIcon,
+            this._navalBeacons,
+            UnitType.NavalBeacon,
+            "naval_beacon",
+            this.keybinds["buildNavalBeacon"]?.key ?? "I",
           )}
           ${this.renderUnitItem(
             defensePostIcon,

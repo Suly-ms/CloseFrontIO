@@ -27,6 +27,7 @@ export const UT_MINE = "Mine" as const;
 export const UT_CITY = "City" as const;
 export const UT_PORT = "Port" as const;
 export const UT_MILITARY_PORT = "Military Port" as const;
+export const UT_NAVAL_BEACON = "Naval Beacon" as const;
 export const UT_SUBMARINE = "Submarine" as const;
 export const UT_FACTORY = "Factory" as const;
 export const UT_DEFENSE_POST = "Defense Post" as const;
@@ -41,6 +42,7 @@ export const STRUCTURE_TYPES: ReadonlySet<string> = new Set([
   UT_CITY,
   UT_PORT,
   UT_MILITARY_PORT,
+  UT_NAVAL_BEACON,
   UT_FACTORY,
   UT_DEFENSE_POST,
   UT_SAM_LAUNCHER,
@@ -99,6 +101,7 @@ export const ALL_UNIT_TYPES = [
   UT_CITY,
   UT_PORT,
   UT_MILITARY_PORT,
+  UT_NAVAL_BEACON,
   UT_FACTORY,
   UT_DEFENSE_POST,
   UT_SAM_LAUNCHER,

@@ -16,7 +16,6 @@ vi.mock("../../src/client/Cosmetics", () => ({
 vi.mock("../../src/client/CrazyGamesSDK", () => ({
   crazyGamesSDK: {
     isOnCrazyGames: vi.fn(() => false),
-    requestMidgameAd: vi.fn(async () => {}),
   },
 }));
 

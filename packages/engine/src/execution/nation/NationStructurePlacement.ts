@@ -49,9 +49,11 @@ export class NationStructurePlacement {
 
   spawnTile(type: UnitType): TileRef | null {
     const tiles =
-      type === UnitType.Port || type === UnitType.MilitaryPort
-        ? this.randCoastalTileArray(25)
-        : randTerritoryTileArray(this.random, this.game, this.player, 25);
+      type === UnitType.NavalBeacon
+        ? this.randSharedWaterTileArray(25)
+        : type === UnitType.Port || type === UnitType.MilitaryPort
+          ? this.randCoastalTileArray(25)
+          : randTerritoryTileArray(this.random, this.game, this.player, 25);
     if (tiles.length === 0) return null;
     const valueFunction = this.structureSpawnTileValue(type);
     if (valueFunction === null) return null;
@@ -94,6 +96,21 @@ export class NationStructurePlacement {
     return Array.from(this.arraySampler(tiles, numTiles));
   }
 
+  private randSharedWaterTileArray(numTiles: number): TileRef[] {
+    const shared = this._sharedWaterComponents;
+    if (shared === null) return [];
+    const tiles = new Set<TileRef>();
+    for (const shore of this.player.borderTiles()) {
+      if (!this.game.isShore(shore)) continue;
+      for (const neighbor of this.game.neighbors(shore)) {
+        if (!this.game.isWater(neighbor)) continue;
+        const component = this.game.getWaterComponent(neighbor);
+        if (component !== null && shared.has(component)) tiles.add(neighbor);
+      }
+    }
+    return Array.from(this.arraySampler([...tiles], numTiles));
+  }
+
   private *arraySampler<T>(a: T[], sampleSize: number): Generator<T> {
     if (a.length <= sampleSize) {
       // Return all elements
@@ -121,6 +138,7 @@ export class NationStructurePlacement {
         return this.factoryValue();
       case UnitType.Port:
       case UnitType.MilitaryPort:
+      case UnitType.NavalBeacon:
         return this.portValue(type);
       case UnitType.SAMLauncher:
         return this.samLauncherValue();

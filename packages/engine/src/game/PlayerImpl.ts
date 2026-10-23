@@ -1608,6 +1608,8 @@ export class PlayerImpl implements Player {
       case UnitType.Port:
       case UnitType.MilitaryPort:
         return this.portSpawn(targetTile, validTiles);
+      case UnitType.NavalBeacon:
+        return this.mg.isWater(targetTile) ? targetTile : false;
       case UnitType.Warship:
       case UnitType.Submarine:
         return this.warshipSpawn(targetTile);
@@ -1725,6 +1727,17 @@ export class PlayerImpl implements Player {
     );
 
     return bestPort?.tile() ?? false;
+  }
+
+  isInMaritimeZone(tile: TileRef): boolean {
+    const radiusSquared = this.mg.config().maritimeZoneRadius() ** 2;
+    return this.units(UnitType.NavalBeacon).some(
+      (beacon) =>
+        beacon.isActive() &&
+        !beacon.isUnderConstruction() &&
+        !beacon.isMarkedForDeletion() &&
+        this.mg.euclideanDistSquared(beacon.tile(), tile) <= radiusSquared,
+    );
   }
 
   landBasedUnitSpawn(tile: TileRef): TileRef | false {
