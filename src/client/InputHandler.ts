@@ -524,12 +524,14 @@ export class InputHandler {
       "buildCity",
       "buildFactory",
       "buildPort",
+      "buildMilitaryPort",
       "buildDefensePost",
       "buildMissileSilo",
       "buildSamLauncher",
       "buildAtomBomb",
       "buildHydrogenBomb",
       "buildWarship",
+      "buildSubmarine",
       "buildMIRV",
     ];
     buildKeybinds = buildKeybinds.map((i: string): string => {
@@ -1495,12 +1497,14 @@ export class InputHandler {
       { key: "buildCity", type: UnitType.City },
       { key: "buildFactory", type: UnitType.Factory },
       { key: "buildPort", type: UnitType.Port },
+      { key: "buildMilitaryPort", type: UnitType.MilitaryPort },
       { key: "buildDefensePost", type: UnitType.DefensePost },
       { key: "buildMissileSilo", type: UnitType.MissileSilo },
       { key: "buildSamLauncher", type: UnitType.SAMLauncher },
       { key: "buildAtomBomb", type: UnitType.AtomBomb },
       { key: "buildHydrogenBomb", type: UnitType.HydrogenBomb },
       { key: "buildWarship", type: UnitType.Warship },
+      { key: "buildSubmarine", type: UnitType.Submarine },
       { key: "buildMIRV", type: UnitType.MIRV },
     ];
     for (const { key, type } of buildKeybinds) {

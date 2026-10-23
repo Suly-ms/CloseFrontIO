@@ -42,8 +42,10 @@ import {
   UT_HYDROGEN_BOMB,
   UT_MIRV,
   UT_MIRV_WARHEAD,
+  UT_MINE,
   UT_SAM_MISSILE,
   UT_SHELL,
+  UT_SUBMARINE,
   UT_TRADE_SHIP,
   UT_TRAIN,
   UT_TRANSPORT,
@@ -85,6 +87,7 @@ const UNIT_ORDER = [
   "TrainEngine",
   "TrainCarriage",
   "TrainCarriageLoaded",
+  UT_MINE,
 ] as const;
 
 const ATLAS_COLS = UNIT_ORDER.length;
@@ -253,7 +256,7 @@ export class UnitPass {
    *  warship/train effects animate at the same pace as the structures effect. */
   private startTime = performance.now();
 
-  /** unitType string → atlas column (0-11) */
+  /** unitType string → atlas column. */
   private typeToAtlasCol = new Map<string, number>();
   private mapW: number;
 
@@ -286,6 +289,7 @@ export class UnitPass {
         this.typeToAtlasCol.set(header.unitTypes[i], col);
       }
     }
+    this.typeToAtlasCol.set(UT_SUBMARINE, WARSHIP_COL);
 
     // Compile shaders
     this.program = createProgram(
@@ -457,6 +461,9 @@ export class UnitPass {
 
     for (const unit of units.values()) {
       if (!unit.isActive || unit.waitTicks > 0) continue;
+      if (unit.unitType === UT_MINE && unit.ownerID !== this.localPlayerID) {
+        continue;
+      }
 
       let atlasIdx = this.typeToAtlasCol.get(unit.unitType);
 

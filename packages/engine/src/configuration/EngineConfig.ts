@@ -343,6 +343,16 @@ export class EngineConfig extends Config {
           (numUnits: number) => Math.min(1_000_000, (numUnits + 1) * 250_000),
           UnitType.Warship,
         );
+      case UnitType.Submarine:
+        return this.costWrapper(
+          (numUnits: number) => Math.min(750_000, (numUnits + 1) * 150_000),
+          UnitType.Submarine,
+        );
+      case UnitType.MilitaryPort:
+        return this.costWrapper(
+          (numUnits: number) => Math.min(1_000_000, pow2(numUnits) * 125_000),
+          UnitType.MilitaryPort,
+        );
       case UnitType.Port:
         return this.costWrapper(
           (numUnits: number) => Math.min(1_000_000, pow2(numUnits) * 125_000),
@@ -386,6 +396,7 @@ export class EngineConfig extends Config {
           UnitType.Factory,
           UnitType.Port,
         );
+      case UnitType.Mine:
       case UnitType.TransportShip:
       case UnitType.Shell:
       case UnitType.SAMMissile:
@@ -749,6 +760,22 @@ export class EngineConfig extends Config {
 
   warshipPatrolRange(): number {
     return 100;
+  }
+
+  submarineMineInterval(): number {
+    return 100;
+  }
+
+  submarineMaxMines(): number {
+    return 3;
+  }
+
+  mineTriggerRange(): number {
+    return 3;
+  }
+
+  mineDamage(): number {
+    return 500;
   }
 
   warshipTargettingRange(): number {

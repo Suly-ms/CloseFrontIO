@@ -1606,9 +1606,13 @@ export class PlayerImpl implements Player {
       case UnitType.MIRVWarhead:
         return targetTile;
       case UnitType.Port:
+      case UnitType.MilitaryPort:
         return this.portSpawn(targetTile, validTiles);
       case UnitType.Warship:
+      case UnitType.Submarine:
         return this.warshipSpawn(targetTile);
+      case UnitType.Mine:
+        return this.mg.isWater(targetTile) ? targetTile : false;
       case UnitType.Shell:
       case UnitType.SAMMissile:
         return targetTile;
@@ -1711,7 +1715,7 @@ export class PlayerImpl implements Player {
 
     const tileComponent = this.mg.getWaterComponent(tile);
     const bestPort = findClosestBy(
-      this.units(UnitType.Port),
+      this.units(UnitType.MilitaryPort),
       (port) => this.mg.manhattanDist(port.tile(), tile),
       (port) =>
         port.isActive() &&

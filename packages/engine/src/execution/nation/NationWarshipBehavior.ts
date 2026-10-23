@@ -82,7 +82,7 @@ export class NationWarshipBehavior {
     if (!this.random.chance(50)) {
       return false;
     }
-    const ports = this.player.units(UnitType.Port);
+    const ports = this.player.units(UnitType.MilitaryPort);
     const ships = this.player.units(UnitType.Warship);
     if (
       ports.length > 0 &&
@@ -461,7 +461,7 @@ export class NationWarshipBehavior {
     }
 
     // Quit early if we don't have a port to send warships from
-    if (this.player.units(UnitType.Port).length === 0) {
+    if (this.player.units(UnitType.MilitaryPort).length === 0) {
       return false;
     }
 

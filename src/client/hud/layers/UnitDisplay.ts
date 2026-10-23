@@ -23,9 +23,11 @@ import {
   goldCoinIcon,
   hydrogenBombIcon,
   mirvIcon,
+  militaryPortIcon,
   missileSiloIcon,
   portIcon,
   samLauncherIcon,
+  submarineIcon,
   warshipIcon,
 } from "../HotbarIcons";
 import { TutorialHighlight, TutorialHighlightEvent } from "../Tutorial";
@@ -42,6 +44,8 @@ export class UnitDisplay extends LitElement implements Controller {
   private _factories = 0;
   private _missileSilo = 0;
   private _port = 0;
+  private _militaryPorts = 0;
+  private _submarines = 0;
   private _defensePost = 0;
   private _samLauncher = 0;
   private allDisabled = false;
@@ -102,9 +106,12 @@ export class UnitDisplay extends LitElement implements Controller {
           (player?.units(UnitType.MissileSilo).length ?? 0) > 0
         );
       case UnitType.Warship:
+      case UnitType.Submarine:
         return (
           this.cost(item) <= (player?.gold() ?? 0n) &&
-          (player?.units(UnitType.Port).length ?? 0) > 0
+          (player?.units(UnitType.MilitaryPort).some(
+            (port) => port.isActive() && !port.isUnderConstruction(),
+          ) ?? false)
         );
       default:
         return this.cost(item) <= (player?.gold() ?? 0n);
@@ -120,6 +127,8 @@ export class UnitDisplay extends LitElement implements Controller {
     this._cities = player.totalUnitLevels(UnitType.City);
     this._missileSilo = player.totalUnitLevels(UnitType.MissileSilo);
     this._port = player.totalUnitLevels(UnitType.Port);
+    this._militaryPorts = player.totalUnitLevels(UnitType.MilitaryPort);
+    this._submarines = player.totalUnitLevels(UnitType.Submarine);
     this._defensePost = player.totalUnitLevels(UnitType.DefensePost);
     this._samLauncher = player.totalUnitLevels(UnitType.SAMLauncher);
     this._factories = player.totalUnitLevels(UnitType.Factory);
@@ -143,7 +152,7 @@ export class UnitDisplay extends LitElement implements Controller {
 
     return html`
       <div class="border-t border-white/10 p-0.5 w-full">
-        <div class="grid grid-rows-1 grid-flow-col gap-0.5 w-fit mx-auto">
+        <div class="flex flex-wrap justify-center gap-0.5 w-full">
           ${this.renderUnitItem(
             cityIcon,
             this._cities,
@@ -164,6 +173,13 @@ export class UnitDisplay extends LitElement implements Controller {
             UnitType.Port,
             "port",
             this.keybinds["buildPort"]?.key ?? "3",
+          )}
+          ${this.renderUnitItem(
+            militaryPortIcon,
+            this._militaryPorts,
+            UnitType.MilitaryPort,
+            "military_port",
+            this.keybinds["buildMilitaryPort"]?.key ?? "P",
           )}
           ${this.renderUnitItem(
             defensePostIcon,
@@ -192,6 +208,13 @@ export class UnitDisplay extends LitElement implements Controller {
             UnitType.Warship,
             "warship",
             this.keybinds["buildWarship"]?.key ?? "7",
+          )}
+          ${this.renderUnitItem(
+            submarineIcon,
+            this._submarines,
+            UnitType.Submarine,
+            "submarine",
+            this.keybinds["buildSubmarine"]?.key ?? "O",
           )}
           ${this.renderUnitItem(
             atomBombIcon,
@@ -304,7 +327,10 @@ export class UnitDisplay extends LitElement implements Controller {
                 );
                 break;
               case UnitType.Warship:
-                this.eventBus?.emit(new ToggleStructureEvent([UnitType.Port]));
+              case UnitType.Submarine:
+                this.eventBus?.emit(
+                  new ToggleStructureEvent([UnitType.MilitaryPort]),
+                );
                 break;
               default:
                 this.eventBus?.emit(new ToggleStructureEvent([unitType]));

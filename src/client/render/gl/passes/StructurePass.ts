@@ -20,6 +20,7 @@ import {
   UT_DEFENSE_POST,
   UT_FACTORY,
   UT_MISSILE_SILO,
+  UT_MILITARY_PORT,
   UT_PORT,
   UT_SAM_LAUNCHER,
 } from "../../types";
@@ -49,6 +50,7 @@ const iconAtlasUrl = assetUrl("atlases/icon-atlas.png");
 const STRUCTURE_ORDER = [
   UT_CITY,
   UT_PORT,
+  UT_MILITARY_PORT,
   UT_FACTORY,
   UT_DEFENSE_POST,
   UT_SAM_LAUNCHER,
@@ -115,7 +117,7 @@ export class StructurePass {
 
   private instanceCount = 0;
 
-  /** unitType string → atlas column index (0–5) */
+  /** unitType string → atlas column index. */
   private typeToAtlasCol = new Map<string, number>();
   private mapW: number;
 
@@ -149,7 +151,6 @@ export class StructurePass {
         this.typeToAtlasCol.set(header.unitTypes[i], col);
       }
     }
-
     // Compile shaders
     this.program = createProgram(
       gl,

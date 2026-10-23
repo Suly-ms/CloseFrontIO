@@ -214,10 +214,17 @@ export class Config {
       case UnitType.Warship:
         info = { maxHealth: 1000 };
         break;
+      case UnitType.Submarine:
+        info = { maxHealth: 600 };
+        break;
+      case UnitType.Mine:
+        info = {};
+        break;
       case UnitType.Shell:
         info = { damage: 250 };
         break;
       case UnitType.Port:
+      case UnitType.MilitaryPort:
         info = {
           constructionDuration: this.instantBuild() ? 0 : 5 * 10,
           upgradable: true,

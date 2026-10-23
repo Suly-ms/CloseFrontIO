@@ -185,7 +185,11 @@ export class SpatialQuery {
    * Find closest shore tile by water pathfinding.
    * Returns null for terra nullius (no borderTiles).
    */
-  closestShoreByWater(owner: Owner, target: TileRef): TileRef | null {
+  closestShoreByWater(
+    owner: Owner,
+    target: TileRef,
+    sources?: Iterable<TileRef>,
+  ): TileRef | null {
     return DebugSpan.wrap("SpatialQuery.closestShoreByWater", () => {
       if (!owner.isPlayer()) return null;
 
@@ -207,9 +211,14 @@ export class SpatialQuery {
       // Single pass over the border set (Array.from + filter walked it twice
       // and allocated a full copy).
       const shores: TileRef[] = [];
-      player.borderTiles().forEach((t) => {
+      const collect = (t: TileRef) => {
         if (isValidTile(t)) shores.push(t);
-      });
+      };
+      if (sources !== undefined) {
+        for (const t of sources) collect(t);
+      } else {
+        player.borderTiles().forEach(collect);
+      }
       if (shores.length === 0) return null;
 
       const path = PathFinding.Water(gm).findPath(shores, target);

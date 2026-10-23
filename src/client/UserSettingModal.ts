@@ -1332,6 +1332,16 @@ export class UserSettingModal extends BaseModal {
       ></setting-keybind>
 
       <setting-keybind
+        action="buildMilitaryPort"
+        label=${translateText("user_setting.build_military_port")}
+        description=${translateText("user_setting.build_military_port_desc")}
+        defaultKey=${this.defaultKeybinds.buildMilitaryPort}
+        .value=${this.getKeyValue("buildMilitaryPort")}
+        .display=${this.getKeyChar("buildMilitaryPort")}
+        @change=${this.handleKeybindChange}
+      ></setting-keybind>
+
+      <setting-keybind
         action="buildDefensePost"
         label=${translateText("user_setting.build_defense_post")}
         description=${translateText("user_setting.build_defense_post_desc")}
@@ -1368,6 +1378,16 @@ export class UserSettingModal extends BaseModal {
         defaultKey=${this.defaultKeybinds.buildWarship}
         .value=${this.getKeyValue("buildWarship")}
         .display=${this.getKeyChar("buildWarship")}
+        @change=${this.handleKeybindChange}
+      ></setting-keybind>
+
+      <setting-keybind
+        action="buildSubmarine"
+        label=${translateText("user_setting.build_submarine")}
+        description=${translateText("user_setting.build_submarine_desc")}
+        defaultKey=${this.defaultKeybinds.buildSubmarine}
+        .value=${this.getKeyValue("buildSubmarine")}
+        .display=${this.getKeyChar("buildSubmarine")}
         @change=${this.handleKeybindChange}
       ></setting-keybind>
 

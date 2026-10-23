@@ -28,7 +28,16 @@ export function canBuildTransportShip(
   }
 
   const spatial = new SpatialQuery(game);
-  return spatial.closestShoreByWater(player, dst) ?? false;
+  return (
+    spatial.closestShoreByWater(player, dst, militaryPortTiles(player)) ?? false
+  );
+}
+
+function militaryPortTiles(player: Player): TileRef[] {
+  return player
+    .units(UnitType.MilitaryPort)
+    .filter((p) => p.isActive() && !p.isUnderConstruction())
+    .map((p) => p.tile());
 }
 
 export function targetTransportTile(
@@ -48,5 +57,5 @@ export function bestShoreDeploymentSource(
   dst: TileRef,
 ): TileRef | null {
   const spatial = new SpatialQuery(gm);
-  return spatial.closestShoreByWater(player, dst);
+  return spatial.closestShoreByWater(player, dst, militaryPortTiles(player));
 }

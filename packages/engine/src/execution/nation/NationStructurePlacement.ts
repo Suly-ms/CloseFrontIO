@@ -49,7 +49,7 @@ export class NationStructurePlacement {
 
   spawnTile(type: UnitType): TileRef | null {
     const tiles =
-      type === UnitType.Port
+      type === UnitType.Port || type === UnitType.MilitaryPort
         ? this.randCoastalTileArray(25)
         : randTerritoryTileArray(this.random, this.game, this.player, 25);
     if (tiles.length === 0) return null;
@@ -120,7 +120,8 @@ export class NationStructurePlacement {
       case UnitType.Factory:
         return this.factoryValue();
       case UnitType.Port:
-        return this.portValue();
+      case UnitType.MilitaryPort:
+        return this.portValue(type);
       case UnitType.SAMLauncher:
         return this.samLauncherValue();
       default:
@@ -168,9 +169,9 @@ export class NationStructurePlacement {
    * Value function for ports.
    * Prefers spacing from other ports.
    */
-  private portValue(): (tile: TileRef) => number {
+  private portValue(type: UnitType = UnitType.Port): (tile: TileRef) => number {
     const game = this.game;
-    const otherUnits = this.player.units(UnitType.Port);
+    const otherUnits = this.player.units(type);
 
     return (tile) => {
       let w = 0;

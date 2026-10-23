@@ -19,6 +19,7 @@ import {
   UT_DEFENSE_POST,
   UT_FACTORY,
   UT_MISSILE_SILO,
+  UT_MILITARY_PORT,
   UT_PORT,
   UT_SAM_LAUNCHER,
 } from "../../types";
@@ -47,6 +48,7 @@ const msdfAtlasUrl = assetUrl("atlases/msdf-atlas.png");
 const STRUCTURE_ORDER = [
   UT_CITY,
   UT_PORT,
+  UT_MILITARY_PORT,
   UT_FACTORY,
   UT_DEFENSE_POST,
   UT_SAM_LAUNCHER,
@@ -143,7 +145,7 @@ export class StructureLevelPass {
   private charCodes = new Uint8Array(MAX_CHARS);
   private cursors = new Float32Array(MAX_CHARS);
 
-  /** unitType string → atlas column index (0–5). */
+  /** unitType string → atlas column index. */
   private typeToAtlasCol = new Map<string, number>();
   /** Build-button hover highlight bitmask (0 = off). */
   private highlightMask = 0;
@@ -169,7 +171,6 @@ export class StructureLevelPass {
       );
       if (col >= 0) this.typeToAtlasCol.set(header.unitTypes[i], col);
     }
-
     this.kernTable = new Int8Array(CHAR_RANGE * CHAR_RANGE); // digits don't kern
 
     // Classic bitmap font (round_6x6_modified) — digits only.

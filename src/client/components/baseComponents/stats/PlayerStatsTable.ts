@@ -17,12 +17,13 @@ import { translateText } from "../../../Utils";
 const BUILDING_ORDER = {
   city: 1,
   port: 2,
+  mport: 7,
   fact: 3,
   defp: 4,
   silo: 5,
   saml: 6,
 } as const satisfies Record<
-  Exclude<(typeof otherUnits)[number], "wshp">,
+  Exclude<(typeof otherUnits)[number], "wshp" | "sub">,
   number
 >;
 
@@ -40,6 +41,8 @@ const UNIT_LABEL_KEYS = {
   defp: "unit_type.defense_post",
   fact: "unit_type.factory",
   port: "unit_type.port",
+  mport: "unit_type.military_port",
+  sub: "unit_type.submarine",
   saml: "unit_type.sam_launcher",
   silo: "unit_type.missile_silo",
   wshp: "unit_type.warship",

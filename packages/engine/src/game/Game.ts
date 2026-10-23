@@ -71,6 +71,14 @@ export interface UnitParamsMap {
 
   [UnitType.Port]: Record<string, never>;
 
+  [UnitType.MilitaryPort]: Record<string, never>;
+
+  [UnitType.Submarine]: {
+    patrolTile: TileRef;
+  };
+
+  [UnitType.Mine]: Record<string, never>;
+
   [UnitType.AtomBomb]: {
     targetTile?: number;
     trajectory: TrajectoryTile[];
