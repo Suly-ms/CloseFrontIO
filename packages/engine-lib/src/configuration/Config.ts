@@ -218,16 +218,13 @@ export class Config {
         info = { maxHealth: 1000 };
         break;
       case UnitType.Submarine:
-        info = { maxHealth: 600 };
+        info = { maxHealth: 300 };
         break;
       case UnitType.AircraftCarrier:
         info = { maxHealth: 1200 };
         break;
       case UnitType.Aircraft:
         info = { maxHealth: 1 };
-        break;
-      case UnitType.Mine:
-        info = {};
         break;
       case UnitType.Shell:
         info = { damage: 250 };

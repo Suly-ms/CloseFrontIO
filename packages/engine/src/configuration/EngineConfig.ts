@@ -401,7 +401,6 @@ export class EngineConfig extends Config {
           UnitType.Factory,
           UnitType.Port,
         );
-      case UnitType.Mine:
       case UnitType.Aircraft:
       case UnitType.TransportShip:
       case UnitType.Shell:
@@ -768,20 +767,13 @@ export class EngineConfig extends Config {
     return 100;
   }
 
-  submarineMineInterval(): number {
-    return 100;
+  /** Radius in which a submarine torpedoes enemy trade ships and transports. */
+  submarineTorpedoRange(): number {
+    return 20;
   }
 
-  submarineMaxMines(): number {
-    return 3;
-  }
-
-  mineTriggerRange(): number {
-    return 3;
-  }
-
-  mineDamage(): number {
-    return 500;
+  submarineTorpedoReload(): number {
+    return 120;
   }
 
   /** Radius around the carrier in which its aircraft pick targets. */

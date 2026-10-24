@@ -44,7 +44,6 @@ import {
   UT_HYDROGEN_BOMB,
   UT_MIRV,
   UT_MIRV_WARHEAD,
-  UT_MINE,
   UT_SAM_MISSILE,
   UT_SHELL,
   UT_SUBMARINE,
@@ -89,7 +88,8 @@ const UNIT_ORDER = [
   "TrainEngine",
   "TrainCarriage",
   "TrainCarriageLoaded",
-  UT_MINE,
+  // Former mine sprite: the column stays so the atlas PNG lines up.
+  "UnusedMine",
   UT_SUBMARINE,
   UT_AIRCRAFT_CARRIER,
 ] as const;
@@ -468,9 +468,6 @@ export class UnitPass {
 
     for (const unit of units.values()) {
       if (!unit.isActive || unit.waitTicks > 0) continue;
-      if (unit.unitType === UT_MINE && unit.ownerID !== this.localPlayerID) {
-        continue;
-      }
 
       let atlasIdx = this.typeToAtlasCol.get(unit.unitType);
 

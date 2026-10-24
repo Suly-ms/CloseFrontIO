@@ -1,4 +1,3 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
 import { UnitType } from "@openfront/engine-api/game/GameTypes";
 import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
 import {
@@ -30,17 +29,22 @@ import type {
   SnapshotReader,
   SnapshotWriter,
 } from "../snapshot/SnapshotContext";
-import { MineExecution } from "./MineExecution";
+import { ShellExecution } from "./ShellExecution";
+import { patrolTarget } from "./utils/NavalMovement";
 
-const WANDER_RADIUS = 6;
+const WANDER_RADIUS = 15;
+// Subs slip away from enemy warships rather than trading shots with them.
+const EVADE_RANGE = 40;
+const EVADE_DISTANCE = 20;
+
+const TORPEDO_TARGETS = [UnitType.TradeShip, UnitType.TransportShip] as const;
 
 export class SubmarineExecution implements Execution {
   private random: PseudoRandom;
   private sub: Unit;
   private mg: Game;
   private pathfinder: WaterPathFinder;
-  private lastMineTick = 0;
-  private minesLaid: Unit[] = [];
+  private lastTorpedoTick = 0;
 
   constructor(
     private input: (UnitParams<UnitType.Submarine> & OwnerComp) | Unit,
@@ -50,7 +54,8 @@ export class SubmarineExecution implements Execution {
     this.mg = mg;
     this.pathfinder = new WaterPathFinder(mg);
     this.random = new PseudoRandom(mg.ticks());
-    this.lastMineTick = mg.ticks();
+    // Ready to fire as soon as it launches.
+    this.lastTorpedoTick = mg.ticks() - mg.config().submarineTorpedoReload();
     if (isUnit(this.input)) {
       this.sub = this.input;
       return;
@@ -77,22 +82,22 @@ export class SubmarineExecution implements Execution {
       this.sub.delete();
       return;
     }
-    this.minesLaid = this.minesLaid.filter((m) => m.isActive());
-
-    const config = this.mg.config();
     if (
-      this.mg.ticks() - this.lastMineTick >= config.submarineMineInterval() &&
-      this.minesLaid.length < config.submarineMaxMines()
+      this.mg.ticks() - this.lastTorpedoTick >=
+      this.mg.config().submarineTorpedoReload()
     ) {
-      this.layMine();
+      this.fireTorpedo();
     }
 
-    const patrolTile = this.sub.warshipState().patrolTile;
-    let target = this.sub.targetTile();
-    if (target === undefined && this.sub.tile() !== patrolTile) {
-      target = patrolTile;
-      this.sub.setTargetTile(target);
-    }
+    const target = patrolTarget(
+      this.mg,
+      this.random,
+      this.sub,
+      WANDER_RADIUS,
+      EVADE_RANGE,
+      EVADE_DISTANCE,
+    );
+    this.sub.setTargetTile(target);
     if (target === undefined) return;
 
     const result = this.pathfinder.next(this.sub.tile(), target);
@@ -110,44 +115,25 @@ export class SubmarineExecution implements Execution {
     }
   }
 
-  private layMine(): void {
-    const tile = this.sub.tile();
-    this.lastMineTick = this.mg.ticks();
-    if (
-      !this.mg.isWater(tile) ||
-      this.mg.hasUnitNearby(tile, 2, UnitType.Mine)
-    ) {
-      this.sub.setTargetTile(this.wanderTile());
-      return;
-    }
-    const mine = this.sub.owner().buildUnit(UnitType.Mine, tile, {});
-    this.minesLaid.push(mine);
-    this.mg.addExecution(new MineExecution(mine));
-    this.sub.setTargetTile(this.wanderTile());
-  }
-
-  private wanderTile(): TileRef | undefined {
-    const patrolTile = this.sub.warshipState().patrolTile;
-    if (patrolTile === undefined || !this.mg.isValidRef(patrolTile)) {
-      return undefined;
-    }
-    const component = this.mg.getWaterComponent(this.sub.tile());
-    for (let i = 0; i < 20; i++) {
-      const x =
-        this.mg.x(patrolTile) +
-        this.random.nextInt(-WANDER_RADIUS, WANDER_RADIUS + 1);
-      const y =
-        this.mg.y(patrolTile) +
-        this.random.nextInt(-WANDER_RADIUS, WANDER_RADIUS + 1);
-      if (!this.mg.isValidCoord(x, y)) continue;
-      const t = this.mg.ref(x, y);
-      if (!this.mg.isWater(t)) continue;
-      if (component !== null && !this.mg.hasWaterComponent(t, component)) {
-        continue;
-      }
-      return t;
-    }
-    return undefined;
+  /** Torpedoes the closest enemy trade ship or transport in range. */
+  private fireTorpedo(): void {
+    const owner = this.sub.owner();
+    const target = this.mg
+      .nearbyUnits(
+        this.sub.tile(),
+        this.mg.config().submarineTorpedoRange(),
+        TORPEDO_TARGETS,
+      )
+      .filter(
+        ({ unit }) =>
+          unit.owner() !== owner && owner.canAttackPlayer(unit.owner(), true),
+      )
+      .sort((a, b) => a.distSquared - b.distSquared)[0]?.unit;
+    if (target === undefined) return;
+    this.lastTorpedoTick = this.mg.ticks();
+    this.mg.addExecution(
+      new ShellExecution(this.sub.tile(), owner, this.sub, target),
+    );
   }
 
   isActive(): boolean {
@@ -173,8 +159,7 @@ export class SubmarineExecution implements Execution {
         this.pathfinder === undefined
           ? null
           : waterPathFinderState(this.pathfinder),
-      lastMineTick: this.lastMineTick,
-      minesLaid: this.minesLaid.map((m) => w.unit(m)),
+      lastTorpedoTick: this.lastTorpedoTick,
     });
   }
 
@@ -189,8 +174,7 @@ export class SubmarineExecution implements Execution {
     if (s.pathfinder !== null) {
       this.pathfinder = restoreWaterPathFinder(r.game, s.pathfinder);
     }
-    this.lastMineTick = s.lastMineTick;
-    this.minesLaid = s.minesLaid.map((i) => r.unit(i));
+    this.lastTorpedoTick = s.lastTorpedoTick;
   }
 }
 
@@ -203,8 +187,7 @@ const SubmarineStateSchema = z.object({
   random: zRandom().nullable(),
   sub: zRef().nullable(),
   pathfinder: WaterPathFinderSchema.nullable(),
-  lastMineTick: zInt(),
-  minesLaid: z.array(zRef()),
+  lastTorpedoTick: zInt(),
 });
 type SubmarineState = z.infer<typeof SubmarineStateSchema>;
 

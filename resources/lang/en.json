@@ -201,7 +201,7 @@
       "missile_silo": "Used to launch nukes",
       "port": "Sends trade ships to generate gold",
       "sam_launcher": "Defends against incoming nukes",
-      "submarine": "Lays mines that damage enemy ships",
+      "submarine": "Torpedoes enemy trade ships and transports",
       "warship": "Captures trade ships, destroys ships and boats"
     },
     "not_enough_money": "Not enough money",
@@ -2580,7 +2580,6 @@
     "factory": "Factory",
     "hydrogen_bomb": "Hydrogen Bomb",
     "military_port": "Military Port",
-    "mine": "Mine",
     "mirv": "MIRV",
     "missile_silo": "Missile Silo",
     "port": "Port",

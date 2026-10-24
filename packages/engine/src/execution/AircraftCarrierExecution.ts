@@ -1,7 +1,9 @@
 import { Structures, UnitType } from "@openfront/engine-api/game/GameTypes";
+import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
 import {
   zInt,
   zPlayerRef,
+  zRandom,
   zRef,
   zTile,
 } from "@openfront/engine-lib/snapshot/SnapshotType";
@@ -28,8 +30,14 @@ import type {
   SnapshotWriter,
 } from "../snapshot/SnapshotContext";
 import { AircraftExecution } from "./AircraftExecution";
+import { patrolTarget } from "./utils/NavalMovement";
 
 const SCAN_INTERVAL = 10;
+// Carriers are slow and keep their distance; their aircraft do the fighting.
+const MOVE_INTERVAL = 2;
+const PATROL_RADIUS = 30;
+const STANDOFF_RANGE = 40;
+const STANDOFF_DISTANCE = 20;
 
 const SHIP_TARGETS = [
   UnitType.Warship,
@@ -45,6 +53,7 @@ export class AircraftCarrierExecution implements Execution {
   private carrier: Unit;
   private mg: Game;
   private pathfinder: WaterPathFinder;
+  private random: PseudoRandom;
   private slots: Slot[] = [];
 
   constructor(
@@ -54,6 +63,7 @@ export class AircraftCarrierExecution implements Execution {
   init(mg: Game, ticks: number): void {
     this.mg = mg;
     this.pathfinder = new WaterPathFinder(mg);
+    this.random = new PseudoRandom(mg.ticks());
     this.slots = Array.from(
       { length: mg.config().carrierMaxAircraft() },
       () => ({ aircraft: null, readyAt: mg.ticks() }),
@@ -106,12 +116,16 @@ export class AircraftCarrierExecution implements Execution {
         .map((s) => (s.aircraft !== null ? 0 : s.readyAt)),
     );
 
-    const patrolTile = this.carrier.warshipState().patrolTile;
-    let target = this.carrier.targetTile();
-    if (target === undefined && this.carrier.tile() !== patrolTile) {
-      target = patrolTile;
-      this.carrier.setTargetTile(target);
-    }
+    if (this.mg.ticks() % MOVE_INTERVAL !== 0) return;
+    const target = patrolTarget(
+      this.mg,
+      this.random,
+      this.carrier,
+      PATROL_RADIUS,
+      STANDOFF_RANGE,
+      STANDOFF_DISTANCE,
+    );
+    this.carrier.setTargetTile(target);
     if (target === undefined) return;
 
     const result = this.pathfinder.next(this.carrier.tile(), target);
@@ -186,6 +200,7 @@ export class AircraftCarrierExecution implements Execution {
           },
       initialized: this.mg !== undefined,
       carrier: this.carrier === undefined ? null : w.unit(this.carrier),
+      random: this.random === undefined ? null : w.random(this.random),
       pathfinder:
         this.pathfinder === undefined
           ? null
@@ -204,6 +219,7 @@ export class AircraftCarrierExecution implements Execution {
         : { owner: r.player(s.input.owner), patrolTile: s.input.patrolTile };
     if (s.initialized) this.mg = r.game;
     if (s.carrier !== null) this.carrier = r.unit(s.carrier);
+    if (s.random !== null) this.random = r.random(s.random);
     if (s.pathfinder !== null) {
       this.pathfinder = restoreWaterPathFinder(r.game, s.pathfinder);
     }
@@ -221,6 +237,7 @@ const AircraftCarrierStateSchema = z.object({
   ]),
   initialized: z.boolean(),
   carrier: zRef().nullable(),
+  random: zRandom().nullable(),
   pathfinder: WaterPathFinderSchema.nullable(),
   slots: z.array(z.object({ aircraft: zRef().nullable(), readyAt: zInt() })),
 });

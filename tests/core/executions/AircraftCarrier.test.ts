@@ -127,4 +127,28 @@ describe("aircraft carrier", () => {
 
     await expectSnapshotRoundTrip(game, MAP, 30);
   });
+
+  it("patrols slowly, moving at most every other tick", () => {
+    const carrier = addCarrier(player1, 12, 8);
+    let moves = 0;
+    for (let i = 0; i < 40; i++) {
+      const before = carrier.tile();
+      game.executeNextTick();
+      if (carrier.tile() !== before) moves++;
+    }
+    expect(moves).toBeGreaterThan(0);
+    expect(moves).toBeLessThanOrEqual(20);
+  });
+
+  it("backs away from a nearby enemy warship", () => {
+    const carrier = addCarrier(player1, 12, 8);
+    const warship = addWarship(player2, 15, 8);
+    const startDist = game.manhattanDist(carrier.tile(), warship.tile());
+
+    executeTicks(game, 10);
+
+    expect(game.manhattanDist(carrier.tile(), warship.tile())).toBeGreaterThan(
+      startDist,
+    );
+  });
 });

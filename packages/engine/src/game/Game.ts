@@ -77,8 +77,6 @@ export interface UnitParamsMap {
     patrolTile: TileRef;
   };
 
-  [UnitType.Mine]: Record<string, never>;
-
   [UnitType.AircraftCarrier]: {
     patrolTile: TileRef;
   };

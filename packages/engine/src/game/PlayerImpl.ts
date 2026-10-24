@@ -1614,8 +1614,6 @@ export class PlayerImpl implements Player {
         return this.warshipSpawn(targetTile);
       case UnitType.Aircraft:
         return targetTile;
-      case UnitType.Mine:
-        return this.mg.isWater(targetTile) ? targetTile : false;
       case UnitType.Shell:
       case UnitType.SAMMissile:
         return targetTile;

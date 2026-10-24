@@ -21,7 +21,6 @@ export const UT_SAM_MISSILE = "SAMMissile" as const;
 export const UT_SHELL = "Shell" as const;
 export const UT_MIRV_WARHEAD = "MIRV Warhead" as const;
 export const UT_TRAIN = "Train" as const;
-export const UT_MINE = "Mine" as const;
 export const UT_AIRCRAFT = "Aircraft" as const;
 
 // Structures
@@ -106,7 +105,6 @@ export const ALL_UNIT_TYPES = [
   UT_SAM_LAUNCHER,
   UT_MISSILE_SILO,
   UT_TRAIN,
-  UT_MINE,
   UT_SUBMARINE,
   UT_AIRCRAFT_CARRIER,
   UT_AIRCRAFT,

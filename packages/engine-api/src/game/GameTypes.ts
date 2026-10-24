@@ -209,7 +209,6 @@ export enum UnitType {
   Factory = "Factory",
   MilitaryPort = "Military Port",
   Submarine = "Submarine",
-  Mine = "Mine",
   AircraftCarrier = "Aircraft Carrier",
   Aircraft = "Aircraft",
 }
