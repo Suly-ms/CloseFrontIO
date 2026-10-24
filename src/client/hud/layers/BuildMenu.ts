@@ -39,6 +39,9 @@ const submarineIcon = assetUrl("images/SubmarineIcon.svg");
 const aircraftCarrierIcon = assetUrl("images/AircraftCarrierIcon.svg");
 const samlauncherIcon = assetUrl("images/SamLauncherIconWhite.svg");
 const shieldIcon = assetUrl("images/ShieldIconWhite.svg");
+const bankIcon = assetUrl("images/BankIconWhite.svg");
+const farmIcon = assetUrl("images/FarmIconWhite.svg");
+const lighthouseIcon = assetUrl("images/LighthouseIconWhite.svg");
 
 export interface BuildItemDisplay {
   unitType: PlayerBuildableUnitType;
@@ -139,6 +142,27 @@ export const buildTable: BuildItemDisplay[][] = [
       icon: factoryIcon,
       description: "build_menu.desc.factory",
       key: "unit_type.factory",
+      countable: true,
+    },
+    {
+      unitType: UnitType.Bank,
+      icon: bankIcon,
+      description: "build_menu.desc.bank",
+      key: "unit_type.bank",
+      countable: true,
+    },
+    {
+      unitType: UnitType.Farm,
+      icon: farmIcon,
+      description: "build_menu.desc.farm",
+      key: "unit_type.farm",
+      countable: true,
+    },
+    {
+      unitType: UnitType.Lighthouse,
+      icon: lighthouseIcon,
+      description: "build_menu.desc.lighthouse",
+      key: "unit_type.lighthouse",
       countable: true,
     },
   ],

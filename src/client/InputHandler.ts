@@ -523,6 +523,9 @@ export class InputHandler {
     let buildKeybinds: string[] = [
       "buildCity",
       "buildFactory",
+      "buildBank",
+      "buildFarm",
+      "buildLighthouse",
       "buildPort",
       "buildMilitaryPort",
       "buildDefensePost",
@@ -1508,6 +1511,9 @@ export class InputHandler {
       { key: "buildSubmarine", type: UnitType.Submarine },
       { key: "buildAircraftCarrier", type: UnitType.AircraftCarrier },
       { key: "buildMIRV", type: UnitType.MIRV },
+      { key: "buildBank", type: UnitType.Bank },
+      { key: "buildFarm", type: UnitType.Farm },
+      { key: "buildLighthouse", type: UnitType.Lighthouse },
     ];
     for (const { key, type } of buildKeybinds) {
       if (this.keybindMatchesEvent({ code, shiftKey }, this.keybinds[key]))

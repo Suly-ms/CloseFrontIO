@@ -246,6 +246,8 @@ describe("Nation economy at the start", () => {
 // 200x200, so these few structures stay below the density at which nations upgrade anyway
 describe("Nation structure upgrades", () => {
   const ffa = GameMode.FFA;
+  // Kept out so the cases below stay about the structures they name.
+  const economyBuildings = [UnitType.Bank, UnitType.Farm, UnitType.Lighthouse];
 
   // A SAM at (10, 20) with the test config's range of 20, a city it covers, and `other`
   function withSam(difficulty: Difficulty, other: [UnitType, number, number]) {
@@ -293,7 +295,12 @@ describe("Nation structure upgrades", () => {
       {
         difficulty,
         gameMode: ffa,
-        disabledUnits: [UnitType.City, UnitType.Factory, UnitType.MissileSilo],
+        disabledUnits: [
+          UnitType.City,
+          UnitType.Factory,
+          UnitType.MissileSilo,
+          ...economyBuildings,
+        ],
       },
       { size: 200 },
     );
@@ -346,7 +353,11 @@ describe("Nation structure upgrades", () => {
   // Two cities and a port leave nothing else due, and are dense enough to upgrade a city.
   // The nation saves up 30M for a MIRV and a hydrogen bomb.
   function withCities(difficulty: Difficulty) {
-    const setup = setupCoast({ difficulty, gameMode: ffa });
+    const setup = setupCoast({
+      difficulty,
+      gameMode: ffa,
+      disabledUnits: economyBuildings,
+    });
     const { game, nation, cities } = setup;
     cities(2);
     nation.buildUnit(UnitType.Port, game.ref(24, 50), {});

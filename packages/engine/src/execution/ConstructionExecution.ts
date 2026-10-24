@@ -181,6 +181,11 @@ export class ConstructionExecution implements Execution {
       case UnitType.Factory:
         this.mg.addExecution(new FactoryExecution(this.structure!));
         break;
+      case UnitType.Bank:
+      case UnitType.Farm:
+      case UnitType.Lighthouse:
+        // Passive effects, applied by PlayerExecution, TradeShipExecution and Config.
+        break;
       default:
         console.warn(
           `unit type ${this.constructionType} cannot be constructed`,
@@ -198,6 +203,9 @@ export class ConstructionExecution implements Execution {
       case UnitType.SAMLauncher:
       case UnitType.City:
       case UnitType.Factory:
+      case UnitType.Bank:
+      case UnitType.Farm:
+      case UnitType.Lighthouse:
         return true;
       default:
         return false;

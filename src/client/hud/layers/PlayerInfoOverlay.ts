@@ -59,6 +59,9 @@ const targetIcon = assetUrl("images/TargetIconWhite.svg");
 const boatIcon = assetUrl("images/BoatIconWhite.svg");
 const cityIcon = assetUrl("images/CityIconWhite.svg");
 const factoryIcon = assetUrl("images/FactoryIconWhite.svg");
+const bankIcon = assetUrl("images/BankIconWhite.svg");
+const farmIcon = assetUrl("images/FarmIconWhite.svg");
+const lighthouseIcon = assetUrl("images/LighthouseIconWhite.svg");
 const goldCoinIcon = assetUrl("images/GoldCoinIcon.svg");
 const missileSiloIcon = assetUrl("images/MissileSiloIconWhite.svg");
 const portIcon = assetUrl("images/PortIcon.svg");
@@ -735,6 +738,13 @@ export class PlayerInfoOverlay extends LitElement implements Controller {
             ${this.displayUnitCount(player, UnitType.City, cityIcon)}
             ${this.displayUnitCount(player, UnitType.Factory, factoryIcon)}
             ${this.displayUnitCount(player, UnitType.Port, portIcon)}
+            ${this.displayUnitCount(player, UnitType.Bank, bankIcon)}
+            ${this.displayUnitCount(player, UnitType.Farm, farmIcon)}
+            ${this.displayUnitCount(
+              player,
+              UnitType.Lighthouse,
+              lighthouseIcon,
+            )}
             ${this.displayUnitCount(
               player,
               UnitType.MissileSilo,

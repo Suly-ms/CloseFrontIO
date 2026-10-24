@@ -6,10 +6,10 @@ import {
   UnitType,
 } from "@openfront/engine-api/game/GameTypes";
 import { zInt, zPlayerRef } from "@openfront/engine-lib/snapshot/SnapshotType";
-import { getMode, simpleHash } from "@openfront/engine-lib/Util";
+import { getMode, simpleHash, withinInt } from "@openfront/engine-lib/Util";
 import { z } from "zod";
 import { EngineConfig } from "../configuration/EngineConfig";
-import { Execution, Game, Player } from "../game/Game";
+import { Execution, Game, Player, Unit } from "../game/Game";
 import {
   bumpTraversalGeneration,
   tileTraversalScratch,
@@ -103,6 +103,7 @@ export class PlayerExecution implements Execution {
       if (u.type() === UnitType.DefensePost) {
         u.delete(true, captor);
       } else {
+        if (u.type() === UnitType.Bank) this.lootBank(u, captor);
         captor.captureUnit(u);
       }
     }
@@ -124,10 +125,13 @@ export class PlayerExecution implements Execution {
       return;
     }
 
-    const troopInc = this.config.troopIncreaseRate(this.player);
+    const troopInc = this.config.troopIncreaseRate(this.player, this.map);
     this.player.addTroops(troopInc);
     const goldFromWorkers = this.config.goldAdditionRate(this.player);
     this.player.addGold(goldFromWorkers);
+    if (ticks % this.config.bankInterestInterval() === 0) {
+      this.payBankInterest();
+    }
 
     // Record stats
     this.mg.stats().goldWork(this.player, goldFromWorkers);
@@ -1439,6 +1443,34 @@ export class PlayerExecution implements Execution {
     }
 
     return result;
+  }
+
+  private payBankInterest(): void {
+    const perLevel = withinInt(
+      (this.player.gold() * BigInt(this.config.bankInterestPercent())) / 100n,
+      0n,
+      this.config.bankInterestCapPerLevel(),
+    );
+    if (perLevel === 0n) return;
+    for (const bank of this.player.units(UnitType.Bank)) {
+      if (bank.isUnderConstruction()) continue;
+      const interest = perLevel * BigInt(bank.level());
+      // Paid per bank so each one shows its own gold popup.
+      this.player.addGold(interest, bank.tile());
+      this.mg.stats().goldWork(this.player, interest);
+    }
+  }
+
+  /** The captor of a bank takes a share of its previous owner's gold. */
+  private lootBank(bank: Unit, captor: Player): void {
+    const percent = Math.min(
+      bank.level() * this.config.bankLootPercentPerLevel(),
+      this.config.bankLootMaxPercent(),
+    );
+    const looted = this.player.removeGold(
+      (this.player.gold() * BigInt(percent)) / 100n,
+    );
+    if (looted > 0n) captor.addGold(looted, bank.tile());
   }
 
   private removeOnDeath(): void {

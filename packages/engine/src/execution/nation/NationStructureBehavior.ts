@@ -82,6 +82,18 @@ function getStructureRatios(
       ratioPerCity: 0.2,
       perceivedCostIncreasePerOwned: 1,
     },
+    [UnitType.Bank]: {
+      ratioPerCity: 0.3,
+      perceivedCostIncreasePerOwned: 1,
+    },
+    [UnitType.Farm]: {
+      ratioPerCity: 0.5,
+      perceivedCostIncreasePerOwned: 1,
+    },
+    [UnitType.Lighthouse]: {
+      ratioPerCity: 0.25,
+      perceivedCostIncreasePerOwned: 1,
+    },
   };
 }
 
@@ -660,6 +672,9 @@ export class NationStructureBehavior {
       UnitType.Factory,
       UnitType.SAMLauncher,
       UnitType.MissileSilo,
+      UnitType.Farm,
+      UnitType.Bank,
+      UnitType.Lighthouse,
     ];
 
     const nukesEnabled =
@@ -678,6 +693,14 @@ export class NationStructureBehavior {
         (structureType === UnitType.Port ||
           structureType === UnitType.MilitaryPort) &&
         !hasCoastalTiles
+      ) {
+        continue;
+      }
+
+      // A lighthouse only pays off next to our own ports
+      if (
+        structureType === UnitType.Lighthouse &&
+        (!hasCoastalTiles || this.player.unitCount(UnitType.Port) === 0)
       ) {
         continue;
       }

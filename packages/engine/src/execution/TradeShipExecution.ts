@@ -23,6 +23,7 @@ import type {
   SnapshotReader,
   SnapshotWriter,
 } from "../snapshot/SnapshotContext";
+import { withLighthouseBonus } from "./utils/Lighthouse";
 
 export class TradeShipExecution implements Execution {
   private active = true;
@@ -210,10 +211,12 @@ export class TradeShipExecution implements Execution {
         .stats()
         .boatCapturedTrade(this.tradeShip!.owner(), this.origOwner, gold);
     } else {
-      this.srcPort.owner().addGold(gold, this.srcPort.tile());
-      this._dstPort.owner().addGold(gold, this._dstPort.tile());
-      this.srcPort.owner().addTradeGold(gold);
-      this._dstPort.owner().addTradeGold(gold);
+      const srcGold = withLighthouseBonus(this.mg, this.srcPort, gold);
+      const dstGold = withLighthouseBonus(this.mg, this._dstPort, gold);
+      this.srcPort.owner().addGold(srcGold, this.srcPort.tile());
+      this._dstPort.owner().addGold(dstGold, this._dstPort.tile());
+      this.srcPort.owner().addTradeGold(srcGold);
+      this._dstPort.owner().addTradeGold(dstGold);
       // Record stats
       this.mg
         .stats()

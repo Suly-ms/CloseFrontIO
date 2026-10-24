@@ -15,6 +15,7 @@ import type {
 } from "../snapshot/SnapshotContext";
 import { TradeShipExecution } from "./TradeShipExecution";
 import { TrainStationExecution } from "./TrainStationExecution";
+import { isLighthouseBoosted } from "./utils/Lighthouse";
 
 export class PortExecution implements Execution {
   private active = true;
@@ -84,14 +85,22 @@ export class PortExecution implements Execution {
   shouldSpawnTradeShip(): boolean {
     const numTradeShips = this.mg.unitCount(UnitType.TradeShip);
     const portLevels = this.port!.owner().unitCount(UnitType.Port);
+    // A lighthouse makes departures more frequent by shrinking the 1/N odds.
+    const lighthouseBonus = isLighthouseBoosted(this.mg, this.port!)
+      ? this.mg.config().lighthouseTradeBonusPercent()
+      : 0;
     for (let i = 0; i < this.port!.level(); i++) {
-      const spawnRate = this.mg
+      const baseRate = this.mg
         .config()
         .tradeShipSpawnRate(
           this.tradeShipSpawnRejections,
           numTradeShips,
           portLevels,
         );
+      const spawnRate = Math.max(
+        1,
+        Math.floor((baseRate * 100) / (100 + lighthouseBonus)),
+      );
       if (this.random.chance(spawnRate)) {
         this.tradeShipSpawnRejections = 0;
         return true;

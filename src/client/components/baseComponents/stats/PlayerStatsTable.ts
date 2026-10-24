@@ -22,6 +22,9 @@ const BUILDING_ORDER = {
   defp: 4,
   silo: 5,
   saml: 6,
+  bank: 8,
+  farm: 9,
+  lhse: 10,
 } as const satisfies Record<
   Exclude<(typeof otherUnits)[number], "wshp" | "sub" | "carr">,
   number
@@ -40,6 +43,9 @@ const UNIT_LABEL_KEYS = {
   city: "unit_type.city",
   defp: "unit_type.defense_post",
   fact: "unit_type.factory",
+  bank: "unit_type.bank",
+  farm: "unit_type.farm",
+  lhse: "unit_type.lighthouse",
   port: "unit_type.port",
   mport: "unit_type.military_port",
   sub: "unit_type.submarine",

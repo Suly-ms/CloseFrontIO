@@ -17,11 +17,14 @@ import { translateText } from "../../Utils";
 import { GameView } from "../../view";
 import {
   atomBombIcon,
+  bankIcon,
   cityIcon,
   defensePostIcon,
   factoryIcon,
+  farmIcon,
   goldCoinIcon,
   hydrogenBombIcon,
+  lighthouseIcon,
   mirvIcon,
   militaryPortIcon,
   missileSiloIcon,
@@ -33,6 +36,20 @@ import {
 } from "../HotbarIcons";
 import { TutorialHighlight, TutorialHighlightEvent } from "../Tutorial";
 
+interface HotbarItem {
+  icon: string;
+  count: number | null;
+  type: PlayerBuildableUnitType;
+  key: string;
+  hotkey: string;
+}
+
+interface HotbarFolder {
+  id: string;
+  icon: string;
+  items: HotbarItem[];
+}
+
 @customElement("unit-display")
 export class UnitDisplay extends LitElement implements Controller {
   public game: GameView;
@@ -43,6 +60,9 @@ export class UnitDisplay extends LitElement implements Controller {
   private _cities = 0;
   private _warships = 0;
   private _factories = 0;
+  private _banks = 0;
+  private _farms = 0;
+  private _lighthouses = 0;
   private _missileSilo = 0;
   private _port = 0;
   private _militaryPorts = 0;
@@ -53,6 +73,8 @@ export class UnitDisplay extends LitElement implements Controller {
   private allDisabled = false;
   private _hoveredUnit: PlayerBuildableUnitType | null = null;
   private tutorialHighlight: PlayerBuildableUnitType | null = null;
+  private openFolder: string | null = "economy";
+  private lastFocus: UnitType | null = null;
 
   createRenderRoot() {
     return this;
@@ -137,6 +159,9 @@ export class UnitDisplay extends LitElement implements Controller {
     this._defensePost = player.totalUnitLevels(UnitType.DefensePost);
     this._samLauncher = player.totalUnitLevels(UnitType.SAMLauncher);
     this._factories = player.totalUnitLevels(UnitType.Factory);
+    this._banks = player.totalUnitLevels(UnitType.Bank);
+    this._farms = player.totalUnitLevels(UnitType.Farm);
+    this._lighthouses = player.totalUnitLevels(UnitType.Lighthouse);
     this._warships = player.totalUnitLevels(UnitType.Warship);
     this.requestUpdate();
   }
@@ -155,102 +180,202 @@ export class UnitDisplay extends LitElement implements Controller {
       return null;
     }
 
-    return html`
-      <div class="border-t border-white/10 p-0.5 w-full">
-        <div class="flex flex-wrap justify-center gap-0.5 w-full">
-          ${this.renderUnitItem(
-            cityIcon,
-            this._cities,
-            UnitType.City,
-            "city",
-            this.keybinds["buildCity"]?.key ?? "1",
-          )}
-          ${this.renderUnitItem(
+    const item = (
+      icon: string,
+      count: number | null,
+      type: PlayerBuildableUnitType,
+      key: string,
+      keybind: string,
+      fallbackKey: string,
+    ): HotbarItem => ({
+      icon,
+      count,
+      type,
+      key,
+      hotkey: this.keybinds[keybind]?.key ?? fallbackKey,
+    });
+    const folders: HotbarFolder[] = [
+      {
+        id: "economy",
+        icon: cityIcon,
+        items: [
+          item(cityIcon, this._cities, UnitType.City, "city", "buildCity", "1"),
+          item(
             factoryIcon,
             this._factories,
             UnitType.Factory,
             "factory",
-            this.keybinds["buildFactory"]?.key ?? "2",
-          )}
-          ${this.renderUnitItem(
-            portIcon,
-            this._port,
-            UnitType.Port,
-            "port",
-            this.keybinds["buildPort"]?.key ?? "3",
-          )}
-          ${this.renderUnitItem(
-            militaryPortIcon,
-            this._militaryPorts,
-            UnitType.MilitaryPort,
-            "military_port",
-            this.keybinds["buildMilitaryPort"]?.key ?? "V",
-          )}
-          ${this.renderUnitItem(
+            "buildFactory",
+            "2",
+          ),
+          item(bankIcon, this._banks, UnitType.Bank, "bank", "buildBank", "H"),
+          item(farmIcon, this._farms, UnitType.Farm, "farm", "buildFarm", "Z"),
+          item(portIcon, this._port, UnitType.Port, "port", "buildPort", "3"),
+          item(
+            lighthouseIcon,
+            this._lighthouses,
+            UnitType.Lighthouse,
+            "lighthouse",
+            "buildLighthouse",
+            "I",
+          ),
+        ],
+      },
+      {
+        id: "defense",
+        icon: defensePostIcon,
+        items: [
+          item(
             defensePostIcon,
             this._defensePost,
             UnitType.DefensePost,
             "defense_post",
-            this.keybinds["buildDefensePost"]?.key ?? "4",
-          )}
-          ${this.renderUnitItem(
-            missileSiloIcon,
-            this._missileSilo,
-            UnitType.MissileSilo,
-            "missile_silo",
-            this.keybinds["buildMissileSilo"]?.key ?? "5",
-          )}
-          ${this.renderUnitItem(
+            "buildDefensePost",
+            "4",
+          ),
+          item(
             samLauncherIcon,
             this._samLauncher,
             UnitType.SAMLauncher,
             "sam_launcher",
-            this.keybinds["buildSamLauncher"]?.key ?? "6",
-          )}
-          ${this.renderUnitItem(
+            "buildSamLauncher",
+            "6",
+          ),
+          item(
+            missileSiloIcon,
+            this._missileSilo,
+            UnitType.MissileSilo,
+            "missile_silo",
+            "buildMissileSilo",
+            "5",
+          ),
+        ],
+      },
+      {
+        id: "naval",
+        icon: warshipIcon,
+        items: [
+          item(
+            militaryPortIcon,
+            this._militaryPorts,
+            UnitType.MilitaryPort,
+            "military_port",
+            "buildMilitaryPort",
+            "V",
+          ),
+          item(
             warshipIcon,
             this._warships,
             UnitType.Warship,
             "warship",
-            this.keybinds["buildWarship"]?.key ?? "7",
-          )}
-          ${this.renderUnitItem(
+            "buildWarship",
+            "7",
+          ),
+          item(
             submarineIcon,
             this._submarines,
             UnitType.Submarine,
             "submarine",
-            this.keybinds["buildSubmarine"]?.key ?? "O",
-          )}
-          ${this.renderUnitItem(
+            "buildSubmarine",
+            "O",
+          ),
+          item(
             aircraftCarrierIcon,
             this._carriers,
             UnitType.AircraftCarrier,
             "aircraft_carrier",
-            this.keybinds["buildAircraftCarrier"]?.key ?? "J",
-          )}
-          ${this.renderUnitItem(
+            "buildAircraftCarrier",
+            "J",
+          ),
+        ],
+      },
+      {
+        id: "nuclear",
+        icon: atomBombIcon,
+        items: [
+          item(
             atomBombIcon,
             null,
             UnitType.AtomBomb,
             "atom_bomb",
-            this.keybinds["buildAtomBomb"]?.key ?? "8",
-          )}
-          ${this.renderUnitItem(
+            "buildAtomBomb",
+            "8",
+          ),
+          item(
             hydrogenBombIcon,
             null,
             UnitType.HydrogenBomb,
             "hydrogen_bomb",
-            this.keybinds["buildHydrogenBomb"]?.key ?? "9",
-          )}
-          ${this.renderUnitItem(
-            mirvIcon,
-            null,
-            UnitType.MIRV,
-            "mirv",
-            this.keybinds["buildMIRV"]?.key ?? "0",
-          )}
+            "buildHydrogenBomb",
+            "9",
+          ),
+          item(mirvIcon, null, UnitType.MIRV, "mirv", "buildMIRV", "0"),
+        ],
+      },
+    ]
+      .map((folder) => ({
+        ...folder,
+        items: folder.items.filter(
+          (i) => !this.game.config().isUnitDisabled(i.type),
+        ),
+      }))
+      .filter((folder) => folder.items.length > 0);
+
+    // A hotkey or tutorial pick opens the folder holding that unit.
+    const focus = this.uiState.ghostStructure ?? this.tutorialHighlight;
+    const focused = folders.find((f) => f.items.some((i) => i.type === focus));
+    if (focused !== undefined && focus !== this.lastFocus) {
+      this.openFolder = focused.id;
+    }
+    this.lastFocus = focus;
+    const open = folders.find((f) => f.id === this.openFolder);
+
+    return html`
+      <div class="border-t border-white/10 p-0.5 w-full">
+        ${open
+          ? html`<div
+              class="flex flex-wrap justify-center gap-0.5 w-full mb-0.5"
+            >
+              ${open.items.map((i) =>
+                this.renderUnitItem(i.icon, i.count, i.type, i.key, i.hotkey),
+              )}
+            </div>`
+          : null}
+        <div class="flex justify-center gap-0.5 w-full">
+          ${folders.map((folder) => this.renderFolderTab(folder, open))}
         </div>
       </div>
+    `;
+  }
+
+  private renderFolderTab(
+    folder: HotbarFolder,
+    open: HotbarFolder | undefined,
+  ) {
+    const isOpen = folder === open;
+    const highlighted = folder.items.some(
+      (i) => i.type === this.tutorialHighlight,
+    );
+    const total = folder.items.reduce((sum, i) => sum + (i.count ?? 0), 0);
+    return html`
+      <button
+        class="flex items-center gap-1 border rounded-sm px-1.5 py-0.5 text-xs text-white cursor-pointer
+          ${isOpen
+          ? "border-slate-300 bg-slate-400/20"
+          : "border-slate-500 hover:bg-gray-800"}
+          ${highlighted && !isOpen ? "tutorial-highlight" : ""}"
+        aria-expanded=${isOpen}
+        @click=${() => {
+          this.openFolder = isOpen ? null : folder.id;
+          this.requestUpdate();
+        }}
+      >
+        <img src=${folder.icon} alt="" class="size-4" />
+        <span>${translateText("unit_display.folder." + folder.id)}</span>
+        ${folder.items.some((i) => i.count !== null)
+          ? html`<span class="text-gray-400">${renderNumber(total)}</span>`
+          : null}
+      </button>
     `;
   }
 

@@ -1402,6 +1402,36 @@ export class UserSettingModal extends BaseModal {
       ></setting-keybind>
 
       <setting-keybind
+        action="buildBank"
+        label=${translateText("user_setting.build_bank")}
+        description=${translateText("user_setting.build_bank_desc")}
+        defaultKey=${this.defaultKeybinds.buildBank}
+        .value=${this.getKeyValue("buildBank")}
+        .display=${this.getKeyChar("buildBank")}
+        @change=${this.handleKeybindChange}
+      ></setting-keybind>
+
+      <setting-keybind
+        action="buildFarm"
+        label=${translateText("user_setting.build_farm")}
+        description=${translateText("user_setting.build_farm_desc")}
+        defaultKey=${this.defaultKeybinds.buildFarm}
+        .value=${this.getKeyValue("buildFarm")}
+        .display=${this.getKeyChar("buildFarm")}
+        @change=${this.handleKeybindChange}
+      ></setting-keybind>
+
+      <setting-keybind
+        action="buildLighthouse"
+        label=${translateText("user_setting.build_lighthouse")}
+        description=${translateText("user_setting.build_lighthouse_desc")}
+        defaultKey=${this.defaultKeybinds.buildLighthouse}
+        .value=${this.getKeyValue("buildLighthouse")}
+        .display=${this.getKeyChar("buildLighthouse")}
+        @change=${this.handleKeybindChange}
+      ></setting-keybind>
+
+      <setting-keybind
         action="buildAtomBomb"
         label=${translateText("user_setting.build_atom_bomb")}
         description=${translateText("user_setting.build_atom_bomb_desc")}

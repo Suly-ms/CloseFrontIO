@@ -401,6 +401,21 @@ export class EngineConfig extends Config {
           UnitType.Factory,
           UnitType.Port,
         );
+      case UnitType.Bank:
+        return this.costWrapper(
+          (numUnits: number) => Math.min(2_000_000, pow2(numUnits) * 250_000),
+          UnitType.Bank,
+        );
+      case UnitType.Farm:
+        return this.costWrapper(
+          (numUnits: number) => Math.min(1_000_000, pow2(numUnits) * 100_000),
+          UnitType.Farm,
+        );
+      case UnitType.Lighthouse:
+        return this.costWrapper(
+          (numUnits: number) => Math.min(1_000_000, pow2(numUnits) * 150_000),
+          UnitType.Lighthouse,
+        );
       case UnitType.Aircraft:
       case UnitType.TransportShip:
       case UnitType.Shell:

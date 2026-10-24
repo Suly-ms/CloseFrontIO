@@ -1,7 +1,10 @@
+import { GameMap } from "@openfront/engine-api/game/GameMap";
 import {
   Difficulty,
   GameType,
+  Gold,
   PlayerType,
+  TerrainType,
   Tick,
   UnitInfo,
   UnitType,
@@ -165,6 +168,46 @@ export class Config {
   msPerTick(): number {
     return 100;
   }
+  /** Ticks between two bank interest payouts (one minute). */
+  bankInterestInterval(): Tick {
+    return 600;
+  }
+  /** Interest per payout, as a percent of stored gold, per bank level. */
+  bankInterestPercent(): number {
+    return 1;
+  }
+  bankInterestCapPerLevel(): Gold {
+    return 100_000n;
+  }
+  /** Share of the owner's gold looted per level of a captured bank. */
+  bankLootPercentPerLevel(): number {
+    return 10;
+  }
+  bankLootMaxPercent(): number {
+    return 50;
+  }
+  /** Troop growth bonus per farm level, by the terrain the farm stands on. */
+  farmGrowthBonusPercent(terrain: TerrainType): number {
+    switch (terrain) {
+      case TerrainType.Plains:
+        return 10;
+      case TerrainType.Highland:
+        return 5;
+      default:
+        return 2;
+    }
+  }
+  farmMaxGrowthBonusPercent(): number {
+    return 60;
+  }
+  /** Radius around a lighthouse in which its owner's ports are boosted. */
+  lighthouseRange(): number {
+    return 25;
+  }
+  /** Extra trade gold and trade ship departures for a boosted port. */
+  lighthouseTradeBonusPercent(): number {
+    return 25;
+  }
   carrierMaxAircraft(): number {
     return 3;
   }
@@ -260,6 +303,14 @@ export class Config {
           upgradable: true,
         };
         break;
+      case UnitType.Bank:
+      case UnitType.Farm:
+      case UnitType.Lighthouse:
+        info = {
+          constructionDuration: this.instantBuild() ? 0 : 5 * 10,
+          upgradable: true,
+        };
+        break;
       case UnitType.TransportShip:
       case UnitType.SAMMissile:
       case UnitType.AtomBomb:
@@ -336,6 +387,18 @@ export class Config {
     return 200;
   }
 
+  /** Total troop growth bonus from finished farms, in percent. */
+  farmGrowthBonus(player: PlayerLike, map: GameMap): number {
+    let bonus = 0;
+    for (const farm of player.units(UnitType.Farm)) {
+      if (farm.isUnderConstruction()) continue;
+      bonus +=
+        farm.level() *
+        this.farmGrowthBonusPercent(map.terrainType(farm.tile()));
+    }
+    return Math.min(bonus, this.farmMaxGrowthBonusPercent());
+  }
+
   maxTroops(player: PlayerLike): number {
     return this.troopCap(player, true);
   }
@@ -380,13 +443,17 @@ export class Config {
     }
   }
 
-  troopIncreaseRate(player: PlayerLike): number {
+  /** Pass the map to count farms, whose bonus depends on their terrain. */
+  troopIncreaseRate(player: PlayerLike, map?: GameMap): number {
     const max = this.maxTroops(player);
 
     let toAdd = 10 + pow(player.troops(), 0.73) / 4;
 
     const ratio = 1 - player.troops() / max;
     toAdd *= ratio;
+    if (map !== undefined) {
+      toAdd *= 1 + this.farmGrowthBonus(player, map) / 100;
+    }
 
     if (player.type() === PlayerType.Bot) {
       toAdd *= 0.5;

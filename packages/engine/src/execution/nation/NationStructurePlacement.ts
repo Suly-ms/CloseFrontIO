@@ -49,7 +49,9 @@ export class NationStructurePlacement {
 
   spawnTile(type: UnitType): TileRef | null {
     const tiles =
-      type === UnitType.Port || type === UnitType.MilitaryPort
+      type === UnitType.Port ||
+      type === UnitType.MilitaryPort ||
+      type === UnitType.Lighthouse
         ? this.randCoastalTileArray(25)
         : randTerritoryTileArray(this.random, this.game, this.player, 25);
     if (tiles.length === 0) return null;
@@ -124,6 +126,12 @@ export class NationStructurePlacement {
         return this.portValue(type);
       case UnitType.SAMLauncher:
         return this.samLauncherValue();
+      case UnitType.Bank:
+        return this.cityValue();
+      case UnitType.Farm:
+        return this.farmValue();
+      case UnitType.Lighthouse:
+        return this.lighthouseValue();
       default:
         throw new Error(`Value function not implemented for ${type}`);
     }
@@ -184,6 +192,37 @@ export class NationStructurePlacement {
 
       return w;
     };
+  }
+
+  /** Value function for farms: fertile terrain first, then spacing. */
+  private farmValue(): (tile: TileRef) => number {
+    const game = this.game;
+    const otherTiles = new Set(
+      this.player.units(UnitType.Farm).map((u) => u.tile()),
+    );
+    return (tile) =>
+      game.config().farmGrowthBonusPercent(game.terrainType(tile)) * 10 +
+      nearestTileDist(game, otherTiles, tile);
+  }
+
+  /** Value function for lighthouses: covers as many uncovered own ports as possible. */
+  private lighthouseValue(): (tile: TileRef) => number {
+    const game = this.game;
+    const rangeSquared = game.config().lighthouseRange() ** 2;
+    const lighthouses = this.player.units(UnitType.Lighthouse);
+    const uncoveredPorts = this.player
+      .units(UnitType.Port)
+      .filter(
+        (port) =>
+          !lighthouses.some(
+            (l) =>
+              game.euclideanDistSquared(l.tile(), port.tile()) <= rangeSquared,
+          ),
+      );
+    return (tile) =>
+      uncoveredPorts.filter(
+        (port) => game.euclideanDistSquared(port.tile(), tile) <= rangeSquared,
+      ).length;
   }
 
   /**
