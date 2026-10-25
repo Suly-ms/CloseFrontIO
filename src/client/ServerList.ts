@@ -438,7 +438,7 @@ function fetchOnce(): Promise<ServerList | null> {
  * rather than to a live server.
  */
 export function startServerListPolling(): void {
-  if (polling) return;
+  if (polling || ClientEnv.standaloneMode?.() === true) return;
   try {
     if (safeSite() === undefined) return;
     if (isReplayShellHost(window.location.hostname)) return;
@@ -554,6 +554,10 @@ export function setServerListInGame(value: boolean): void {
  * still routes.
  */
 export async function ensureServerList(): Promise<ServerListStatus> {
+  if (ClientEnv.standaloneMode?.() === true) {
+    ClientEnv.applyServerList(null, null);
+    return "fallback";
+  }
   try {
     if (cached === null) {
       // Join the attempt in flight (the page-load one, usually); otherwise

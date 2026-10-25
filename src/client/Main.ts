@@ -436,14 +436,20 @@ class Client {
       tag: "user-setting",
       pageId: "page-settings",
     });
-    modalRouter.register("account", {
-      tag: "account-modal",
-      pageId: "page-account",
-    });
-    // Profile-menu modals: popup style, so no pageId.
-    modalRouter.register("account-settings", { tag: "account-settings-modal" });
-    modalRouter.register("change-username", { tag: "change-username-modal" });
-    modalRouter.register("subscription", { tag: "subscription-modal" });
+    if (ClientEnv.standaloneMode?.() !== true) {
+      modalRouter.register("account", {
+        tag: "account-modal",
+        pageId: "page-account",
+      });
+      // Profile-menu modals: popup style, so no pageId.
+      modalRouter.register("account-settings", {
+        tag: "account-settings-modal",
+      });
+      modalRouter.register("change-username", {
+        tag: "change-username-modal",
+      });
+      modalRouter.register("subscription", { tag: "subscription-modal" });
+    }
     modalRouter.register("stats", {
       tag: "game-stats-modal",
       pageId: "page-stats",
@@ -464,10 +470,12 @@ class Client {
       tag: "single-player-modal",
       pageId: "page-single-player",
     });
-    modalRouter.register("ranked", {
-      tag: "ranked-modal",
-      pageId: "page-ranked",
-    });
+    if (ClientEnv.standaloneMode?.() !== true) {
+      modalRouter.register("ranked", {
+        tag: "ranked-modal",
+        pageId: "page-ranked",
+      });
+    }
     modalRouter.register("detailed-view", {
       tag: "detailed-view-modal",
       pageId: "page-detailed-view",
@@ -492,7 +500,9 @@ class Client {
     // so rendering the widget there just fails — and replays never
     // send a token anyway (see getTurnstileToken below).
     const turnstilePrefetch =
-      isDesktopShell() || isReplayShellHost(window.location.hostname)
+      ClientEnv.standaloneMode?.() === true ||
+      isDesktopShell() ||
+      isReplayShellHost(window.location.hostname)
         ? null
         : getTurnstileToken();
     // A prefetch that fails is not an error anyone has asked about yet: the
@@ -2136,6 +2146,7 @@ class Client {
     lobby: JoinLobbyEvent,
   ): Promise<string | null> {
     if (
+      ClientEnv.standaloneMode?.() === true ||
       ClientEnv.env() === GameEnv.Dev ||
       isDesktopShell() ||
       // Single-player and replays: no server to verify a token against (and

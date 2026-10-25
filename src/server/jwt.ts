@@ -23,7 +23,7 @@ export async function verifyClientToken(
   token: string,
 ): Promise<TokenVerificationResult> {
   if (PersistentIdSchema.safeParse(token).success) {
-    if (ServerEnv.env() === GameEnv.Dev) {
+    if (ServerEnv.env() === GameEnv.Dev || ServerEnv.standaloneMode()) {
       return { type: "success", persistentId: token, claims: null };
     } else {
       return {
@@ -31,6 +31,12 @@ export async function verifyClientToken(
         message: "persistent ID not allowed in production",
       };
     }
+  }
+  if (ServerEnv.standaloneMode()) {
+    return {
+      type: "error",
+      message: "JWT authentication is disabled in standalone mode",
+    };
   }
   try {
     const issuer = ServerEnv.jwtIssuer();

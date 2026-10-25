@@ -56,6 +56,11 @@ else
 fi
 # --- END pull image (tested) ---
 
+# Standalone deployments serve assets from the image through the game server
+# and use local server identity, so they never call the central API.
+if [ "${STANDALONE_MODE:-}" = "true" ]; then
+    echo "Standalone mode: skipping API registration and remote asset publication."
+else
 # Upload hashed assets to R2 before swapping containers. If this fails the old
 # container keeps serving — better than a stop-then-fail outage.
 echo "======================================================"
@@ -410,6 +415,9 @@ else
         "$ROOT_FILES_INDEX" "application/json" || exit 1
 fi
 
+# End the API-backed publish path. The container swap below is shared by both modes.
+fi
+
 # remove_container <name>: stop and remove the container of that exact name,
 # running or not. Silent when there is none.
 remove_container() {
@@ -451,8 +459,8 @@ fi
 # Which one is right depends entirely on whether the deployment is long-lived,
 # and that is what SUBDOMAIN tells us:
 #
-#   Long-lived, listed below. Something depends on these being reachable at a
-#   fixed hostname without anyone watching. `main` and `nightly` are both
+#   Long-lived, listed below or running as prod. Something depends on these
+#   being reachable at a fixed hostname without anyone watching. `main` and `nightly` are both
 #   staging deployments people test against; `nightly` is here because a
 #   scheduled deploy is the only thing that would otherwise restart it, so a
 #   crash at 07:05 UTC is a ~24-hour outage rather than a blip (OPE-361).
@@ -460,12 +468,9 @@ fi
 #   the exact same exposure -- worse, actually, since start.sh caps every
 #   non-main dev container at 25h, so without `always` a single missed nightly
 #   would leave them dead until the next successful one. Any deployment on the
-#   production domain qualifies for the same reason and is matched separately,
-#   since its subdomain is not fixed.
+#   production environment qualifies for the same reason regardless of domain.
 #
-#   Everything else: a per-branch preview. deploy.yml deploys EVERY push on
-#   EVERY branch to <branch>.openfront.dev, so these accumulate one container
-#   per branch anyone has ever pushed. `no` is what lets them die quietly --
+#   Everything else: a preview deployment. `no` is what lets it die quietly --
 #   with `always` a host reboot would resurrect months of abandoned branch
 #   containers, each holding its memory and its worker processes, and nothing
 #   would ever clean them up. Their owner is present when they are deployed and
@@ -480,7 +485,7 @@ fi
 # --- BEGIN restart policy (tested) ---
 LONG_LIVED_SUBDOMAINS=" main nightly green blue "
 
-if [[ "${LONG_LIVED_SUBDOMAINS}" == *" ${SUBDOMAIN} "* ]] || [ "${DOMAIN}" = openfront.io ]; then
+if [[ "${LONG_LIVED_SUBDOMAINS}" == *" ${SUBDOMAIN} "* ]] || [ "${ENV}" = prod ]; then
     RESTART=always
 else
     RESTART=no
@@ -489,44 +494,56 @@ fi
 
 echo "Starting new container for ${HOST} environment..."
 
-# Ensure the traefik network exists
-docker network create web 2> /dev/null || true
+GAME_BIND_IP="${GAME_BIND_IP:-}"
+GAME_PORT="${GAME_PORT:-8080}"
+if [ -n "$GAME_BIND_IP" ]; then
+    case "$GAME_PORT" in
+        "" | *[!0-9]*)
+            echo "❌ GAME_PORT must be an integer between 1 and 65535."
+            exit 1
+            ;;
+    esac
+    if [ "$GAME_PORT" -lt 1 ] || [ "$GAME_PORT" -gt 65535 ]; then
+        echo "❌ GAME_PORT must be an integer between 1 and 65535."
+        exit 1
+    fi
+    if ! ip -o -4 addr show dev tailscale0 | awk '{sub(/\/.*/, "", $4); print $4}' | grep -Fxq "$GAME_BIND_IP"; then
+        echo "❌ GAME_BIND_IP '$GAME_BIND_IP' is not assigned to tailscale0 on this server."
+        exit 1
+    fi
 
-# Traefik Host() rule. The container always answers on its game host —
-# GAME_HOST, as deploy.sh settled it, or
-# <subdomain>.<GAME_DOMAIN>/<subdomain>.<DOMAIN> for an env file written by
-# hand. With GAME_DOMAIN set a standalone deployment also owns its page host
-# (<subdomain>.<DOMAIN>) during the transition, until the static Worker is
-# actually routed there, so the box still answers on the name people already
-# have bookmarked; once the Worker owns it that clause simply never matches.
-# A machine-scoped host (blue.staging2.server.openfront.dev) has no page host
-# of its own — its page is the apex, SITE_HOST — so it gets the one name.
-# With GAME_DOMAIN unset there is one name and the rule is byte-for-byte the
-# one this script has always emitted.
-#
-# The markers below delimit the block tests/UpdateTraefikHostRule.test.ts
-# extracts and runs, the same way the restart policy above is tested: the
-# rest of this script talks to docker, this decision is four strings in and
-# one string out. Keep them in place.
-# --- BEGIN traefik host rule (tested) ---
-GAME_HOST="${GAME_HOST:-${SUBDOMAIN}.${GAME_DOMAIN:-$DOMAIN}}"
-if [ -n "${GAME_DOMAIN:-}" ] && [ "${GAME_HOST}" = "${SUBDOMAIN}.${GAME_DOMAIN}" ]; then
-    TRAEFIK_HOST_RULE="Host(\`${SUBDOMAIN}.${DOMAIN}\`) || Host(\`${GAME_HOST}\`)"
+    # The markers delimit the Docker publication setting tested by
+    # tests/UpdateGamePortBinding.test.ts.
+    # --- BEGIN game port binding (tested) ---
+    PORT_PUBLICATION="${GAME_BIND_IP}:${GAME_PORT}:80"
+    # --- END game port binding (tested) ---
+    DOCKER_NETWORK_ARGS=(--publish "$PORT_PUBLICATION")
 else
-    TRAEFIK_HOST_RULE="Host(\`${GAME_HOST}\`)"
+    # Existing fleet deployments still use the host's Traefik instance.
+    docker network create web 2> /dev/null || true
+    # --- BEGIN traefik host rule (tested) ---
+    GAME_HOST="${GAME_HOST:-${SUBDOMAIN}.${GAME_DOMAIN:-$DOMAIN}}"
+    if [ -n "${GAME_DOMAIN:-}" ] && [ "${GAME_HOST}" = "${SUBDOMAIN}.${GAME_DOMAIN}" ]; then
+        TRAEFIK_HOST_RULE="Host(\`${SUBDOMAIN}.${DOMAIN}\`) || Host(\`${GAME_HOST}\`)"
+    else
+        TRAEFIK_HOST_RULE="Host(\`${GAME_HOST}\`)"
+    fi
+    # --- END traefik host rule (tested) ---
+    DOCKER_NETWORK_ARGS=(
+        --network web
+        --label "traefik.enable=true"
+        --label "traefik.http.routers.${CONTAINER_NAME}.rule=${TRAEFIK_HOST_RULE}"
+        --label "traefik.http.routers.${CONTAINER_NAME}.entrypoints=websecure"
+        --label "traefik.http.routers.${CONTAINER_NAME}.tls=true"
+        --label "traefik.http.services.${CONTAINER_NAME}.loadbalancer.server.port=80"
+    )
 fi
-# --- END traefik host rule (tested) ---
 
 docker run -d \
     --restart="${RESTART}" \
     --env-file "$ENV_FILE" \
     --name "${CONTAINER_NAME}" \
-    --network web \
-    --label "traefik.enable=true" \
-    --label "traefik.http.routers.${CONTAINER_NAME}.rule=${TRAEFIK_HOST_RULE}" \
-    --label "traefik.http.routers.${CONTAINER_NAME}.entrypoints=websecure" \
-    --label "traefik.http.routers.${CONTAINER_NAME}.tls=true" \
-    --label "traefik.http.services.${CONTAINER_NAME}.loadbalancer.server.port=80" \
+    "${DOCKER_NETWORK_ARGS[@]}" \
     "${GHCR_IMAGE}"
 
 if [ $? -eq 0 ]; then
@@ -642,7 +659,9 @@ flag_latest() {
 }
 # --- END flag latest (tested) ---
 
-if [[ "$FULL_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
+if [ "${STANDALONE_MODE:-}" = "true" ]; then
+    echo "Standalone mode: skipping API latest-version flag."
+elif [[ "$FULL_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
     if ! flag_latest "$SITE" "$FULL_COMMIT" "$R2_ENDPOINT" "$API_KEY"; then
         exit 1
     fi
@@ -653,5 +672,5 @@ fi
 echo "======================================================"
 echo "✅ SERVER UPDATE COMPLETED SUCCESSFULLY"
 echo "Container name: ${CONTAINER_NAME}"
-echo "Image: ${FULL_IMAGE_NAME}"
+echo "Image: ${GHCR_IMAGE}"
 echo "======================================================"

@@ -25,6 +25,10 @@ export class ServerEnv {
   private static readonly gameEnv: GameEnv = parseGameEnv(process.env.GAME_ENV);
   private static publicKey: JWK | null = null;
 
+  static standaloneMode(): boolean {
+    return process.env.STANDALONE_MODE === "true";
+  }
+
   // Values that also flow to the client via index.html, but on the server
   // are read from process.env directly. Server code never reaches into
   // ClientEnv — that's reserved for the browser/worker hydrated path.
@@ -64,6 +68,7 @@ export class ServerEnv {
     return n;
   }
   static turnstileSiteKey(): string {
+    if (ServerEnv.standaloneMode()) return "";
     const v = process.env.TURNSTILE_SITE_KEY;
     if (!v) {
       throw new Error("TURNSTILE_SITE_KEY not set");
@@ -110,6 +115,7 @@ export class ServerEnv {
     return process.env.CDN_BASE ?? "";
   }
   static jwtIssuer(): string {
+    if (ServerEnv.standaloneMode()) return "http://127.0.0.1:8787";
     const audience = ServerEnv.jwtAudience();
     return audience === "localhost"
       ? "http://localhost:8787"
@@ -279,6 +285,7 @@ export class ServerEnv {
   // so a deploy that doesn't set it is unchanged on the wire. "off" exists
   // so a GitHub environment can override a repo-level "api" explicitly.
   static lobbyCoordinator(): "api" | "off" {
+    if (ServerEnv.standaloneMode()) return "off";
     return process.env.LOBBY_COORDINATOR === "api" ? "api" : "off";
   }
   // The machine this container runs on — `falk2`, `nbg2`, `staging`: the

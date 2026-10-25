@@ -1,7 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+const standaloneMode = vi.hoisted(() => vi.fn(() => false));
+
 vi.mock("../../src/client/ClientEnv", () => ({
-  ClientEnv: { jwtAudience: () => "localhost" },
+  ClientEnv: { jwtAudience: () => "localhost", standaloneMode },
 }));
 
 import { userAuth } from "../../src/client/Auth";
@@ -17,6 +19,7 @@ describe("/auth/refresh is bounded", () => {
   let fetchMock: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
+    standaloneMode.mockReturnValue(false);
     fetchMock = vi.fn(async () => ({
       status: 500,
       json: async () => ({}),
@@ -44,5 +47,11 @@ describe("/auth/refresh is bounded", () => {
     const init = call![1] as RequestInit | undefined;
     expect(init?.signal).toBeInstanceOf(AbortSignal);
     expect(timeoutSpy).toHaveBeenCalledWith(AUTH_FETCH_TIMEOUT_MS);
+  });
+
+  it("does not contact the auth API in standalone mode", async () => {
+    standaloneMode.mockReturnValue(true);
+    await expect(userAuth()).resolves.toBe(false);
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

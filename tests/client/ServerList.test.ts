@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { getApiBase } from "../../src/client/ApiBase";
 import { ClientEnv, NoServerError } from "../../src/client/ClientEnv";
 import { resetPagePinForTests } from "../../src/client/PagePin";
 import {
@@ -101,6 +102,7 @@ function stubLocation(host: string, pathname = "/", search = "") {
     protocol: "https:",
     host,
     hostname: host,
+    origin: `https://${host}`,
     pathname,
     search,
     href: `https://${host}${pathname}${search}`,
@@ -282,6 +284,18 @@ describe("ensureServerList", () => {
       numWorkers: 2,
     });
     expect(ClientEnv.serverListLoaded()).toBe(false);
+  });
+
+  it("uses only the injected server and never fetches in standalone mode", async () => {
+    stubLocation("closefront.mschnider.fr");
+    setBootstrap({ standaloneMode: true });
+
+    expect(getApiBase()).toBe("https://closefront.mschnider.fr");
+    startServerListPolling();
+    expect(await ensureServerList()).toBe("fallback");
+    expect(fetchMock).not.toHaveBeenCalled();
+    expect(ClientEnv.serverWsBase()).toBe("wss://blue.openfront.io");
+    expect(ClientEnv.numWorkers()).toBe(2);
   });
 
   it.each([

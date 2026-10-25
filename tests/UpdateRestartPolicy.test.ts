@@ -30,8 +30,12 @@ function extractPolicyBlock(): string {
   return source.slice(start + BEGIN.length, end);
 }
 
-function restartPolicyFor(subdomain: string, domain: string): string {
-  const script = `SUBDOMAIN='${subdomain}'\nDOMAIN='${domain}'\n${extractPolicyBlock()}\nprintf '%s' "$RESTART"\n`;
+function restartPolicyFor(
+  subdomain: string,
+  domain: string,
+  env = "staging",
+): string {
+  const script = `SUBDOMAIN='${subdomain}'\nDOMAIN='${domain}'\nENV='${env}'\n${extractPolicyBlock()}\nprintf '%s' "$RESTART"\n`;
   return execFileSync("bash", ["-c", script], { encoding: "utf8" });
 }
 
@@ -48,16 +52,15 @@ describe("update.sh restart policy", () => {
     expect(restartPolicyFor(sub, dom)).toBe("always");
   });
 
-  it.each([["main"], ["nightly"], ["blue"], ["green"]])(
-    "restarts production (%s.openfront.io) whatever its subdomain is",
+  it.each([["closefront"]])(
+    "restarts production (%s) on a custom domain",
     (sub) => {
-      expect(restartPolicyFor(sub, "openfront.io")).toBe("always");
+      expect(restartPolicyFor(sub, "mschnider.fr", "prod")).toBe("always");
     },
   );
 
-  // deploy.yml deploys every push on every branch to <branch>.openfront.dev,
-  // so these accumulate one container per branch anyone has ever pushed.
-  // `always` would resurrect every abandoned one on a host reboot.
+  // Preview deployments are not long-lived; `always` would resurrect them on
+  // a host reboot after their owner stopped using them.
   it.each([["fix-some-bug"], ["t3code-mirv-cooldown-timer"], ["experiment"]])(
     "leaves the per-branch preview %s.openfront.dev down after a crash",
     (sub) => {
@@ -68,7 +71,7 @@ describe("update.sh restart policy", () => {
   // The membership test is space-delimited rather than a substring match, and
   // these are the names that would wrongly match if that ever regressed to a
   // plain `*main*` / `*nightly*` glob. A branch called `main-feature` is an
-  // ordinary preview and must not outlive its deploy.
+  // ordinary preview and must not outlive its deployment.
   it.each([
     ["main-feature"],
     ["nightly-test"],

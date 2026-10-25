@@ -260,7 +260,7 @@ fi
 
 # Configuration
 UPDATE_SCRIPT="./update.sh" # Path to your update script
-REMOTE_USER="openfront"
+REMOTE_USER="closefront"
 REMOTE_UPDATE_PATH="/home/$REMOTE_USER"
 # Randomize the remote script name so concurrent deployments (different
 # branches share the staging host) don't overwrite each other's copy while
@@ -310,6 +310,7 @@ ssh -i $SSH_KEY $REMOTE_USER@$SERVER_HOST "chmod +x $REMOTE_UPDATE_SCRIPT && \
 cat > $ENV_FILE << 'EOL'
 GAME_ENV=$ENV
 ENV=$ENV
+STANDALONE_MODE=$STANDALONE_MODE
 HOST=$HOST
 # MACHINE is HOST under a name that cannot be misread: in cluster vocabulary a
 # host is a game hostname (blue.openfront.io), while this is the box a
@@ -332,15 +333,14 @@ GAME_DOMAIN=$GAME_DOMAIN
 GAME_HOST=$GAME_HOST
 DEPLOYMENT_NAME=$DEPLOYMENT_NAME
 SITE_HOST=$SITE_HOST
+GAME_BIND_IP=$GAME_BIND_IP
+GAME_PORT=$GAME_PORT
 CDN_BASE=$CDN_BASE
 INSTANCE_LETTER=$INSTANCE_LETTER
 NUM_WORKERS=$NUM_WORKERS
 LOBBY_COORDINATOR=$LOBBY_COORDINATOR
 TURNSTILE_SITE_KEY=$TURNSTILE_SITE_KEY
 STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY
-FARO_COLLECTOR_URL=$FARO_COLLECTOR_URL
-OTEL_EXPORTER_OTLP_ENDPOINT=$OTEL_EXPORTER_OTLP_ENDPOINT
-OTEL_AUTH_HEADER=$OTEL_AUTH_HEADER
 EOL
 chmod 600 $ENV_FILE && \
 flock -w 900 $REMOTE_LOCK_FILE $REMOTE_UPDATE_SCRIPT $ENV_FILE && \

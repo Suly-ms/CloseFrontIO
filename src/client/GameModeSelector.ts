@@ -418,7 +418,7 @@ export class GameModeSelector extends LitElement {
     }
     // After the session seed above: a shell that already knows it has no
     // session must not open a feed it will close on the next tick.
-    this.start();
+    if (ClientEnv.standaloneMode?.() !== true) this.start();
     document.addEventListener(
       "desktop-session-state",
       this.onDesktopSessionState,
@@ -556,6 +556,11 @@ export class GameModeSelector extends LitElement {
   }
 
   private openLobbyFeed(refreshList = false) {
+    if (ClientEnv.standaloneMode?.() === true) {
+      this.feedWanted = false;
+      this.lobbies = null;
+      return;
+    }
     this.feedWanted = true;
     this.feedGaveUp = false;
     if (lobbyFeedSuspended(this.desktopSessionState)) {
@@ -653,7 +658,9 @@ export class GameModeSelector extends LitElement {
     const special = this.lobbies?.games?.["special"]?.[0];
     // The hero slot holds the spinner, then the FFA card; loaded without one
     // it goes and the upcoming column takes the whole row.
-    const heroSlot = this.lobbies === null || ffa !== undefined;
+    const standalone = ClientEnv.standaloneMode?.() === true;
+    const heroSlot =
+      !standalone && (this.lobbies === null || ffa !== undefined);
     // A lone secondary card takes both of the column's card rows.
     const cardRows =
       teams && special
@@ -691,7 +698,11 @@ export class GameModeSelector extends LitElement {
               </div>`
             : nothing}
         </div>
-        <div class="grid grid-cols-3 gap-4 h-14 sm:col-span-2 sm:row-start-4">
+        <div
+          class="grid ${standalone
+            ? "grid-cols-2"
+            : "grid-cols-3"} gap-4 h-14 sm:col-span-2 sm:row-start-4"
+        >
           ${this.renderSmallActionCard(
             translateText("main.create"),
             this.openHostLobby,
@@ -699,26 +710,24 @@ export class GameModeSelector extends LitElement {
             undefined,
             true,
           )}
-          ${this.renderSmallActionCard(
-            translateText("mode_selector.ranked_title"),
-            this.openRankedMenu,
-            SECONDARY_ACTION,
-            undefined,
-            true,
-            // Ranked admits trusted accounts only. A trusted viewer gets the
-            // green open lock; anyone else meets the red locks and the trust
-            // popup inside the ranked modal. Small, so it clears the label on
-            // narrow (mobile) buttons.
-            this.viewerTrusted
-              ? trustLockIcon(true, {
-                  tooltipTitle: translateText(
-                    "mode_selector.ranked_trust_tooltip_title",
-                  ),
-                  position: "top-1 right-1",
-                  small: true,
-                })
-              : nothing,
-          )}
+          ${standalone
+            ? nothing
+            : this.renderSmallActionCard(
+                translateText("mode_selector.ranked_title"),
+                this.openRankedMenu,
+                SECONDARY_ACTION,
+                undefined,
+                true,
+                this.viewerTrusted
+                  ? trustLockIcon(true, {
+                      tooltipTitle: translateText(
+                        "mode_selector.ranked_trust_tooltip_title",
+                      ),
+                      position: "top-1 right-1",
+                      small: true,
+                    })
+                  : nothing,
+              )}
           ${this.renderSmallActionCard(
             translateText("main.join"),
             this.openJoinLobby,
@@ -745,30 +754,31 @@ export class GameModeSelector extends LitElement {
           : nothing}
 
         <!-- Always rendered: the heading is the only way into the lobby browser. -->
-        <section
-          class="flex flex-col gap-4 min-w-0 sm:grid sm:grid-rows-[auto_1fr_1fr] sm:row-start-2 sm:min-h-0 sm:[reading-flow:grid-rows] ${heroSlot
-            ? "sm:col-start-2"
-            : "sm:col-start-1 sm:col-span-2"}"
-        >
-          ${teams
-            ? html`<div class="min-w-0 sm:min-h-0 ${cardRows.teams}">
-                ${this.renderLobbyCard(
-                  teams,
-                  getGameModeLabel(teams.gameConfig!),
-                )}
-              </div>`
-            : nothing}
-          ${special
-            ? html`<div class="min-w-0 sm:min-h-0 ${cardRows.special}">
-                ${this.renderLobbyCard(
-                  special,
-                  getGameModeLabel(special.gameConfig!),
-                )}
-              </div>`
-            : nothing}
-          ${this.renderUpcomingHeading()}
-        </section>
-
+        ${standalone
+          ? nothing
+          : html`<section
+              class="flex flex-col gap-4 min-w-0 sm:grid sm:grid-rows-[auto_1fr_1fr] sm:row-start-2 sm:min-h-0 sm:[reading-flow:grid-rows] ${heroSlot
+                ? "sm:col-start-2"
+                : "sm:col-start-1 sm:col-span-2"}"
+            >
+              ${teams
+                ? html`<div class="min-w-0 sm:min-h-0 ${cardRows.teams}">
+                    ${this.renderLobbyCard(
+                      teams,
+                      getGameModeLabel(teams.gameConfig!),
+                    )}
+                  </div>`
+                : nothing}
+              ${special
+                ? html`<div class="min-w-0 sm:min-h-0 ${cardRows.special}">
+                    ${this.renderLobbyCard(
+                      special,
+                      getGameModeLabel(special.gameConfig!),
+                    )}
+                  </div>`
+                : nothing}
+              ${this.renderUpcomingHeading()}
+            </section>`}
         ${this.showTrustRequired
           ? trustRequiredDialog(
               this.viewerSignedIn,

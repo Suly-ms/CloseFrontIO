@@ -1117,6 +1117,7 @@ export class JoinLobbyModal extends BaseModal {
   // deploy); if it exists, navigate there and let that build replay the game
   // (#4934).
   private async redirectToVersionedShell(lobbyId: string): Promise<boolean> {
+    if (ClientEnv.standaloneMode?.() === true) return false;
     const url = await findVersionedShell(
       ClientEnv.jwtAudience(),
       lobbyId,
