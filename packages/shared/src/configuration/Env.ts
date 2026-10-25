@@ -25,6 +25,7 @@ declare global {
       // page sends neither.
       numWorkers?: number;
       turnstileSiteKey?: string;
+      standaloneMode?: boolean;
       jwtAudience?: string;
       // Environment-scoped like turnstileSiteKey, but optional: a deployment
       // without one (dev, desktop shells) just keeps the inline Stripe flow

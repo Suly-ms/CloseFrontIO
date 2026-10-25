@@ -165,7 +165,7 @@ export async function startMaster() {
 
   // A server that registers schedules nothing until the API calls it open: a
   // mistyped letter must not mint lobbies under a letter routed elsewhere.
-  const registers = checkinBody(0) !== null;
+  const registers = !ServerEnv.standaloneMode() && checkinBody(0) !== null;
   lobbyService = new MasterLobbyService(playlist, log, registers);
 
   const INSTANCE_ID =

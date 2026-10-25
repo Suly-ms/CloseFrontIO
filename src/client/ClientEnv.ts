@@ -166,6 +166,7 @@ export class ClientEnv {
       instanceLetter: bc.instanceLetter,
       numWorkers: bc.numWorkers,
       turnstileSiteKey: bc.turnstileSiteKey,
+      standaloneMode: bc.standaloneMode ?? false,
       jwtAudience: bc.jwtAudience,
       // Optional: a deployment without a key (or a desktop shell, which
       // buys on Steam) omits it, and the inline Stripe flow stays off.
@@ -235,6 +236,11 @@ export class ClientEnv {
   static turnstileSiteKey(): string {
     return ClientEnv.get().turnstileSiteKey;
   }
+  static standaloneMode(): boolean {
+    if (ClientEnv.values !== null) return ClientEnv.values.standaloneMode;
+    if (typeof window === "undefined") return false;
+    return window.BOOTSTRAP_CONFIG?.standaloneMode ?? false;
+  }
   static jwtAudience(): string {
     return ClientEnv.get().jwtAudience;
   }
@@ -245,6 +251,7 @@ export class ClientEnv {
     return ClientEnv.get().gitCommit;
   }
   static jwtIssuer(): string {
+    if (ClientEnv.standaloneMode()) return window.location.origin;
     const audience = ClientEnv.jwtAudience();
     return audience === "localhost"
       ? "http://localhost:8787"
@@ -666,6 +673,7 @@ export interface ClientEnvValues {
   instanceLetter?: string;
   numWorkers?: number;
   turnstileSiteKey: string;
+  standaloneMode: boolean;
   jwtAudience: string;
   // Optional: absent when the deployment carries no Stripe key (dev, desktop
   // shells). Environment-scoped like turnstileSiteKey, so a static page

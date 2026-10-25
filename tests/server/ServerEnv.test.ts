@@ -1,5 +1,6 @@
 import { GAME_ID_REGEX } from "@openfront/engine-api/Schemas";
 import { afterEach, describe, expect, test, vi } from "vitest";
+import { verifyClientToken } from "../../src/server/jwt";
 import { ServerEnv } from "../../src/server/ServerEnv";
 
 // A deployed server's identity, as deploy.sh writes it into the env file.
@@ -123,6 +124,44 @@ describe("ServerEnv.turnstileSiteKey", () => {
   });
 });
 
+describe("ServerEnv.standaloneMode", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  test("is enabled only by the exact true value", () => {
+    vi.stubEnv("STANDALONE_MODE", "true");
+    expect(ServerEnv.standaloneMode()).toBe(true);
+    vi.stubEnv("STANDALONE_MODE", "1");
+    expect(ServerEnv.standaloneMode()).toBe(false);
+  });
+});
+
+describe("standalone client authentication", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  });
+
+  test("accepts UUID guests and rejects JWTs without fetching JWKS", async () => {
+    vi.stubEnv("STANDALONE_MODE", "true");
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(
+      verifyClientToken("123e4567-e89b-42d3-a456-426614174000"),
+    ).resolves.toEqual({
+      type: "success",
+      persistentId: "123e4567-e89b-42d3-a456-426614174000",
+      claims: null,
+    });
+    await expect(verifyClientToken("not-a-jwt")).resolves.toMatchObject({
+      type: "error",
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+});
+
 describe("ServerEnv.jwtAudience", () => {
   afterEach(() => {
     vi.unstubAllEnvs();
@@ -152,6 +191,30 @@ describe("ServerEnv.jwtIssuer", () => {
   test("derives api.<audience> for non-localhost", () => {
     vi.stubEnv("DOMAIN", "openfront.io");
     expect(ServerEnv.jwtIssuer()).toBe("https://api.openfront.io");
+  });
+
+  test("does not point outside the server in standalone mode", () => {
+    vi.stubEnv("STANDALONE_MODE", "true");
+    vi.stubEnv("DOMAIN", "mschnider.fr");
+    expect(ServerEnv.jwtIssuer()).toBe("http://127.0.0.1:8787");
+  });
+});
+
+describe("standalone client authentication", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  });
+
+  test("rejects JWTs without attempting to fetch JWKS", async () => {
+    vi.stubEnv("STANDALONE_MODE", "true");
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await verifyClientToken("not-a-local-uuid");
+
+    expect(result.type).toBe("error");
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });
 

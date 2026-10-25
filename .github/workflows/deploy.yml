@@ -108,8 +108,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           TS_AUDIENCE: ${{ secrets.TS_AUDIENCE }}
-          API_KEY: ${{ secrets.API_KEY }}
-          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
           PRODUCTION_TAILSCALE_IP: ${{ vars.PRODUCTION_TAILSCALE_IP }}
           PRODUCTION_GAME_PORT: ${{ vars.PRODUCTION_GAME_PORT || '8080' }}
         run: |
@@ -122,8 +120,6 @@ jobs:
           : "${SSH_PRIVATE_KEY:?Set SSH_PRIVATE_KEY in GitHub secrets}"
           : "${TS_OAUTH_CLIENT_ID:?Set TS_OAUTH_CLIENT_ID in GitHub secrets}"
           : "${TS_AUDIENCE:?Set TS_AUDIENCE in GitHub secrets}"
-          : "${API_KEY:?Set API_KEY in GitHub secrets}"
-          : "${TURNSTILE_SITE_KEY:?Set TURNSTILE_SITE_KEY in GitHub variables}"
           : "${PRODUCTION_TAILSCALE_IP:?Set PRODUCTION_TAILSCALE_IP in GitHub variables}"
           : "${PRODUCTION_GAME_PORT:?Set PRODUCTION_GAME_PORT in GitHub variables}"
           if [[ ! "$PRODUCTION_TAILSCALE_IP" =~ ^100\. ]]; then
@@ -290,13 +286,18 @@ jobs:
           GHCR_USER: ${{ github.actor }}
           GHCR_TOKEN: ${{ github.token }}
           ENV: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main' && 'prod') || (inputs.target_domain == 'openfront.io' && 'prod') || 'staging' }}
+          STANDALONE_MODE: ${{ github.event_name == 'push' && 'true' || '' }}
           # The schedule names a machine per leg; a dispatch picks one; main
           # uses the production host configured in the prod environment.
           HOST: ${{ matrix.host || (github.event_name == 'push' && vars.PRODUCTION_HOST) || (github.event_name == 'workflow_dispatch' && inputs.target_host) || 'staging' }}
           SERVER_HOST_PROD: ${{ vars.PRODUCTION_TAILSCALE_IP }}
           GAME_BIND_IP: ${{ github.event_name == 'push' && vars.PRODUCTION_TAILSCALE_IP || '' }}
           GAME_PORT: ${{ github.event_name == 'push' && (vars.PRODUCTION_GAME_PORT || '8080') || '' }}
-          CDN_BASE: ${{ vars.CDN_BASE }}
+          INSTANCE_LETTER: ${{ github.event_name == 'push' && 'a' || '' }}
+          NUM_WORKERS: ${{ github.event_name == 'push' && '1' || '' }}
+          API_KEY: ${{ github.event_name != 'push' && secrets.API_KEY || '' }}
+          TURNSTILE_SITE_KEY: ${{ github.event_name != 'push' && vars.TURNSTILE_SITE_KEY || '' }}
+          CDN_BASE: ${{ github.event_name != 'push' && vars.CDN_BASE || '' }}
           # Runtime env for the game server, which injects it into the
           # page's BOOTSTRAP_CONFIG exactly like TURNSTILE_SITE_KEY — builds
           # are environment-agnostic. Repo-level var holds the test-mode
@@ -306,8 +307,7 @@ jobs:
           # the guard in StripeInline.ts, which just disables the inline
           # flow). Unset/empty also keeps the inline payment flow off (the
           # store falls back to redirect checkout).
-          STRIPE_PUBLISHABLE_KEY: ${{ vars.STRIPE_PUBLISHABLE_KEY }}
-          API_KEY: ${{ secrets.API_KEY }}
+          STRIPE_PUBLISHABLE_KEY: ${{ github.event_name != 'push' && vars.STRIPE_PUBLISHABLE_KEY || '' }}
           ADMIN_BOT_API_KEY: ${{ secrets.ADMIN_BOT_API_KEY }}
           # For the optional security module (src/server/gatekeeper). Unset
           # leaves the parts that need it off.
@@ -332,7 +332,6 @@ jobs:
           # until prod is ready, since an environment var wins over a repo
           # var of the same name.
           LOBBY_COORDINATOR: ${{ vars.LOBBY_COORDINATOR }}
-          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
           SERVER_HOST_MASTERS: ${{ secrets.SERVER_HOST_MASTERS }}
           SERVER_HOST_FALK2: ${{ secrets.SERVER_HOST_FALK2 }}
           SERVER_HOST_STAGING: ${{ secrets.SERVER_HOST_STAGING }}
@@ -346,7 +345,7 @@ jobs:
           echo "::endgroup::"
       - name: ⏳ Wait for deployment to start
         env:
-          API_KEY: ${{ secrets.API_KEY }}
+          API_KEY: ${{ github.event_name != 'push' && secrets.API_KEY || '' }}
           # DOMAIN and SUBDOMAIN are already job-level env. Empty for a prod
           # dispatch, mirroring the ENV gating above and the guard in
           # deploy.sh — prod discards GAME_DOMAIN, so polling a game host
@@ -365,7 +364,11 @@ jobs:
           # the cluster map — a machine-scoped host cannot be recomputed
           # here; the fallback covers a run that never reached that step.
           GAME_FQDN="${GAME_HOST:-${SUBDOMAIN}.${GAME_DOMAIN:-$DOMAIN}}"
-          while [ "$(curl -s -H "X-API-Key: ${API_KEY}" https://${GAME_FQDN}/commit.txt)" != "${GITHUB_SHA}" ]; do
+          CURL_ARGS=(-fsS)
+          if [ -n "${API_KEY:-}" ]; then
+            CURL_ARGS+=(-H "X-API-Key: ${API_KEY}")
+          fi
+          while [ "$(curl "${CURL_ARGS[@]}" "https://${GAME_FQDN}/commit.txt" || true)" != "${GITHUB_SHA}" ]; do
             if [ "$SECONDS" -ge 300 ]; then
               echo "Timeout: deployment did not start within 5 minutes"
               exit 1

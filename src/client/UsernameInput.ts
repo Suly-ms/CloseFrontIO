@@ -5,6 +5,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { translateText } from "../client/Utils";
 import { getUserMe, invalidateUserMe } from "./Api";
 import { checkClanTagOwnership } from "./ClanApi";
+import { ClientEnv } from "./ClientEnv";
 import { verifiedBadge } from "./components/ui/VerifiedBadge";
 import { gamePortal } from "./GamePortal";
 import { showInGameAlert, showInGameConfirm } from "./InGameModal";
@@ -594,6 +595,11 @@ export class UsernameInput extends LitElement {
     if (tag.length === 0 || !validateClanTag(tag).isValid) {
       this.clanCheckPending = false;
       this.clanCheck = Promise.resolve(null);
+      return;
+    }
+    if (ClientEnv.standaloneMode?.() === true) {
+      this.clanCheckPending = false;
+      this.clanCheck = Promise.resolve(tag);
       return;
     }
     // Membership already in hand answers this. checkClanTagOwnership would

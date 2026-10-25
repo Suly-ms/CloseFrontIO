@@ -29,6 +29,7 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const withJitter = (ms: number) => ms + Math.floor(Math.random() * ms * 0.25);
 
 export async function archive(gameRecord: GameRecord) {
+  if (ServerEnv.standaloneMode()) return;
   let gameID: GameID | undefined;
   let request: RequestInit;
   let url: string;
@@ -98,6 +99,7 @@ export async function archive(gameRecord: GameRecord) {
 export async function readGameRecord(
   gameId: GameID,
 ): Promise<GameRecord | null> {
+  if (ServerEnv.standaloneMode()) return null;
   try {
     if (!ID.safeParse(gameId).success) {
       log.error(`invalid game ID: ${gameId}`);

@@ -56,6 +56,11 @@ else
 fi
 # --- END pull image (tested) ---
 
+# Standalone deployments serve assets from the image through the game server
+# and use local server identity, so they never call the central API.
+if [ "${STANDALONE_MODE:-}" = "true" ]; then
+    echo "Standalone mode: skipping API registration and remote asset publication."
+else
 # Upload hashed assets to R2 before swapping containers. If this fails the old
 # container keeps serving — better than a stop-then-fail outage.
 echo "======================================================"
@@ -410,6 +415,9 @@ else
         "$ROOT_FILES_INDEX" "application/json" || exit 1
 fi
 
+# End the API-backed publish path. The container swap below is shared by both modes.
+fi
+
 # remove_container <name>: stop and remove the container of that exact name,
 # running or not. Silent when there is none.
 remove_container() {
@@ -651,7 +659,9 @@ flag_latest() {
 }
 # --- END flag latest (tested) ---
 
-if [[ "$FULL_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
+if [ "${STANDALONE_MODE:-}" = "true" ]; then
+    echo "Standalone mode: skipping API latest-version flag."
+elif [[ "$FULL_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
     if ! flag_latest "$SITE" "$FULL_COMMIT" "$R2_ENDPOINT" "$API_KEY"; then
         exit 1
     fi
@@ -662,5 +672,5 @@ fi
 echo "======================================================"
 echo "✅ SERVER UPDATE COMPLETED SUCCESSFULLY"
 echo "Container name: ${CONTAINER_NAME}"
-echo "Image: ${FULL_IMAGE_NAME}"
+echo "Image: ${GHCR_IMAGE}"
 echo "======================================================"

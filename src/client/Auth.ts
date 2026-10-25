@@ -96,12 +96,14 @@ function startDesktopLinkFlow(): boolean {
 }
 
 export function discordLogin() {
+  if (ClientEnv.standaloneMode?.() === true) return;
   if (startDesktopLinkFlow()) return;
   const redirectUri = encodeURIComponent(window.location.href);
   window.location.href = `${getApiBase()}/auth/login/discord?redirect_uri=${redirectUri}`;
 }
 
 export function googleLogin() {
+  if (ClientEnv.standaloneMode?.() === true) return;
   if (startDesktopLinkFlow()) return;
   const redirectUri = encodeURIComponent(window.location.href);
   window.location.href = `${getApiBase()}/auth/login/google?redirect_uri=${redirectUri}`;
@@ -116,6 +118,7 @@ export function googleLogin() {
 // than broken -- the caller hides it on the desktop shell instead. Keeping the
 // guard out of here means the function does exactly one thing.
 export function steamLogin() {
+  if (ClientEnv.standaloneMode?.() === true) return;
   const redirectUri = encodeURIComponent(window.location.href);
   window.location.href = `${getApiBase()}/auth/login/steam?redirect_uri=${redirectUri}`;
 }
@@ -393,6 +396,7 @@ export function isSessionActive(sub: string): boolean {
 export async function userAuth(
   shouldRefresh: boolean = true,
 ): Promise<UserAuth> {
+  if (ClientEnv.standaloneMode?.() === true) return false;
   try {
     const jwt = __jwt;
     if (!jwt) {

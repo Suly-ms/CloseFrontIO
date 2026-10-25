@@ -34,6 +34,7 @@ import {
   purchaseCosmeticPack,
   purchaseWithCurrency,
 } from "./Api";
+import { ClientEnv } from "./ClientEnv";
 import { isDesktopShell } from "./DesktopShell";
 import { showInGameAlert, showInGameConfirm } from "./InGameModal";
 import {
@@ -877,6 +878,7 @@ export function cosmeticsJsonUrl(): string {
 }
 
 export async function fetchCosmetics(): Promise<Cosmetics | null> {
+  if (ClientEnv.standaloneMode?.() === true) return null;
   if (__cosmetics !== null) {
     return __cosmetics;
   }
@@ -1443,6 +1445,7 @@ export function resolvedToPlayerPattern(
 export async function getPlayerCosmeticsRefs(
   opts: { verified?: boolean } = {},
 ): Promise<PlayerCosmeticRefs> {
+  if (ClientEnv.standaloneMode?.() === true) return {};
   const userSettings = new UserSettings();
   // Resolve the profile first: getUserMe activates the per-player cosmetics
   // scope (UserSettings.setPlayerId), which must happen before selections are

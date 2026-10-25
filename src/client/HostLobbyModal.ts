@@ -294,6 +294,8 @@ export class HostLobbyModal extends BaseModal {
   // one-way (the server rejects unlisting), so the Private segment goes away
   // once the lobby is listed.
   private renderVisibilityToggle() {
+    if (ClientEnv.standaloneMode?.() === true)
+      return this.renderAutoStartTimer();
     const segment = (labelKey: string, isPublic: boolean) => html`
       <button
         class="px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full transition-all ${this
@@ -401,6 +403,7 @@ export class HostLobbyModal extends BaseModal {
   }
 
   private handleVisibilitySelect(isPublic: boolean) {
+    if (ClientEnv.standaloneMode?.() === true) return;
     if (
       this.listingRequestInFlight ||
       isPublic === this.publiclyListed ||

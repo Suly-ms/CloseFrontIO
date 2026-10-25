@@ -11,6 +11,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { hasLinkedIdentity } from "../AccountIdentity";
 import { logOut } from "../Auth";
+import { ClientEnv } from "../ClientEnv";
 import { gamePortal, type PortalUser } from "../GamePortal";
 import { showInGameConfirm } from "../InGameModal";
 import {
@@ -129,6 +130,7 @@ export class NavAccountMenu extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    if (ClientEnv.standaloneMode?.() === true) return;
     document.addEventListener(
       "userMeResponse",
       this.handleUserMeResponse as EventListener,
@@ -497,7 +499,8 @@ export class NavAccountMenu extends LitElement {
     item.onSelect();
   }
 
-  render(): TemplateResult {
+  render(): TemplateResult | typeof nothing {
+    if (ClientEnv.standaloneMode?.() === true) return nothing;
     return html`
       <div class="relative" data-account-nav>
         ${this.variant === "mobile"

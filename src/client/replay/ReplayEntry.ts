@@ -21,6 +21,7 @@ import { handOverRecord } from "./ReplayRecord";
  * already is one, since redirecting again would loop.
  */
 export function versionedViewerUrl(gameID: string): Promise<string | null> {
+  if (ClientEnv.standaloneMode?.() === true) return Promise.resolve(null);
   return findVersionedShell(
     ClientEnv.jwtAudience(),
     gameID,

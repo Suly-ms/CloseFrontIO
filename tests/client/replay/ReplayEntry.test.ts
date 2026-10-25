@@ -126,3 +126,17 @@ test("a game from another build is watched on its versioned shell", async () => 
     vi.unstubAllGlobals();
   }
 });
+
+test("standalone mode never probes a remote replay host", async () => {
+  const fetchFn = vi.fn();
+  vi.stubGlobal("fetch", fetchFn);
+  try {
+    config("prod", "mschnider.fr");
+    (window as any).BOOTSTRAP_CONFIG.standaloneMode = true;
+    ClientEnv.reset();
+    expect(await versionedViewerUrl("abcd1234")).toBeNull();
+    expect(fetchFn).not.toHaveBeenCalled();
+  } finally {
+    vi.unstubAllGlobals();
+  }
+});

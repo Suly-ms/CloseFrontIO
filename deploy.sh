@@ -310,6 +310,7 @@ ssh -i $SSH_KEY $REMOTE_USER@$SERVER_HOST "chmod +x $REMOTE_UPDATE_SCRIPT && \
 cat > $ENV_FILE << 'EOL'
 GAME_ENV=$ENV
 ENV=$ENV
+STANDALONE_MODE=$STANDALONE_MODE
 HOST=$HOST
 # MACHINE is HOST under a name that cannot be misread: in cluster vocabulary a
 # host is a game hostname (blue.openfront.io), while this is the box a

@@ -124,6 +124,7 @@
         cdnBase: <%- cdnBase %>,
         gameEnv: <%- gameEnv %>,<%- typeof cluster !== "undefined" && cluster ? "\n        cluster: " + cluster + "," : "" %><%- typeof instanceLetter !== "undefined" && instanceLetter ? "\n        instanceLetter: " + instanceLetter + "," : "" %>
         turnstileSiteKey: <%- turnstileSiteKey %>,
+        standaloneMode: <%- standaloneMode %>,
         jwtAudience: <%- jwtAudience %>,<%- typeof stripePublishableKey !== "undefined" && stripePublishableKey ? "\n        stripePublishableKey: " + stripePublishableKey + "," : "" %><%- typeof faroCollectorUrl !== "undefined" && faroCollectorUrl ? "\n        faroCollectorUrl: " + faroCollectorUrl + "," : "" %><%- typeof instanceId !== "undefined" && instanceId ? "\n        instanceId: " + instanceId + "," : "" %><%- typeof serverHost !== "undefined" && serverHost ? "\n        serverHost: " + serverHost + "," : "" %><%- typeof siteHost !== "undefined" && siteHost ? "\n        siteHost: " + siteHost + "," : "" %>
       };
       // Set here rather than from the bundle so the first paint already has the
@@ -152,26 +153,30 @@
       async
     ></script>
 
-    <!-- Cloudflare Turnstile -->
-    <script
-      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-      async
-      defer
-    ></script>
-    <!-- Analytics -->
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-WQGQQ8RDN4"
-    ></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+      if (!window.BOOTSTRAP_CONFIG.standaloneMode) {
+        const turnstileScript = document.createElement("script");
+        turnstileScript.src =
+          "https://challenges.cloudflare.com/turnstile/v0/api.js";
+        turnstileScript.async = true;
+        document.head.append(turnstileScript);
       }
-      gtag("js", new Date());
+    </script>
+    <script>
+      if (!window.BOOTSTRAP_CONFIG.standaloneMode) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "G-WQGQQ8RDN4");
 
-      gtag("config", "G-WQGQQ8RDN4");
+        const analyticsScript = document.createElement("script");
+        analyticsScript.src =
+          "https://www.googletagmanager.com/gtag/js?id=G-WQGQQ8RDN4";
+        analyticsScript.async = true;
+        document.head.append(analyticsScript);
+      }
     </script>
   </head>
 
@@ -438,7 +443,7 @@
     <player-info-overlay></player-info-overlay>
     <heads-up-message></heads-up-message>
 
-        <!-- Steam shell status bar. A direct <body> child, so it is not inside the
+    <!-- Steam shell status bar. A direct <body> child, so it is not inside the
           home container, but deliberately hidden in-game (see the component's comment).
          Renders nothing outside the desktop shell. -->
     <desktop-status-bar></desktop-status-bar>

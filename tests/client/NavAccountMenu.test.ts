@@ -32,6 +32,7 @@ vi.mock("../../src/client/Utils", () => ({
 }));
 
 import type { UserMeResponse } from "@openfront/shared/ApiSchemas";
+import { ClientEnv } from "../../src/client/ClientEnv";
 import { NavAccountMenu } from "../../src/client/components/NavAccountMenu";
 import { gamePortal } from "../../src/client/GamePortal";
 import { updateAccountNavButton } from "../../src/client/NavAccountButton";
@@ -67,6 +68,8 @@ describe("nav-account-menu", () => {
   afterEach(() => {
     el.remove();
     vi.clearAllMocks();
+    delete (window as { BOOTSTRAP_CONFIG?: unknown }).BOOTSTRAP_CONFIG;
+    ClientEnv.reset();
     isOnCrazyGames.mockReturnValue(false);
     delete (window as { openfrontDesktop?: unknown }).openfrontDesktop;
     getUserProfile.mockResolvedValue(null);
@@ -99,6 +102,19 @@ describe("nav-account-menu", () => {
     window.showPage = showPage;
     await click(document.querySelector('[data-menu-item="sign-in"]')!);
     expect(showPage).toHaveBeenCalledWith("page-account");
+  });
+
+  it("hides account controls in standalone mode", async () => {
+    (window as any).BOOTSTRAP_CONFIG = {
+      gameEnv: "prod",
+      turnstileSiteKey: "",
+      standaloneMode: true,
+      jwtAudience: "example.com",
+      gitCommit: "a".repeat(40),
+    };
+    ClientEnv.reset();
+    await el.requestUpdate();
+    expect(el.querySelector("[data-account-trigger]")).toBeNull();
   });
 
   it("treats an anonymous session as signed out", async () => {
