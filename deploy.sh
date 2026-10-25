@@ -87,9 +87,9 @@ GHCR_USERNAME="$(printf '%s' "$GHCR_USERNAME" | tr -d '[:space:]' | tr '[:upper:
 GHCR_REPO="$(printf '%s' "$GHCR_REPO" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
 
 if [[ "$VERSION_TAG" == sha256:* ]]; then
-    GHCR_IMAGE="${GHCR_USERNAME}/${GHCR_REPO}@${VERSION_TAG}"
+    GHCR_IMAGE="ghcr.io/${GHCR_USERNAME}/${GHCR_REPO}@${VERSION_TAG}"
 else
-    GHCR_IMAGE="${GHCR_USERNAME}/${GHCR_REPO}:${VERSION_TAG}"
+    GHCR_IMAGE="ghcr.io/${GHCR_USERNAME}/${GHCR_REPO}:${VERSION_TAG}"
 fi
 
 if [ -z "$DOMAIN" ]; then

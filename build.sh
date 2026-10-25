@@ -68,12 +68,12 @@ fi
 GHCR_USERNAME="$(printf '%s' "$GHCR_USERNAME" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
 GHCR_REPO="$(printf '%s' "$GHCR_REPO" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
 
-GHCR_IMAGE="${GHCR_USERNAME}/${GHCR_REPO}:${VERSION_TAG}"
+GHCR_IMAGE="ghcr.io/${GHCR_USERNAME}/${GHCR_REPO}:${VERSION_TAG}"
 
 # If ADDITIONAL_VERSION_TAG is provided ADDITIONAL_GHCR_IMAGE will be set
 # example usage: adding latest tag
 if [ -n "$ADDITIONAL_VERSION_TAG" ]; then
-    ADDITIONAL_GHCR_IMAGE="${GHCR_USERNAME}/${GHCR_REPO}:${ADDITIONAL_VERSION_TAG}"
+    ADDITIONAL_GHCR_IMAGE="ghcr.io/${GHCR_USERNAME}/${GHCR_REPO}:${ADDITIONAL_VERSION_TAG}"
 fi
 
 echo "Environment: ${DEPLOY_ENV}"
@@ -93,8 +93,8 @@ if [ -n "$VERSION_TXT" ]; then
 fi
 
 # Set up cache image reference
-CACHE_IMAGE="${GHCR_USERNAME}/${GHCR_REPO}:latest"
-BUILDCACHE_IMAGE="${GHCR_USERNAME}/${GHCR_REPO}:buildcache"
+CACHE_IMAGE="ghcr.io/${GHCR_USERNAME}/${GHCR_REPO}:latest"
+BUILDCACHE_IMAGE="ghcr.io/${GHCR_USERNAME}/${GHCR_REPO}:buildcache"
 
 echo "Building with buildx and registry cache..."
 
