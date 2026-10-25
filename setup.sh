@@ -1,31 +1,11 @@
 #!/bin/bash
-# Comprehensive setup script for Hetzner server with Docker, user setup, Node Exporter, and OpenTelemetry
+# Provision the game host with Docker, the closefront user, and Tailscale checks.
 # Exit on error
 set -e
 
 echo "====================================================="
 echo "🚀 STARTING SERVER SETUP"
 echo "====================================================="
-
-# Load environment variables from .env.setup if present
-ENV_FILE="$(dirname "$0")/.env.setup"
-if [ -f "$ENV_FILE" ]; then
-    echo "📂 Loading environment from $ENV_FILE"
-    set -a
-    # shellcheck source=/dev/null
-    source "$ENV_FILE"
-    set +a
-else
-    echo "ℹ️  No .env.setup file found"
-    exit 1
-fi
-
-# Verify required environment variables
-if [ -z "$OTEL_EXPORTER_OTLP_ENDPOINT" ] || [ -z "$OTEL_AUTH_HEADER" ]; then
-    echo "❌ ERROR: Required environment variables are not set!"
-    echo "Please set OTEL_EXPORTER_OTLP_ENDPOINT and OTEL_AUTH_HEADER in .env.setup"
-    exit 1
-fi
 
 if ! command -v tailscale > /dev/null 2>&1 || \
     ! ip -o -4 addr show dev tailscale0 > /dev/null 2>&1; then
@@ -57,36 +37,40 @@ else
     echo "Docker installed successfully"
 fi
 
-echo "👤 Setting up openfront user..."
-# Create openfront user if it doesn't exist
-if id "openfront" &> /dev/null; then
-    echo "User openfront already exists"
+# Remove the metrics stack if an earlier setup installed it.
+docker rm -f node-exporter otel-collector > /dev/null 2>&1 || true
+rm -rf /home/closefront/otel /home/openfront/otel
+
+echo "👤 Setting up closefront user..."
+# Create closefront user if it doesn't exist
+if id "closefront" &> /dev/null; then
+    echo "User closefront already exists"
 else
-    useradd -m -s /bin/bash openfront
-    echo "User openfront created"
+    useradd -m -s /bin/bash closefront
+    echo "User closefront created"
 fi
 
-# Check if openfront is already in docker group
-if groups openfront | grep -q '\bdocker\b'; then
-    echo "User openfront is already in the docker group"
+# Check if closefront is already in docker group
+if groups closefront | grep -q '\bdocker\b'; then
+    echo "User closefront is already in the docker group"
 else
-    # Add openfront to docker group
-    usermod -aG docker openfront
-    echo "Added openfront to docker group"
+    # Add closefront to the docker group
+    usermod -aG docker closefront
+    echo "Added closefront to the docker group"
 fi
 
-# Create .ssh directory for openfront if it doesn't exist
-if [ ! -d "/home/openfront/.ssh" ]; then
-    mkdir -p /home/openfront/.ssh
-    chmod 700 /home/openfront/.ssh
-    echo "Created .ssh directory for openfront"
+# Create .ssh directory for closefront if it doesn't exist
+if [ ! -d "/home/closefront/.ssh" ]; then
+    mkdir -p /home/closefront/.ssh
+    chmod 700 /home/closefront/.ssh
+    echo "Created .ssh directory for closefront"
 fi
 
 # Copy SSH keys from root if they exist and haven't been copied yet
-if [ -f /root/.ssh/authorized_keys ] && [ ! -f /home/openfront/.ssh/authorized_keys ]; then
-    cp /root/.ssh/authorized_keys /home/openfront/.ssh/
-    chmod 600 /home/openfront/.ssh/authorized_keys
-    echo "SSH keys copied from root to openfront"
+if [ -f /root/.ssh/authorized_keys ] && [ ! -f /home/closefront/.ssh/authorized_keys ]; then
+    cp /root/.ssh/authorized_keys /home/closefront/.ssh/
+    chmod 600 /home/closefront/.ssh/authorized_keys
+    echo "SSH keys copied from root to closefront"
 fi
 
 # Configure UDP buffer sizes for Cloudflare Tunnel
@@ -106,109 +90,14 @@ else
     echo "UDP buffer sizes configured and applied"
 fi
 
-# Set proper ownership for openfront's home directory
-chown -R openfront:openfront /home/openfront
-echo "Set proper ownership for openfront's home directory"
-
-# Create directory for OpenTelemetry configuration
-echo "📊 Setting up Node Exporter and OpenTelemetry Collector..."
-OTEL_CONFIG_DIR="/home/openfront/otel"
-
-if [ ! -d "$OTEL_CONFIG_DIR" ]; then
-    mkdir -p "$OTEL_CONFIG_DIR"
-    echo "Created OpenTelemetry configuration directory"
-fi
-
-# Create OpenTelemetry Collector configuration
-cat > "$OTEL_CONFIG_DIR/otel-collector-config.yaml" << EOF
-receivers:
-  prometheus:
-    config:
-      scrape_configs:
-        - job_name: 'node'
-          scrape_interval: 10s
-          static_configs:
-            - targets: ['localhost:9100']  # Node Exporter endpoint
-          relabel_configs:
-            - source_labels: [__address__]
-              regex: '.*'
-              target_label: openfront.host
-              replacement: "\${HOSTNAME}"
-
-processors:
-  batch:
-    # Batch metrics before sending
-    timeout: 10s
-    send_batch_size: 1000
-
-exporters:
-  otlphttp:
-    endpoint: "${OTEL_EXPORTER_OTLP_ENDPOINT}"
-    headers:
-      Authorization: "Basic ${OTEL_AUTH_HEADER}"
-    tls:
-      insecure: true  # Set to false in production with proper certs
-
-service:
-  pipelines:
-    metrics:
-      receivers: [prometheus]
-      processors: [batch]
-      exporters: [otlphttp]
-EOF
-
-# Set ownership of all files
-chmod 600 "$OTEL_CONFIG_DIR/otel-collector-config.yaml"
-chown -R openfront:openfront "$OTEL_CONFIG_DIR"
-
-# Run Node Exporter
-echo "🚀 Starting Node Exporter..."
-docker pull prom/node-exporter:latest
-docker rm -f node-exporter 2> /dev/null || true
-docker run -d \
-    --name=node-exporter \
-    --restart=unless-stopped \
-    --net="host" \
-    --pid="host" \
-    -v "/:/host:ro,rslave" \
-    prom/node-exporter:latest \
-    --path.rootfs=/host
-
-# Run OpenTelemetry Collector
-echo "🚀 Starting OpenTelemetry Collector..."
-docker pull otel/opentelemetry-collector-contrib:latest
-docker rm -f otel-collector 2> /dev/null || true
-# Run OpenTelemetry Collector with appropriate permissions
-echo "🚀 Starting OpenTelemetry Collector..."
-docker pull otel/opentelemetry-collector-contrib:latest
-docker rm -f otel-collector 2> /dev/null || true
-
-docker run -d \
-    --name=otel-collector \
-    --restart=unless-stopped \
-    --network=host \
-    --user=0 \
-    -v "$OTEL_CONFIG_DIR/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml:ro" \
-    otel/opentelemetry-collector-contrib:latest
-
-# Check if containers are running
-if docker ps | grep -q node-exporter && docker ps | grep -q otel-collector; then
-    echo "✅ Node Exporter and OpenTelemetry Collector started successfully!"
-else
-    echo "❌ Failed to start containers. Check logs with: docker logs node-exporter or docker logs otel-collector"
-    exit 1
-fi
+# Set proper ownership for closefront's home directory
+chown -R closefront:closefront /home/closefront
+echo "Set proper ownership for closefront's home directory"
 
 echo "====================================================="
 echo "🎉 SETUP COMPLETE!"
 echo "====================================================="
-echo "The openfront user has been set up and has Docker permissions."
+echo "The closefront user has been set up and has Docker permissions."
 echo "UDP buffer sizes have been configured for optimal QUIC/WebSocket performance."
 echo "The game container will bind only to the Tailscale IP and configured port."
-echo "Node Exporter is collecting system metrics."
-echo "OpenTelemetry Collector is forwarding metrics to your endpoint."
-echo ""
-echo "📝 Configuration:"
-echo "   - Config Directory: $OTEL_CONFIG_DIR"
-echo "   - OpenTelemetry Endpoint: $OTEL_EXPORTER_OTLP_ENDPOINT"
 echo "====================================================="

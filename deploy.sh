@@ -260,7 +260,7 @@ fi
 
 # Configuration
 UPDATE_SCRIPT="./update.sh" # Path to your update script
-REMOTE_USER="openfront"
+REMOTE_USER="closefront"
 REMOTE_UPDATE_PATH="/home/$REMOTE_USER"
 # Randomize the remote script name so concurrent deployments (different
 # branches share the staging host) don't overwrite each other's copy while
@@ -340,9 +340,6 @@ NUM_WORKERS=$NUM_WORKERS
 LOBBY_COORDINATOR=$LOBBY_COORDINATOR
 TURNSTILE_SITE_KEY=$TURNSTILE_SITE_KEY
 STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY
-FARO_COLLECTOR_URL=$FARO_COLLECTOR_URL
-OTEL_EXPORTER_OTLP_ENDPOINT=$OTEL_EXPORTER_OTLP_ENDPOINT
-OTEL_AUTH_HEADER=$OTEL_AUTH_HEADER
 EOL
 chmod 600 $ENV_FILE && \
 flock -w 900 $REMOTE_LOCK_FILE $REMOTE_UPDATE_SCRIPT $ENV_FILE && \
