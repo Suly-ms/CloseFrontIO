@@ -27,12 +27,10 @@ if [ -z "$OTEL_EXPORTER_OTLP_ENDPOINT" ] || [ -z "$OTEL_AUTH_HEADER" ]; then
     exit 1
 fi
 
-# CF_ORIGIN_CERT and CF_ORIGIN_KEY: Cloudflare Origin Certificate and private key.
-# Generate at: Cloudflare dashboard → SSL/TLS → Origin Server → Create Certificate
-if [ -z "$CF_ORIGIN_CERT" ] || [ -z "$CF_ORIGIN_KEY" ]; then
-    echo "❌ ERROR: CF_ORIGIN_CERT and CF_ORIGIN_KEY are not set!"
-    echo "Generate an origin certificate at: Cloudflare → SSL/TLS → Origin Server → Create Certificate"
-    echo "Then add CF_ORIGIN_CERT and CF_ORIGIN_KEY to .env.setup"
+if ! command -v tailscale > /dev/null 2>&1 || \
+    ! ip -o -4 addr show dev tailscale0 > /dev/null 2>&1; then
+    echo "❌ ERROR: Tailscale must be installed and connected before setup."
+    echo "Join this server to your tailnet, then run setup.sh again."
     exit 1
 fi
 
@@ -111,96 +109,6 @@ fi
 # Set proper ownership for openfront's home directory
 chown -R openfront:openfront /home/openfront
 echo "Set proper ownership for openfront's home directory"
-
-# Set up Traefik reverse proxy
-echo "🔀 Setting up Traefik..."
-
-# Create the shared Docker network used by Traefik and app containers
-if docker network ls --format '{{.Name}}' | grep -q '^web$'; then
-    echo "Docker network 'web' already exists"
-else
-    docker network create web
-    echo "Created Docker network 'web'"
-fi
-
-TRAEFIK_CONFIG_DIR="/home/openfront/traefik"
-TRAEFIK_CERTS_DIR="$TRAEFIK_CONFIG_DIR/certs"
-mkdir -p "$TRAEFIK_CERTS_DIR"
-
-# Write Cloudflare origin certificate and key (passed as env vars)
-echo "$CF_ORIGIN_CERT" > "$TRAEFIK_CERTS_DIR/origin.crt"
-echo "$CF_ORIGIN_KEY" > "$TRAEFIK_CERTS_DIR/origin.key"
-chmod 600 "$TRAEFIK_CERTS_DIR/origin.crt" "$TRAEFIK_CERTS_DIR/origin.key"
-
-# No [api] block — dashboard is disabled for production.
-# To access it for debugging, SSH tunnel: ssh -L 8080:localhost:8080 user@server
-cat > "$TRAEFIK_CONFIG_DIR/traefik.toml" << 'EOF'
-[log]
-  level = "INFO"
-
-[entryPoints]
-  [entryPoints.websecure]
-    address = ":443"
-
-[providers]
-  [providers.docker]
-    endpoint = "unix:///var/run/docker.sock"
-    exposedByDefault = false   # Only route containers with traefik.enable=true
-    network = "web"
-    watch = true
-  [providers.file]
-    filename = "/etc/traefik/tls.toml"
-    watch = true
-EOF
-
-# Static TLS configuration referencing the Cloudflare origin cert
-cat > "$TRAEFIK_CONFIG_DIR/tls.toml" << 'EOF'
-[[tls.certificates]]
-  certFile = "/certs/origin.crt"
-  keyFile  = "/certs/origin.key"
-
-[tls.options]
-  [tls.options.default]
-    minVersion = "VersionTLS12"
-EOF
-
-cat > "$TRAEFIK_CONFIG_DIR/compose.yaml" << 'EOF'
-networks:
-  web:
-    # External so blue/green containers can join independently.
-    external: true
-
-services:
-  traefik:
-    image: traefik:v3.6
-    container_name: traefik
-    restart: unless-stopped
-    ports:
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /home/openfront/traefik/traefik.toml:/etc/traefik/traefik.toml:ro
-      - /home/openfront/traefik/tls.toml:/etc/traefik/tls.toml:ro
-      - /home/openfront/traefik/certs:/certs:ro
-    networks:
-      - web
-EOF
-
-# Give openfront ownership of config files but keep certs owned by root.
-# Traefik runs as root inside its container so it can read them, but the
-# openfront app user cannot access the TLS private key.
-chown -R openfront:openfront "$TRAEFIK_CONFIG_DIR"
-chown root:root "$TRAEFIK_CERTS_DIR" "$TRAEFIK_CERTS_DIR/origin.crt" "$TRAEFIK_CERTS_DIR/origin.key"
-
-docker compose -f "$TRAEFIK_CONFIG_DIR/compose.yaml" pull
-docker compose -f "$TRAEFIK_CONFIG_DIR/compose.yaml" up -d
-
-if docker ps | grep -q traefik; then
-    echo "✅ Traefik started successfully!"
-else
-    echo "❌ Failed to start Traefik. Check logs with: docker logs traefik"
-    exit 1
-fi
 
 # Create directory for OpenTelemetry configuration
 echo "📊 Setting up Node Exporter and OpenTelemetry Collector..."
@@ -296,7 +204,7 @@ echo "🎉 SETUP COMPLETE!"
 echo "====================================================="
 echo "The openfront user has been set up and has Docker permissions."
 echo "UDP buffer sizes have been configured for optimal QUIC/WebSocket performance."
-echo "Traefik reverse proxy is running (HTTP :80, HTTPS :443 with Cloudflare origin cert)."
+echo "The game container will bind only to the Tailscale IP and configured port."
 echo "Node Exporter is collecting system metrics."
 echo "OpenTelemetry Collector is forwarding metrics to your endpoint."
 echo ""
