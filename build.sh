@@ -101,19 +101,22 @@ else
     docker buildx use cache-builder
 fi
 
-# Use buildx with registry cache for best performance
-# --push will push all tags automatically
-docker buildx build \
-    --platform linux/amd64 \
-    --metadata-file $METADATA_FILE \
-    --build-arg GIT_COMMIT=$GIT_COMMIT \
-    --cache-from type=registry,ref=$BUILDCACHE_IMAGE \
-    --cache-to type=registry,ref=$BUILDCACHE_IMAGE,mode=max \
-    --tag $GHCR_IMAGE \
-    --tag $CACHE_IMAGE \
-    ${ADDITIONAL_GHCR_IMAGE:+--tag "$ADDITIONAL_GHCR_IMAGE"} \
-    --push \
-    .
+# Keep each optional tag as a distinct argument and always pass the repository
+# root as the build context.
+BUILD_ARGS=(
+    --platform linux/amd64
+    --metadata-file "$METADATA_FILE"
+    --build-arg "GIT_COMMIT=$GIT_COMMIT"
+    --cache-from "type=registry,ref=$BUILDCACHE_IMAGE"
+    --cache-to "type=registry,ref=$BUILDCACHE_IMAGE,mode=max"
+    --tag "$GHCR_IMAGE"
+    --tag "$CACHE_IMAGE"
+)
+if [ -n "${ADDITIONAL_GHCR_IMAGE:-}" ]; then
+    BUILD_ARGS+=(--tag "$ADDITIONAL_GHCR_IMAGE")
+fi
+
+docker buildx build "${BUILD_ARGS[@]}" --push .
 
 if [ $? -ne 0 ]; then
     echo "❌ Docker build failed."
