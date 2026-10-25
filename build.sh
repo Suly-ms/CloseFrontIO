@@ -62,6 +62,12 @@ if [ -z "$GHCR_USERNAME" ] || [ -z "$GHCR_REPO" ]; then
     exit 1
 fi
 
+# GHCR/Docker image references must be lowercase and cannot contain whitespace.
+# Strip newlines commonly pasted into GitHub variables as well as any other
+# accidental whitespace before composing the image name.
+GHCR_USERNAME="$(printf '%s' "$GHCR_USERNAME" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+GHCR_REPO="$(printf '%s' "$GHCR_REPO" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+
 GHCR_IMAGE="${GHCR_USERNAME}/${GHCR_REPO}:${VERSION_TAG}"
 
 # If ADDITIONAL_VERSION_TAG is provided ADDITIONAL_GHCR_IMAGE will be set

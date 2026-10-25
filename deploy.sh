@@ -82,6 +82,10 @@ if [ -z "$GHCR_USERNAME" ] || [ -z "$GHCR_REPO" ]; then
     exit 1
 fi
 
+# Match build.sh: image references must be lowercase and free of pasted newlines.
+GHCR_USERNAME="$(printf '%s' "$GHCR_USERNAME" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+GHCR_REPO="$(printf '%s' "$GHCR_REPO" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+
 if [[ "$VERSION_TAG" == sha256:* ]]; then
     GHCR_IMAGE="${GHCR_USERNAME}/${GHCR_REPO}@${VERSION_TAG}"
 else
