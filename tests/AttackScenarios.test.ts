@@ -20,9 +20,9 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { AttackExecution } from "@openfront/engine/execution/AttackExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { AttackExecution } from "@closefront/engine/execution/AttackExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 import { UseRealAttackLogic } from "./util/TestConfig";
 

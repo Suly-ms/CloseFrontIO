@@ -1,4 +1,4 @@
-import { GameMap } from "@openfront/engine-api/game/GameMap";
+import { GameMap } from "@closefront/engine-api/game/GameMap";
 import {
   Difficulty,
   GameType,
@@ -8,9 +8,9 @@ import {
   Tick,
   UnitInfo,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { PlayerLike } from "@openfront/engine-api/game/ReadViews";
-import { GameConfig } from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/game/GameTypes";
+import { PlayerLike } from "@closefront/engine-api/game/ReadViews";
+import { GameConfig } from "@closefront/engine-api/Schemas";
 import { pow } from "../DetMath";
 import { DoomsdayClockSpeed } from "../game/DoomsdayClock";
 import { assertNever } from "../Util";

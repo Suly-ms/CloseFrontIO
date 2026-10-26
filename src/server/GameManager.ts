@@ -4,13 +4,13 @@ import {
   GameMapType,
   GameMode,
   GameType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameConfig, GameID } from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameConfig, GameID } from "@closefront/engine-api/Schemas";
 import {
   ClientDeviceSchema,
   ClientPlatformSchema,
   PublicGameType,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { Logger } from "winston";
 import WebSocket from "ws";
 import { Client } from "./Client";

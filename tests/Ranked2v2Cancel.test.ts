@@ -3,14 +3,14 @@ import {
   PlayerInfo,
   PlayerType,
   RankedType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   GameUpdateType,
   WinUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
-import { GameConfig } from "@openfront/engine-api/Schemas";
-import { WinCheckExecution } from "@openfront/engine/execution/WinCheckExecution";
-import { Game } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameUpdates";
+import { GameConfig } from "@closefront/engine-api/Schemas";
+import { WinCheckExecution } from "@closefront/engine/execution/WinCheckExecution";
+import { Game } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 
 async function setupTeamGame(config: Partial<GameConfig>): Promise<Game> {

@@ -1,4 +1,4 @@
-import { EventBus } from "@openfront/shared/EventBus";
+import { EventBus } from "@closefront/shared/EventBus";
 import { AutoUpgradeEvent } from "../src/client/InputHandler";
 
 describe("AutoUpgrade Feature", () => {

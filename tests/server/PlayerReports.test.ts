@@ -1,5 +1,5 @@
-import { GameType } from "@openfront/engine-api/game/GameTypes";
-import { PartialGameRecord } from "@openfront/shared/WireSchemas";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
+import { PartialGameRecord } from "@closefront/shared/WireSchemas";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   cid,

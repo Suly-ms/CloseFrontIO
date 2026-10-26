@@ -1,8 +1,8 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { PlayerInfo, PlayerType } from "@openfront/engine-api/game/GameTypes";
-import { SpawnExecution } from "@openfront/engine/execution/SpawnExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
-import { canBuildTransportShip } from "@openfront/engine/game/TransportShipUtils";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { PlayerInfo, PlayerType } from "@closefront/engine-api/game/GameTypes";
+import { SpawnExecution } from "@closefront/engine/execution/SpawnExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
+import { canBuildTransportShip } from "@closefront/engine/game/TransportShipUtils";
 import { describe, expect, it } from "vitest";
 import { createGame, L, W } from "../pathfinding/_fixtures";
 

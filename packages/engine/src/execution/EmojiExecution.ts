@@ -1,11 +1,11 @@
-import { AllPlayers, PlayerID } from "@openfront/engine-api/game/GameTypes";
-import { flattenedEmojiTable } from "@openfront/engine-api/Schemas";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
+import { AllPlayers, PlayerID } from "@closefront/engine-api/game/GameTypes";
+import { flattenedEmojiTable } from "@closefront/engine-api/Schemas";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
 import {
   zNum,
   zPlayerRef,
   zRandom,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
 import { z } from "zod";
 import { Execution, Game, Player } from "../game/Game";
 import { execSnapshotType } from "../snapshot/ExecutionSnapshot";

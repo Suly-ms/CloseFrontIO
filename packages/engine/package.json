@@ -1,5 +1,5 @@
 {
-  "name": "@openfront/engine",
+  "name": "@closefront/engine",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -7,9 +7,9 @@
     "./*": "./src/*.ts"
   },
   "dependencies": {
-    "@openfront/engine-api": "0.0.0",
-    "@openfront/engine-lib": "0.0.0",
-    "@openfront/zbin": "0.0.0",
+    "@closefront/engine-api": "0.0.0",
+    "@closefront/engine-lib": "0.0.0",
+    "@closefront/zbin": "0.0.0",
     "zod": "^4.4.2"
   }
 }

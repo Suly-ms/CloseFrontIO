@@ -168,7 +168,7 @@ export function resolveSpec(fromFile: string, spec: string): string | null {
   if (bare.startsWith("src/") || bare.startsWith("resources/")) {
     return probe(abs(bare));
   }
-  const m = /^@openfront\/([^/]+)(?:\/(.*))?$/.exec(bare);
+  const m = /^@closefront\/([^/]+)(?:\/(.*))?$/.exec(bare);
   if (m) {
     const src = path.join(packageDir(m[1]), "src");
     return probe(
@@ -212,7 +212,7 @@ export function specifierFor(
     const src = path.join(packageDir(toPkg), "src");
     const sub = path.relative(src, target).replace(EXT_RE, "");
     const spec =
-      sub === "index" ? `@openfront/${toPkg}` : `@openfront/${toPkg}/${sub}`;
+      sub === "index" ? `@closefront/${toPkg}` : `@closefront/${toPkg}/${sub}`;
     return spec.split(path.sep).join("/") + query;
   }
   if (toPkg === "root" && fromPkg !== "root") {

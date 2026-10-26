@@ -325,7 +325,7 @@ jobs:
           tar -cf "$RUNNER_TEMP/action-restored.tar" --files-from /dev/null "${present[@]}"
 
       # Same npm-install workaround as the shared review workflow
-      # (openfrontio/.github claude-code-review.yml): the action's native
+      # (closefrontio/.github claude-code-review.yml): the action's native
       # installer can exit 0 without leaving a working binary.
       - name: Install Claude Code from npm
         id: install-claude

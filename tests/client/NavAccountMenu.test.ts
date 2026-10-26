@@ -31,7 +31,7 @@ vi.mock("../../src/client/Utils", () => ({
   showToast,
 }));
 
-import type { UserMeResponse } from "@openfront/shared/ApiSchemas";
+import type { UserMeResponse } from "@closefront/shared/ApiSchemas";
 import { ClientEnv } from "../../src/client/ClientEnv";
 import { NavAccountMenu } from "../../src/client/components/NavAccountMenu";
 import { gamePortal } from "../../src/client/GamePortal";
@@ -71,7 +71,7 @@ describe("nav-account-menu", () => {
     delete (window as { BOOTSTRAP_CONFIG?: unknown }).BOOTSTRAP_CONFIG;
     ClientEnv.reset();
     isOnCrazyGames.mockReturnValue(false);
-    delete (window as { openfrontDesktop?: unknown }).openfrontDesktop;
+    delete (window as { closefrontDesktop?: unknown }).closefrontDesktop;
     getUserProfile.mockResolvedValue(null);
     window.showPage = undefined;
   });
@@ -215,7 +215,7 @@ describe("nav-account-menu", () => {
   });
 
   it("drops log-out on Steam, where the ticket signs the player back in", async () => {
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = {
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = {
       steam: {},
     };
     fireUserMe(userMe());

@@ -2,7 +2,7 @@ import {
   type GameXpFlare,
   type GameXpReward,
   isRewardClaimable,
-} from "@openfront/shared/ApiSchemas";
+} from "@closefront/shared/ApiSchemas";
 import {
   cosmeticSelectionLabel,
   cosmeticTypeLabel,

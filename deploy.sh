@@ -100,14 +100,14 @@ fi
 # Optional second domain for GAME traffic (docs/MultiServer.md, "Server list
 # v2" -> "Two hostnames per deployment"). A deployment has two hostnames:
 #
-#   page host: <subdomain>.<DOMAIN>       e.g. main.openfront.dev
-#   game host: <subdomain>.<GAME_DOMAIN>  e.g. main.server.openfront.dev
+#   page host: <subdomain>.<DOMAIN>       e.g. main.closefront.dev
+#   game host: <subdomain>.<GAME_DOMAIN>  e.g. main.server.closefront.dev
 #
 # The page host is what players type and what the static Worker will serve;
 # the game host is this container, reached directly for WebSockets and /api.
 # They must be separate names because the Worker sits on the page host and
-# must never proxy game traffic. On prod they already are (openfront.io vs
-# blue/green.openfront.io); GAME_DOMAIN is how a dev deployment gets the
+# must never proxy game traffic. On prod they already are (closefront.io vs
+# blue/green.closefront.io); GAME_DOMAIN is how a dev deployment gets the
 # same shape without inventing a per-branch page domain.
 #
 # DOMAIN keeps its meaning everywhere else: the audience (JWT, api.$DOMAIN)
@@ -116,11 +116,11 @@ fi
 # what dev does until the variable is set.
 GAME_DOMAIN="${GAME_DOMAIN:-}"
 # Prod ignores it outright. This is a dev-only mechanism: on prod the page and
-# the game already have distinct names (openfront.io vs blue/green.openfront.io),
+# the game already have distinct names (closefront.io vs blue/green.closefront.io),
 # so there is nothing for it to fix there. And it arrives from a REPOSITORY-level
 # GitHub variable, which every workflow in the repo inherits the moment it is
 # set — including the release jobs. Honouring it on prod would compute
-# blue.server.openfront.io, a name that resolves nowhere, as the game host.
+# blue.server.closefront.io, a name that resolves nowhere, as the game host.
 # Ignoring it here is the guarantee;
 # "prod probably won't set it" is not one.
 if [ "$ENV" = "prod" ] && [ -n "$GAME_DOMAIN" ]; then
@@ -149,7 +149,7 @@ fi
 #
 #   GAME_HOST        the name clients open sockets to. Defaults to the
 #                    standalone shape <subdomain>.<game domain> — which is
-#                    also prod's blue.openfront.io behind the balancer. A
+#                    also prod's blue.closefront.io behind the balancer. A
 #                    fleet member on a machine-scoped name
 #                    (blue.nbg2.<game domain>: every box carries its own blue
 #                    and green, one wildcard DNS record per box) passes it.
@@ -269,10 +269,10 @@ REMOTE_UPDATE_PATH="/home/$REMOTE_USER"
 # Randomize the remote script name so concurrent deployments (different
 # branches share the staging host) don't overwrite each other's copy while
 # one of them is executing it.
-REMOTE_UPDATE_SCRIPT="$REMOTE_UPDATE_PATH/update-openfront-${SUBDOMAIN}-${RANDOM}.sh"
+REMOTE_UPDATE_SCRIPT="$REMOTE_UPDATE_PATH/update-closefront-${SUBDOMAIN}-${RANDOM}.sh"
 # Lock serializing the host-side update (container swap, docker prune) across
 # concurrent deployments to the same host.
-REMOTE_LOCK_FILE="$REMOTE_UPDATE_PATH/update-openfront.lock"
+REMOTE_LOCK_FILE="$REMOTE_UPDATE_PATH/update-closefront.lock"
 
 # Check if update script exists
 if [ ! -f "$UPDATE_SCRIPT" ]; then
@@ -317,7 +317,7 @@ ENV=$ENV
 STANDALONE_MODE=$STANDALONE_MODE
 HOST=$HOST
 # MACHINE is HOST under a name that cannot be misread: in cluster vocabulary a
-# host is a game hostname (blue.openfront.io), while this is the box a
+# host is a game hostname (blue.closefront.io), while this is the box a
 # container runs on (falk2, nbg2, staging). Check-in reports it so the registry
 # can hold a site to one open server per machine (OPE-455). Kept free of
 # quotes, backticks and dollar signs: this heredoc is written inside the

@@ -55,7 +55,7 @@ const logger = winston.createLogger({
     winston.format.json(),
   ),
   defaultMeta: {
-    service: "openfront",
+    service: "closefront",
     environment: ServerEnv.gameEnvName(),
   },
   transports: [

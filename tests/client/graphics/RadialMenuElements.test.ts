@@ -1,5 +1,5 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
 import { vi, type Mock } from "vitest";
 import {
   attackMenuElement,
@@ -15,14 +15,14 @@ import { GameView, PlayerView } from "../../../src/client/view";
 vi.mock("../../../src/client/Utils", () => ({
   translateText: vi.fn((key: string) => key),
 }));
-vi.mock("@openfront/engine-lib/Format", () => ({
+vi.mock("@closefront/engine-lib/Format", () => ({
   renderNumber: vi.fn((num: number) => num.toString()),
 }));
 
 vi.mock("../../../src/client/hud/layers/BuildMenu", async () => {
   const { UnitType } = await vi.importActual<
-    typeof import("@openfront/engine-api/game/GameTypes")
-  >("@openfront/engine-api/game/GameTypes");
+    typeof import("@closefront/engine-api/game/GameTypes")
+  >("@closefront/engine-api/game/GameTypes");
   return {
     flattenedBuildTable: [
       {

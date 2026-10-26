@@ -17,31 +17,31 @@ import {
   GameMapType,
   GameMode,
   GameType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   GameUpdateType,
   HashUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameUpdates";
 import {
   GameConfig,
   GameStartInfo,
   StampedIntent,
   Turn,
-} from "@openfront/engine-api/Schemas";
-import { Game } from "@openfront/engine/game/Game";
-import { createGameRunner } from "@openfront/engine/GameRunner";
-import { loadMapFiles } from "@openfront/shared/GameMapLoader";
+} from "@closefront/engine-api/Schemas";
+import { Game } from "@closefront/engine/game/Game";
+import { createGameRunner } from "@closefront/engine/GameRunner";
+import { loadMapFiles } from "@closefront/shared/GameMapLoader";
 import {
   createPartialGameRecord,
   toWireGameStartInfo,
-} from "@openfront/shared/SharedUtil";
+} from "@closefront/shared/SharedUtil";
 import {
   GameRecord,
   GameRecordSchema,
   PlayerRecord,
   WireGameStartInfo,
   WirePlayer,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import path from "path";
 import { fileURLToPath } from "url";
 import { NodeGameMapLoader } from "../../../perf/fullgame/NodeGameMapLoader";

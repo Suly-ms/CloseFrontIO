@@ -1,5 +1,5 @@
-import { TrainType, UnitType } from "@openfront/engine-api/game/GameTypes";
-import { assetUrl } from "@openfront/shared/AssetUrls";
+import { TrainType, UnitType } from "@closefront/engine-api/game/GameTypes";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 import { Colord } from "colord";
 import { Theme } from "../theme/ThemeProvider";
 import { UnitView } from "../view";

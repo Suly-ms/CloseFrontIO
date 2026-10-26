@@ -1,12 +1,12 @@
-import { PlayerInfo, PlayerType } from "@openfront/engine-api/game/GameTypes";
+import { PlayerInfo, PlayerType } from "@closefront/engine-api/game/GameTypes";
 import {
   ATTACK_INDEX_MAX_RECV,
   ATTACK_INDEX_RECV,
   GOLD_INDEX_WAR,
   GOLD_INDEX_WORK,
-} from "@openfront/engine-api/StatsSchemas";
-import { AttackExecution } from "@openfront/engine/execution/AttackExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/StatsSchemas";
+import { AttackExecution } from "@closefront/engine/execution/AttackExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 
 let game: Game;

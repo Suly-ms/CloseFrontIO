@@ -189,7 +189,7 @@ describe("the rendered offline state", () => {
     // The bar renders nothing on the web, so every assertion here needs a
     // shell. No `update` bridge on it: a shell too old to expose one must
     // still show this.
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = {};
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = {};
     window.BOOTSTRAP_CONFIG = {
       gameEnv: "dev",
       numWorkers: 1,
@@ -197,7 +197,7 @@ describe("the rendered offline state", () => {
       jwtAudience: "test",
       instanceId: "test",
       gitCommit: "test",
-      serverHost: "openfront.io",
+      serverHost: "closefront.io",
     } as unknown as typeof window.BOOTSTRAP_CONFIG;
     ClientEnv.reset();
     resetServerList();
@@ -215,7 +215,7 @@ describe("the rendered offline state", () => {
 
   afterEach(() => {
     document.body.innerHTML = "";
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = undefined;
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = undefined;
     window.BOOTSTRAP_CONFIG = undefined;
     ClientEnv.reset();
     resetServerList();
@@ -490,10 +490,10 @@ describe("the rendered needs-account session state", () => {
   // The two above only check the label; this checks the WIRING -- that a
   // click actually reaches the bridge, not just that a button with the right
   // text exists. See desktopLinkGate() in DesktopShell.ts: it reads
-  // window.openfrontDesktop.showLinkGate.
+  // window.closefrontDesktop.showLinkGate.
   it("invokes showLinkGate when Go online is clicked", async () => {
     const showLinkGate = vi.fn(() => Promise.resolve());
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = {
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = {
       showLinkGate,
     };
 
@@ -509,7 +509,7 @@ describe("the rendered needs-account session state", () => {
 
     expect(showLinkGate).toHaveBeenCalledTimes(1);
 
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = undefined;
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = undefined;
   });
 
   // A rejected showLinkGate() must be caught, not left to become an
@@ -517,7 +517,7 @@ describe("the rendered needs-account session state", () => {
   // `.catch` instead of the bare `void` form used elsewhere in this file.
   it("handles a rejected showLinkGate without an unhandled rejection", async () => {
     const showLinkGate = vi.fn(() => Promise.reject(new Error("no bridge")));
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = {
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = {
       showLinkGate,
     };
     const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
@@ -545,7 +545,7 @@ describe("the rendered needs-account session state", () => {
     );
 
     errorSpy.mockRestore();
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = undefined;
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = undefined;
   });
 });
 
@@ -624,7 +624,7 @@ describe("a staged update when a gated session signs in", () => {
 
   function mountBar(status: string) {
     apply = vi.fn(() => Promise.resolve());
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = {
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = {
       update: {
         subscribe(cb: (s: unknown) => void) {
           cb({ status, bytes: 0, total: 0 });
@@ -648,7 +648,7 @@ describe("a staged update when a gated session signs in", () => {
   afterEach(() => {
     document.body.innerHTML = "";
     document.body.classList.remove("in-game");
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = undefined;
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = undefined;
   });
 
   it("applies it when Retry signs the player in", () => {

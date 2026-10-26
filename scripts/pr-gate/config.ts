@@ -1,4 +1,4 @@
-export const REPO = { owner: "openfrontio", repo: "OpenFrontIO" } as const;
+export const REPO = { owner: "closefrontio", repo: "CloseFrontIO" } as const;
 
 export const TRUSTED_REPO_PERMISSIONS = ["admin", "maintain", "write"] as const;
 
@@ -6,7 +6,7 @@ export const TRUSTED_REPO_PERMISSIONS = ["admin", "maintain", "write"] as const;
 // bumps, and backports of merged PRs from cherry-pick-milestone.yml).
 export const TRUSTED_BOT_AUTHORS = [
   "dependabot[bot]",
-  "openfront-backport[bot]",
+  "closefront-backport[bot]",
 ] as const;
 
 export const SMALL_FIX_LINE_THRESHOLD = 50;
@@ -37,7 +37,7 @@ This PR was automatically closed because it doesn't fit our contribution workflo
 - You aren't currently assigned to an issue labelled \`${APPROVED_ISSUE_LABEL}\`, **and**
 - The change is larger than ${SMALL_FIX_LINE_THRESHOLD} lines (our cap for unsolicited contributions).
 
-**To contribute to OpenFront:**
+**To contribute to CloseFront:**
 
 1. **For bugs or small quality-of-life improvements:** open an [issue](https://github.com/${REPO.owner}/${REPO.repo}/issues/new/choose). A maintainer will label it \`${APPROVED_ISSUE_LABEL}\` if it's something we'll work on.
 2. **For feature ideas:** discuss in the [dev Discord](https://discord.gg/K9zernJB5z) first. We don't accept unsolicited feature PRs — even if they're good ideas, every merged feature is a permanent maintenance burden.

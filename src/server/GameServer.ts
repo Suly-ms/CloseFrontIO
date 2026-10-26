@@ -6,8 +6,8 @@ import {
   PlayerType,
   RANKED_FFA_MIN_PLAYERS,
   RankedType,
-} from "@openfront/engine-api/game/GameTypes";
-import { maps } from "@openfront/engine-api/game/Maps.gen";
+} from "@closefront/engine-api/game/GameTypes";
+import { maps } from "@closefront/engine-api/game/Maps.gen";
 import {
   AllPlayersStats,
   ClientID,
@@ -20,15 +20,15 @@ import {
   Tribe,
   Turn,
   Winner,
-} from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/Schemas";
 import {
   assignTeamsLobbyPreview,
   resolveTeamsList,
-} from "@openfront/engine-lib/game/TeamAssignment";
-import { isAdminRole } from "@openfront/shared/ApiSchemas";
-import { CloseCode, CloseReason } from "@openfront/shared/CloseCodes";
-import { GameEnv } from "@openfront/shared/configuration/Env";
-import { createPartialGameRecord } from "@openfront/shared/SharedUtil";
+} from "@closefront/engine-lib/game/TeamAssignment";
+import { isAdminRole } from "@closefront/shared/ApiSchemas";
+import { CloseCode, CloseReason } from "@closefront/shared/CloseCodes";
+import { GameEnv } from "@closefront/shared/configuration/Env";
+import { createPartialGameRecord } from "@closefront/shared/SharedUtil";
 import {
   ClientMessage,
   ClientReportMessage,
@@ -52,12 +52,12 @@ import {
   ServerTurnMessage,
   WireGameStartInfo,
   WireGameStartInfoSchema,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import {
   createGameWireContext,
   encodeServerMessage,
-} from "@openfront/shared/ZbinWire";
-import { ZbContext } from "@openfront/zbin";
+} from "@closefront/shared/ZbinWire";
+import { ZbContext } from "@closefront/zbin";
 import { createHash, randomBytes } from "crypto";
 import ipAnonymize from "ip-anonymize";
 import { Logger } from "winston";

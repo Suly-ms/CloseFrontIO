@@ -1,6 +1,6 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
 import { Game, Unit } from "../../game/Game";
 
 /** A random water tile within `radius` of `center`, in the same water body as `from`. */

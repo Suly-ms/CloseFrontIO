@@ -10,7 +10,7 @@ import {
 import { stripWorkerPrefix } from "../../src/server/WorkerPathPrefix";
 
 // The game server's /api routes are same-origin for the web client, but the
-// desktop app loads its renderer from app://openfront and so reaches them
+// desktop app loads its renderer from app://closefront and so reaches them
 // cross-origin. A POST carrying Authorization + Content-Type is not a simple
 // request, so the browser preflights it: without these headers the desktop
 // cannot create a lobby, join by id, or poll for a game at all.
@@ -28,7 +28,7 @@ describe("applyGameApiCorsHeaders", () => {
   test("allows the desktop app origin", () => {
     const { headers, setHeader } = collect();
     applyGameApiCorsHeaders(DESKTOP_APP_ORIGIN, setHeader);
-    expect(headers.get("Access-Control-Allow-Origin")).toBe("app://openfront");
+    expect(headers.get("Access-Control-Allow-Origin")).toBe("app://closefront");
   });
 
   test("advertises the methods and headers the game API actually uses", () => {
@@ -73,7 +73,7 @@ describe("applyGameApiCorsHeaders", () => {
 
   test("does not allow a lookalike of the desktop origin", () => {
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("app://openfront.evil.example", setHeader);
+    applyGameApiCorsHeaders("app://closefront.evil.example", setHeader);
     expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 
@@ -84,31 +84,31 @@ describe("applyGameApiCorsHeaders", () => {
   });
 
   // Two hostnames per deployment (docs/MultiServer.md): with GAME_DOMAIN set
-  // the page is served from main.openfront.dev by the static Worker while
-  // this server answers on main.server.openfront.dev, so every /api call the
+  // the page is served from main.closefront.dev by the static Worker while
+  // this server answers on main.server.closefront.dev, so every /api call the
   // page makes is cross-origin and the page host has to be granted.
   describe("a deployment whose page host differs from its game host", () => {
     beforeEach(() => {
-      vi.stubEnv("SITE_HOST", "main.openfront.dev");
-      vi.stubEnv("DOMAIN", "openfront.dev");
-      vi.stubEnv("GAME_DOMAIN", "server.openfront.dev");
+      vi.stubEnv("SITE_HOST", "main.closefront.dev");
+      vi.stubEnv("DOMAIN", "closefront.dev");
+      vi.stubEnv("GAME_DOMAIN", "server.closefront.dev");
       vi.stubEnv("SUBDOMAIN", "main");
     });
     afterEach(() => vi.unstubAllEnvs());
 
     test("allows the page origin", () => {
       const { headers, setHeader } = collect();
-      applyGameApiCorsHeaders("https://main.openfront.dev", setHeader);
+      applyGameApiCorsHeaders("https://main.closefront.dev", setHeader);
       expect(headers.get("Access-Control-Allow-Origin")).toBe(
-        "https://main.openfront.dev",
+        "https://main.closefront.dev",
       );
     });
 
     test("allows the game host's own origin", () => {
       const { headers, setHeader } = collect();
-      applyGameApiCorsHeaders("https://main.server.openfront.dev", setHeader);
+      applyGameApiCorsHeaders("https://main.server.closefront.dev", setHeader);
       expect(headers.get("Access-Control-Allow-Origin")).toBe(
-        "https://main.server.openfront.dev",
+        "https://main.server.closefront.dev",
       );
     });
 
@@ -116,31 +116,31 @@ describe("applyGameApiCorsHeaders", () => {
       // Sharing a parent domain grants nothing: only this deployment's own
       // page host and its own game host are allowed.
       const { headers, setHeader } = collect();
-      applyGameApiCorsHeaders("https://other.openfront.dev", setHeader);
+      applyGameApiCorsHeaders("https://other.closefront.dev", setHeader);
       expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
     });
   });
 
   // A dev fleet member with GAME_DOMAIN set: SITE_HOST is the apex, and a
-  // player who loads this colour's page directly (blue.openfront.dev,
+  // player who loads this colour's page directly (blue.closefront.dev,
   // bypassing the apex) arrives from an origin that is neither the apex nor
   // the game host. Before the split that name WAS the game host, so it was
   // allowed; the pairing must survive the split. Sibling servers are not on
   // the list: a page that reaches a foreign game is served by the apex.
   describe("a fleet member whose game host lives under GAME_DOMAIN", () => {
     beforeEach(() => {
-      vi.stubEnv("DOMAIN", "openfront.dev");
-      vi.stubEnv("GAME_DOMAIN", "server.openfront.dev");
+      vi.stubEnv("DOMAIN", "closefront.dev");
+      vi.stubEnv("GAME_DOMAIN", "server.closefront.dev");
       vi.stubEnv("SUBDOMAIN", "blue");
-      vi.stubEnv("SITE_HOST", "openfront.dev");
+      vi.stubEnv("SITE_HOST", "closefront.dev");
     });
     afterEach(() => vi.unstubAllEnvs());
 
     test("allows its own page host, the apex and its own game host", () => {
       for (const origin of [
-        "https://blue.openfront.dev",
-        "https://openfront.dev",
-        "https://blue.server.openfront.dev",
+        "https://blue.closefront.dev",
+        "https://closefront.dev",
+        "https://blue.server.closefront.dev",
       ]) {
         const { headers, setHeader } = collect();
         applyGameApiCorsHeaders(origin, setHeader);
@@ -150,9 +150,9 @@ describe("applyGameApiCorsHeaders", () => {
 
     test("refuses a sibling's page host and game host", () => {
       for (const origin of [
-        "https://green.openfront.dev",
-        "https://green.server.openfront.dev",
-        "https://main.openfront.dev",
+        "https://green.closefront.dev",
+        "https://green.server.closefront.dev",
+        "https://main.closefront.dev",
       ]) {
         const { headers, setHeader } = collect();
         applyGameApiCorsHeaders(origin, setHeader);
@@ -160,23 +160,23 @@ describe("applyGameApiCorsHeaders", () => {
       }
     });
 
-    // A machine-scoped game host (blue.nbg2.server.openfront.dev) has no
+    // A machine-scoped game host (blue.nbg2.server.closefront.dev) has no
     // page host of its own — its page is the apex — so the pairing derives
     // nothing and only the two real names are granted.
     test("grants a machine-scoped game host and nothing derived from it", () => {
-      vi.stubEnv("GAME_HOST", "blue.nbg2.server.openfront.dev");
+      vi.stubEnv("GAME_HOST", "blue.nbg2.server.closefront.dev");
       const allowed = collect();
       applyGameApiCorsHeaders(
-        "https://blue.nbg2.server.openfront.dev",
+        "https://blue.nbg2.server.closefront.dev",
         allowed.setHeader,
       );
       expect(allowed.headers.get("Access-Control-Allow-Origin")).toBe(
-        "https://blue.nbg2.server.openfront.dev",
+        "https://blue.nbg2.server.closefront.dev",
       );
       for (const origin of [
-        "https://blue.openfront.dev",
-        "https://blue.server.openfront.dev",
-        "https://nbg2.openfront.dev",
+        "https://blue.closefront.dev",
+        "https://blue.server.closefront.dev",
+        "https://nbg2.closefront.dev",
       ]) {
         const { headers, setHeader } = collect();
         applyGameApiCorsHeaders(origin, setHeader);
@@ -186,16 +186,16 @@ describe("applyGameApiCorsHeaders", () => {
 
     test("grants nothing from the pairing when GAME_DOMAIN is unset", () => {
       // With no GAME_DOMAIN there is no page host to derive, and
-      // blue.openfront.dev is just this server's game host.
+      // blue.closefront.dev is just this server's game host.
       vi.stubEnv("GAME_DOMAIN", "");
       const { headers, setHeader } = collect();
-      applyGameApiCorsHeaders("https://blue.openfront.dev", setHeader);
+      applyGameApiCorsHeaders("https://blue.closefront.dev", setHeader);
       expect(headers.get("Access-Control-Allow-Origin")).toBe(
-        "https://blue.openfront.dev",
+        "https://blue.closefront.dev",
       );
       const other = collect();
       applyGameApiCorsHeaders(
-        "https://blue.server.openfront.dev",
+        "https://blue.server.closefront.dev",
         other.setHeader,
       );
       expect(other.headers.has("Access-Control-Allow-Origin")).toBe(false);
@@ -259,7 +259,7 @@ describe("gameApiCors middleware, mounted on a real Express app", () => {
 
     expect(res.status).toBe(204);
     expect(res.headers.get("access-control-allow-origin")).toBe(
-      "app://openfront",
+      "app://closefront",
     );
     expect(
       res.headers.get("access-control-allow-headers")?.toLowerCase(),
@@ -275,7 +275,7 @@ describe("gameApiCors middleware, mounted on a real Express app", () => {
 
     expect(res.status).toBe(200);
     expect(res.headers.get("access-control-allow-origin")).toBe(
-      "app://openfront",
+      "app://closefront",
     );
     expect(routeHits).toEqual(["create_game"]);
   });
@@ -289,30 +289,30 @@ describe("gameApiCors middleware, mounted on a real Express app", () => {
 
     expect(res.status).toBe(200);
     expect(res.headers.get("access-control-allow-origin")).toBe(
-      "app://openfront",
+      "app://closefront",
     );
     expect(routeHits).toEqual(["exists"]);
   });
 
   test("grants a request from the replay shell", async () => {
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     const res = await fetch(`${base}/w0/api/game/abcdefgh/exists`, {
-      headers: { Origin: "https://replay.openfront.io" },
+      headers: { Origin: "https://replay.closefront.io" },
     });
 
     expect(res.status).toBe(200);
     expect(res.headers.get("access-control-allow-origin")).toBe(
-      "https://replay.openfront.io",
+      "https://replay.closefront.io",
     );
     expect(routeHits).toEqual(["exists"]);
   });
 
   test("answers a preflight from the replay shell without running the route", async () => {
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     const res = await fetch(`${base}/w0/api/game/abcdefgh/exists`, {
       method: "OPTIONS",
       headers: {
-        Origin: "https://replay.openfront.io",
+        Origin: "https://replay.closefront.io",
         "Access-Control-Request-Method": "GET",
         "Access-Control-Request-Headers": "content-type",
       },
@@ -320,7 +320,7 @@ describe("gameApiCors middleware, mounted on a real Express app", () => {
 
     expect(res.status).toBe(204);
     expect(res.headers.get("access-control-allow-origin")).toBe(
-      "https://replay.openfront.io",
+      "https://replay.closefront.io",
     );
     expect(
       res.headers.get("access-control-allow-headers")?.toLowerCase(),
@@ -339,7 +339,7 @@ describe("gameApiCors middleware, mounted on a real Express app", () => {
 
     expect(res.status).toBe(404);
     expect(res.headers.get("access-control-allow-origin")).toBe(
-      "app://openfront",
+      "app://closefront",
     );
     expect(routeHits).toEqual([]);
   });
@@ -355,7 +355,7 @@ describe("gameApiCors middleware, mounted on a real Express app", () => {
 
     expect(res.status).toBe(400);
     expect(res.headers.get("access-control-allow-origin")).toBe(
-      "app://openfront",
+      "app://closefront",
     );
   });
 
@@ -384,39 +384,39 @@ describe("gameApiCors middleware, mounted on a real Express app", () => {
 });
 
 describe("applyGameApiCorsHeaders with a load balancer site host", () => {
-  // Blue/green: the page is served from openfront.io but pins its game server
-  // to blue.openfront.io, so the web client's /api calls are cross-origin too.
+  // Blue/green: the page is served from closefront.io but pins its game server
+  // to blue.closefront.io, so the web client's /api calls are cross-origin too.
   afterEach(() => {
     vi.unstubAllEnvs();
   });
 
   test("allows the site origin", () => {
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("https://openfront.io", setHeader);
+    applyGameApiCorsHeaders("https://closefront.io", setHeader);
     expect(headers.get("Access-Control-Allow-Origin")).toBe(
-      "https://openfront.io",
+      "https://closefront.io",
     );
   });
 
   test("only allows the site origin over https", () => {
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("http://openfront.io", setHeader);
+    applyGameApiCorsHeaders("http://closefront.io", setHeader);
     expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 
   test("does not allow a subdomain of the site host", () => {
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("https://evil.openfront.io", setHeader);
+    applyGameApiCorsHeaders("https://evil.closefront.io", setHeader);
     expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 
   test("allows nothing extra without a site host", () => {
     vi.stubEnv("SITE_HOST", "");
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("https://openfront.io", setHeader);
+    applyGameApiCorsHeaders("https://closefront.io", setHeader);
     expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 });
@@ -431,43 +431,43 @@ describe("applyGameApiCorsHeaders and the rest of the fleet", () => {
   });
 
   test("allows its own game host over https only", () => {
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     vi.stubEnv("SUBDOMAIN", "blue");
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     const ok = collect();
-    applyGameApiCorsHeaders("https://blue.openfront.io", ok.setHeader);
+    applyGameApiCorsHeaders("https://blue.closefront.io", ok.setHeader);
     expect(ok.headers.get("Access-Control-Allow-Origin")).toBe(
-      "https://blue.openfront.io",
+      "https://blue.closefront.io",
     );
     const insecure = collect();
-    applyGameApiCorsHeaders("http://blue.openfront.io", insecure.setHeader);
+    applyGameApiCorsHeaders("http://blue.closefront.io", insecure.setHeader);
     expect(insecure.headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 
   test("does not allow a sibling deployment's origin", () => {
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     vi.stubEnv("SUBDOMAIN", "blue");
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("https://green.openfront.io", setHeader);
+    applyGameApiCorsHeaders("https://green.closefront.io", setHeader);
     expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 
   test("rejects an unrelated host under the domain", () => {
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     vi.stubEnv("SUBDOMAIN", "blue");
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("https://evil.openfront.io", setHeader);
+    applyGameApiCorsHeaders("https://evil.closefront.io", setHeader);
     expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 });
 
 describe("applyGameApiCorsHeaders and the replay shell host", () => {
   beforeEach(() => {
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     vi.stubEnv("SUBDOMAIN", "blue");
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
   });
   afterEach(() => {
     vi.unstubAllEnvs();
@@ -475,28 +475,28 @@ describe("applyGameApiCorsHeaders and the replay shell host", () => {
 
   test("allows the replay shell origin over https", () => {
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("https://replay.openfront.io", setHeader);
+    applyGameApiCorsHeaders("https://replay.closefront.io", setHeader);
     expect(headers.get("Access-Control-Allow-Origin")).toBe(
-      "https://replay.openfront.io",
+      "https://replay.closefront.io",
     );
   });
 
   test("rejects replay shell over http", () => {
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("http://replay.openfront.io", setHeader);
+    applyGameApiCorsHeaders("http://replay.closefront.io", setHeader);
     expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 
   test("rejects an unrelated sub-subdomain of replay", () => {
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("https://evil.replay.openfront.io", setHeader);
+    applyGameApiCorsHeaders("https://evil.replay.closefront.io", setHeader);
     expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 
   test("rejects replay shell when DOMAIN is unset", () => {
     vi.stubEnv("DOMAIN", "");
     const { headers, setHeader } = collect();
-    applyGameApiCorsHeaders("https://replay.openfront.io", setHeader);
+    applyGameApiCorsHeaders("https://replay.closefront.io", setHeader);
     expect(headers.has("Access-Control-Allow-Origin")).toBe(false);
   });
 });

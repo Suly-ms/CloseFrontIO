@@ -2,8 +2,8 @@
 
 ## Code
 
-OpenFront is licensed under AGPL-3.0.  
-See [Contributors](https://github.com/openfrontio/OpenFrontIO/graphs/contributors) for code contributors.
+CloseFront is licensed under AGPL-3.0.
+See [Contributors](https://github.com/closefrontio/CloseFrontIO/graphs/contributors) for code contributors.
 
 ## Map Data
 

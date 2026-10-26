@@ -1,5 +1,5 @@
-import type { NewsItem } from "@openfront/shared/ApiSchemas";
-import type { ClientPlatform } from "@openfront/shared/WireSchemas";
+import type { NewsItem } from "@closefront/shared/ApiSchemas";
+import type { ClientPlatform } from "@closefront/shared/WireSchemas";
 import { LitElement, html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { getNews } from "../Api";

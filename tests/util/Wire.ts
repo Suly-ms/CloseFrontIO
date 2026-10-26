@@ -7,20 +7,20 @@ import {
   GameMapType,
   GameMode,
   GameType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameConfig } from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameConfig } from "@closefront/engine-api/Schemas";
 import {
   ClientMessage,
   PublicLobbyMessage,
   PublicLobbyMessageSchema,
   ServerMessage,
   ServerMessageSchema,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import {
   encodeClientMessage,
   encodeLobbyMessage,
-} from "@openfront/shared/ZbinWire";
-import { ZbContext } from "@openfront/zbin";
+} from "@closefront/shared/ZbinWire";
+import { ZbContext } from "@closefront/zbin";
 
 // A frame as a client would put it on the wire. Tests hand these to the
 // server's "message" listener.

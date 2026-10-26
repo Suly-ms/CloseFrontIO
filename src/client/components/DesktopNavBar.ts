@@ -1,4 +1,4 @@
-import { assetUrl } from "@openfront/shared/AssetUrls";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import "./NavAccountMenu";
@@ -55,8 +55,8 @@ export class DesktopNavBar extends LitElement {
           <div class="h-8">
             <img
               class="block h-full aspect-[1364/259]"
-              src=${assetUrl("images/OpenFrontLogo.svg")}
-              alt="OpenFront"
+              src=${assetUrl("images/CloseFrontLogo.svg")}
+              alt="CloseFront"
             />
           </div>
           <div

@@ -1,8 +1,8 @@
-import { PlayerType, UnitType } from "@openfront/engine-api/game/GameTypes";
-import { AllianceRejectExecution } from "@openfront/engine/execution/alliance/AllianceRejectExecution";
-import { AllianceRequestExecution } from "@openfront/engine/execution/alliance/AllianceRequestExecution";
-import { NukeExecution } from "@openfront/engine/execution/NukeExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+import { PlayerType, UnitType } from "@closefront/engine-api/game/GameTypes";
+import { AllianceRejectExecution } from "@closefront/engine/execution/alliance/AllianceRejectExecution";
+import { AllianceRequestExecution } from "@closefront/engine/execution/alliance/AllianceRequestExecution";
+import { NukeExecution } from "@closefront/engine/execution/NukeExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { playerInfo, setup } from "./util/Setup";
 import { constructionExecution } from "./util/utils";
 
@@ -68,7 +68,7 @@ describe("AllianceRequestExecution", () => {
     expect(player2.isAlliedWith(player1)).toBeFalsy();
   });
 
-  // Resolves exploit https://github.com/openfrontio/OpenFrontIO/issues/2071
+  // Resolves exploit https://github.com/closefrontio/CloseFrontIO/issues/2071
   test("alliance request is revoked immediately if requester launches a nuke", () => {
     game.config().nukeAllianceBreakThreshold = () => 0;
     // Player 1 sends an alliance request to player 2.

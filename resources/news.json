@@ -10,20 +10,20 @@
     "id": "clan-tournament-spring-2026",
     "title": "Upcoming: Spring Clan Tournament",
     "description": "2v2 clan battles — Sign up on Discord before April 12",
-    "url": "https://discord.gg/openfront",
+    "url": "https://discord.gg/closefront",
     "type": "tournament"
   },
   {
     "id": "clan-tournaments-2026",
     "title": "Clan Tournaments",
     "description": "Join a clan and compete in weekly tournaments on Discord!",
-    "url": "https://discord.gg/openfront",
+    "url": "https://discord.gg/closefront",
     "type": "tournament"
   },
   {
     "id": "tutorial-2026",
     "title": "New Player Tutorial",
-    "description": "Learn the basics of OpenFront in this video guide",
+    "description": "Learn the basics of CloseFront in this video guide",
     "url": "https://www.youtube.com/watch?v=EN2oOog3pSs",
     "type": "tutorial"
   }

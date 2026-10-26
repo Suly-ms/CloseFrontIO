@@ -1,4 +1,4 @@
-import { normalizeAssetPath } from "@openfront/shared/AssetPaths";
+import { normalizeAssetPath } from "@closefront/shared/AssetPaths";
 import fs from "fs/promises";
 import os from "os";
 import path from "path";
@@ -81,7 +81,7 @@ describe("PublicAssetManifest", () => {
       path.join(resourcesDir, "manifest.json"),
       JSON.stringify(
         {
-          name: "OpenFront",
+          name: "CloseFront",
           icons,
         },
         null,

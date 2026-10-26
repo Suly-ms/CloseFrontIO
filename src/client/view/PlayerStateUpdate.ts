@@ -1,4 +1,4 @@
-import { PlayerUpdate } from "@openfront/engine-api/game/GameUpdates";
+import { PlayerUpdate } from "@closefront/engine-api/game/GameUpdates";
 import type { PlayerState } from "../render/types";
 
 /**

@@ -15,7 +15,7 @@
 import type {
   StructuresEffectAttributes,
   TrailEffectAttributes,
-} from "@openfront/shared/CosmeticSchemas";
+} from "@closefront/shared/CosmeticSchemas";
 import { colord } from "colord";
 import { MAX_TRAIL_COLORS } from "./ColorUtils";
 

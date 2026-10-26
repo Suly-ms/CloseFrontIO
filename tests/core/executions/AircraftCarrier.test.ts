@@ -2,10 +2,10 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { AircraftCarrierExecution } from "@openfront/engine/execution/AircraftCarrierExecution";
-import { SAMLauncherExecution } from "@openfront/engine/execution/SAMLauncherExecution";
-import { Game, Player, Unit } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { AircraftCarrierExecution } from "@closefront/engine/execution/AircraftCarrierExecution";
+import { SAMLauncherExecution } from "@closefront/engine/execution/SAMLauncherExecution";
+import { Game, Player, Unit } from "@closefront/engine/game/Game";
 import { setup } from "../../util/Setup";
 import { expectSnapshotRoundTrip } from "../../util/Snapshot";
 import { executeTicks } from "../../util/utils";

@@ -1,20 +1,20 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   GameUpdateType,
   UnitUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameUpdates";
 import {
   GridPathPlan,
   unpackMotionPlans,
-} from "@openfront/engine-lib/game/MotionPlans";
-import { ConstructionExecution } from "@openfront/engine/execution/ConstructionExecution";
-import { NukeExecution } from "@openfront/engine/execution/NukeExecution";
-import { Game, Player, Unit } from "@openfront/engine/game/Game";
+} from "@closefront/engine-lib/game/MotionPlans";
+import { ConstructionExecution } from "@closefront/engine/execution/ConstructionExecution";
+import { NukeExecution } from "@closefront/engine/execution/NukeExecution";
+import { Game, Player, Unit } from "@closefront/engine/game/Game";
 import { setup } from "../util/Setup";
 
 describe("Nuke motion plan", () => {

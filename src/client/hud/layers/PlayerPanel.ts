@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   AllPlayers,
   GameType,
@@ -6,16 +6,16 @@ import {
   PlayerProfile,
   PlayerType,
   Relation,
-} from "@openfront/engine-api/game/GameTypes";
-import { Emoji, flattenedEmojiTable } from "@openfront/engine-api/Schemas";
-import { renderNumber, renderTroops } from "@openfront/engine-lib/Format";
-import type { UserMeResponse } from "@openfront/shared/ApiSchemas";
-import { assetUrl } from "@openfront/shared/AssetUrls";
-import { EventBus } from "@openfront/shared/EventBus";
+} from "@closefront/engine-api/game/GameTypes";
+import { Emoji, flattenedEmojiTable } from "@closefront/engine-api/Schemas";
+import { renderNumber, renderTroops } from "@closefront/engine-lib/Format";
+import type { UserMeResponse } from "@closefront/shared/ApiSchemas";
+import { assetUrl } from "@closefront/shared/AssetUrls";
+import { EventBus } from "@closefront/shared/EventBus";
 import {
   type LevelBadge,
   packLevelBadge,
-} from "@openfront/shared/LevelBadgeWire";
+} from "@closefront/shared/LevelBadgeWire";
 import { html, LitElement } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import Countries from "resources/countries.json" with { type: "json" };

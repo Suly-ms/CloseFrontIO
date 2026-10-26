@@ -1,4 +1,4 @@
-import { RankedType } from "@openfront/engine-api/game/GameTypes";
+import { RankedType } from "@closefront/engine-api/game/GameTypes";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { PurchaseButton } from "../../../../src/client/components/PurchaseButton";
 import {
@@ -210,13 +210,13 @@ describe("WinModal pattern promotion", () => {
     expect(await render()).toContain("win_modal.territory_pattern");
     modal?.remove();
 
-    window.openfrontDesktop = {};
+    window.closefrontDesktop = {};
     try {
       const text = await render();
-      expect(text).toContain("win_modal.support_openfront");
+      expect(text).toContain("win_modal.support_closefront");
       expect(text).not.toContain("win_modal.territory_pattern");
     } finally {
-      delete window.openfrontDesktop;
+      delete window.closefrontDesktop;
     }
   });
 

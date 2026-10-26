@@ -31,7 +31,7 @@ describe("steamJoinUrl", () => {
 describe("steamHandoffMode", () => {
   afterEach(() => {
     onCrazyGames.value = false;
-    delete (window as { openfrontDesktop?: unknown }).openfrontDesktop;
+    delete (window as { closefrontDesktop?: unknown }).closefrontDesktop;
   });
 
   it("leaves a browser that has never seen the Steam build alone", () => {
@@ -53,7 +53,7 @@ describe("steamHandoffMode", () => {
   });
 
   it("never hands off from inside the desktop shell", () => {
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = {};
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = {};
     expect(steamHandoffMode(settings("steam", true), "")).toBe("none");
   });
 

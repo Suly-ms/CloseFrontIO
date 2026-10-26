@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   AllPlayers,
   BuildableAttacks,
@@ -10,12 +10,12 @@ import {
   STRUCTURE_BULK_STEPS,
   Structures,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { Emoji, flattenedEmojiTable } from "@openfront/engine-api/Schemas";
-import { Config } from "@openfront/engine-lib/configuration/Config";
-import { renderNumber } from "@openfront/engine-lib/Format";
-import { findClosestBy } from "@openfront/engine-lib/Util";
-import { assetUrl } from "@openfront/shared/AssetUrls";
+} from "@closefront/engine-api/game/GameTypes";
+import { Emoji, flattenedEmojiTable } from "@closefront/engine-api/Schemas";
+import { Config } from "@closefront/engine-lib/configuration/Config";
+import { renderNumber } from "@closefront/engine-lib/Format";
+import { findClosestBy } from "@closefront/engine-lib/Util";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 import { UIState } from "../../UIState";
 import { translateText } from "../../Utils";
 import { GameView, PlayerView } from "../../view";
@@ -26,7 +26,7 @@ import { PlayerActionHandler } from "./PlayerActionHandler";
 import { PlayerPanel } from "./PlayerPanel";
 import { TooltipItem } from "./RadialMenu";
 
-import { EventBus } from "@openfront/shared/EventBus";
+import { EventBus } from "@closefront/shared/EventBus";
 import {
   BuildUnitIntentEvent,
   SendUpgradeStructureIntentEvent,

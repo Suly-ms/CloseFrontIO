@@ -81,7 +81,7 @@ describe("parseLinkedIssues", () => {
   });
 
   it("ignores cross-repo references", () => {
-    expect(parseLinkedIssues("Closes openfront/OpenFrontIO#5")).toEqual([]);
+    expect(parseLinkedIssues("Closes closefront/CloseFrontIO#5")).toEqual([]);
   });
 
   it("does not match keyword without # number", () => {
@@ -125,9 +125,9 @@ describe("checkTrustedBot", () => {
     expect(r.action).toBe("pass");
   });
 
-  it("passes for openfront-backport[bot]", () => {
+  it("passes for closefront-backport[bot]", () => {
     const r = checkTrustedBot(
-      makePR({ user: { login: "openfront-backport[bot]" } }),
+      makePR({ user: { login: "closefront-backport[bot]" } }),
     );
     expect(r.action).toBe("pass");
   });

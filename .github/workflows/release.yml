@@ -24,7 +24,7 @@ jobs:
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          owner: openfrontio
+          owner: closefrontio
           repositories: gatekeeper
           permission-contents: read
       - name: 🔒 Resolve the pinned security module
@@ -33,7 +33,7 @@ jobs:
       - name: 🔒 Check out the security module
         uses: actions/checkout@v7
         with:
-          repository: openfrontio/gatekeeper
+          repository: closefrontio/gatekeeper
           ref: ${{ steps.gatekeeper.outputs.sha }}
           path: src/server/gatekeeper
           token: ${{ steps.gatekeeper-token.outputs.token }}
@@ -66,7 +66,7 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
       - id: build
         env:
-          GHCR_REPO: openfront-server
+          GHCR_REPO: closefront-server
           GHCR_USERNAME: ${{ vars.GHCR_USERNAME }}
           RELEASE_BODY: ${{ github.event.release.body }}
           RELEASE_NAME: ${{ github.event.release.name }}
@@ -117,7 +117,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
       - name: 🚀 Deploy image
         env:
-          GHCR_REPO: openfront-server
+          GHCR_REPO: closefront-server
           GHCR_USERNAME: ${{ vars.GHCR_USERNAME }}
           # update.sh pulls the private image with this job's own token.
           GHCR_USER: ${{ github.actor }}
@@ -250,7 +250,7 @@ jobs:
     # One leg per machine in the blue fleet, from the DEPLOY_TARGETS_BLUE
     # REPOSITORY var:
     #   [{"host":"falk2","subdomain":"blue"},
-    #    {"host":"nbg2","subdomain":"blue","gameHost":"blue.nbg2.openfront.io"}]
+    #    {"host":"nbg2","subdomain":"blue","gameHost":"blue.nbg2.closefront.io"}]
     # gameHost is the name clients open sockets to, defaulting to
     # <subdomain>.<domain> — pass it to put the machine in the name so every
     # box carries a plain blue and green (deploy.sh, "identity"). The letter
@@ -289,7 +289,7 @@ jobs:
           GHCR_USER: ${{ github.actor }}
           GHCR_TOKEN: ${{ github.token }}
           DOMAIN: ${{ vars.DOMAIN }}
-          # Blue/green sit behind the openfront.io load balancer: see ServerEnv.siteHost.
+          # Blue/green sit behind the closefront.io load balancer: see ServerEnv.siteHost.
           SITE_HOST: ${{ vars.DOMAIN }}
           CDN_BASE: ${{ vars.CDN_BASE }}
           IMAGE_ID: ${{ needs.build.outputs.IMAGE_ID }}
@@ -345,7 +345,7 @@ jobs:
     # REPOSITORY var (see deploy-blue for the format and why it must be
     # repository-level and per-color):
     #   [{"host":"falk2","subdomain":"green"},
-    #    {"host":"nbg2","subdomain":"green","gameHost":"green.nbg2.openfront.io"}]
+    #    {"host":"nbg2","subdomain":"green","gameHost":"green.nbg2.closefront.io"}]
     # Defaults to today's single box. Sequential (and stopping on the first
     # failure) so a bad image or a dead machine halts the rollout after one
     # leg instead of taking the whole color down.
@@ -373,7 +373,7 @@ jobs:
           GHCR_USER: ${{ github.actor }}
           GHCR_TOKEN: ${{ github.token }}
           DOMAIN: ${{ vars.DOMAIN }}
-          # Blue/green sit behind the openfront.io load balancer: see ServerEnv.siteHost.
+          # Blue/green sit behind the closefront.io load balancer: see ServerEnv.siteHost.
           SITE_HOST: ${{ vars.DOMAIN }}
           CDN_BASE: ${{ vars.CDN_BASE }}
           IMAGE_ID: ${{ needs.build.outputs.IMAGE_ID }}

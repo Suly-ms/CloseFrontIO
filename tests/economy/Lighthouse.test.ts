@@ -2,9 +2,9 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { withLighthouseBonus } from "@openfront/engine/execution/utils/Lighthouse";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { withLighthouseBonus } from "@closefront/engine/execution/utils/Lighthouse";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "../util/Setup";
 
 const coastX = 7;

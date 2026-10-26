@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   Difficulty,
   GameMapSize,
@@ -6,22 +6,22 @@ import {
   GameMode,
   GameType,
   PlayerInfo,
-} from "@openfront/engine-api/game/GameTypes";
-import { MapManifest } from "@openfront/engine-api/game/MapFiles";
-import { GameConfig } from "@openfront/engine-api/Schemas";
-import { genTerrainFromBin } from "@openfront/engine-lib/game/TerrainMapLoader";
-import { Game } from "@openfront/engine/game/Game";
-import { createGame, GameImpl } from "@openfront/engine/game/GameImpl";
-import { AStarWater } from "@openfront/engine/pathfinding/algorithms/AStar.Water";
-import { AStarWaterHierarchical } from "@openfront/engine/pathfinding/algorithms/AStar.WaterHierarchical";
-import { PathFinding } from "@openfront/engine/pathfinding/PathFinder";
-import { PathFinderBuilder } from "@openfront/engine/pathfinding/PathFinderBuilder";
-import { StepperConfig } from "@openfront/engine/pathfinding/PathFinderStepper";
-import { MiniMapTransformer } from "@openfront/engine/pathfinding/transformers/MiniMapTransformer";
+} from "@closefront/engine-api/game/GameTypes";
+import { MapManifest } from "@closefront/engine-api/game/MapFiles";
+import { GameConfig } from "@closefront/engine-api/Schemas";
+import { genTerrainFromBin } from "@closefront/engine-lib/game/TerrainMapLoader";
+import { Game } from "@closefront/engine/game/Game";
+import { createGame, GameImpl } from "@closefront/engine/game/GameImpl";
+import { AStarWater } from "@closefront/engine/pathfinding/algorithms/AStar.Water";
+import { AStarWaterHierarchical } from "@closefront/engine/pathfinding/algorithms/AStar.WaterHierarchical";
+import { PathFinding } from "@closefront/engine/pathfinding/PathFinder";
+import { PathFinderBuilder } from "@closefront/engine/pathfinding/PathFinderBuilder";
+import { StepperConfig } from "@closefront/engine/pathfinding/PathFinderStepper";
+import { MiniMapTransformer } from "@closefront/engine/pathfinding/transformers/MiniMapTransformer";
 import {
   PathStatus,
   SteppingPathFinder,
-} from "@openfront/engine/pathfinding/types";
+} from "@closefront/engine/pathfinding/types";
 import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";

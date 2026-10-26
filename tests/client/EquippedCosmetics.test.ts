@@ -1,4 +1,4 @@
-import { PlayerCosmetics } from "@openfront/shared/WireSchemas";
+import { PlayerCosmetics } from "@closefront/shared/WireSchemas";
 import { describe, expect, it } from "vitest";
 import { ResolvedCosmetic } from "../../src/client/Cosmetics";
 import {

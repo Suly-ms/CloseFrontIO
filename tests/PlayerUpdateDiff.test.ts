@@ -1,12 +1,12 @@
-import { PlayerInfo, PlayerType } from "@openfront/engine-api/game/GameTypes";
+import { PlayerInfo, PlayerType } from "@closefront/engine-api/game/GameTypes";
 import {
   GameUpdateType,
   PlayerUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
-import { GameID } from "@openfront/engine-api/Schemas";
-import { AttackExecution } from "@openfront/engine/execution/AttackExecution";
-import { SpawnExecution } from "@openfront/engine/execution/SpawnExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameUpdates";
+import { GameID } from "@closefront/engine-api/Schemas";
+import { AttackExecution } from "@closefront/engine/execution/AttackExecution";
+import { SpawnExecution } from "@closefront/engine/execution/SpawnExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 
 let game: Game;

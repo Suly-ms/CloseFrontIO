@@ -5,19 +5,19 @@ import {
   GameMode,
   GameType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameUpdateType } from "@openfront/engine-api/game/GameUpdates";
-import { GameConfig } from "@openfront/engine-api/Schemas";
-import { EngineConfig } from "@openfront/engine/configuration/EngineConfig";
-import { TrainExecution } from "@openfront/engine/execution/TrainExecution";
-import { Game, Player, Unit } from "@openfront/engine/game/Game";
-import { Cluster, TrainStation } from "@openfront/engine/game/TrainStation";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameUpdateType } from "@closefront/engine-api/game/GameUpdates";
+import { GameConfig } from "@closefront/engine-api/Schemas";
+import { EngineConfig } from "@closefront/engine/configuration/EngineConfig";
+import { TrainExecution } from "@closefront/engine/execution/TrainExecution";
+import { Game, Player, Unit } from "@closefront/engine/game/Game";
+import { Cluster, TrainStation } from "@closefront/engine/game/TrainStation";
 import { vi, type Mocked } from "vitest";
 
-vi.mock("@openfront/engine/game/Game");
-vi.mock("@openfront/engine-api/game/GameTypes");
-vi.mock("@openfront/engine/execution/TrainExecution");
-vi.mock("@openfront/engine-lib/PseudoRandom");
+vi.mock("@closefront/engine/game/Game");
+vi.mock("@closefront/engine-api/game/GameTypes");
+vi.mock("@closefront/engine/execution/TrainExecution");
+vi.mock("@closefront/engine-lib/PseudoRandom");
 
 describe("TrainStation", () => {
   let game: Mocked<Game>;

@@ -1,5 +1,5 @@
-import { ClientID } from "@openfront/engine-api/Schemas";
-import { CloseCode, CloseReason } from "@openfront/shared/CloseCodes";
+import { ClientID } from "@closefront/engine-api/Schemas";
+import { CloseCode, CloseReason } from "@closefront/shared/CloseCodes";
 import WebSocket from "ws";
 import { Client } from "./Client";
 

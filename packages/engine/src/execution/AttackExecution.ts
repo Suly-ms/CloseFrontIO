@@ -1,4 +1,4 @@
-import { GameMap, TileRef } from "@openfront/engine-api/game/GameMap";
+import { GameMap, TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   Difficulty,
   MessageType,
@@ -8,9 +8,9 @@ import {
   TerrainType,
   TerraNullius,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { renderTroops } from "@openfront/engine-lib/Format";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
+} from "@closefront/engine-api/game/GameTypes";
+import { renderTroops } from "@closefront/engine-lib/Format";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
 import {
   zInt,
   zNum,
@@ -19,8 +19,8 @@ import {
   zRef,
   zTile,
   zTiles,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
-import { assertNever } from "@openfront/engine-lib/Util";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
+import { assertNever } from "@closefront/engine-lib/Util";
 import { z } from "zod";
 import { AttackLogicInput } from "../configuration/EngineConfig";
 import { Attack, Execution, Game, Player } from "../game/Game";

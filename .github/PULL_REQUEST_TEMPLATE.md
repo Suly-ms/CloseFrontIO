@@ -1,4 +1,4 @@
-> **Before opening a PR:** discuss new features on [Discord](https://discord.gg/K9zernJB5z) first, and file bugs or small improvements as [issues](https://github.com/openfrontio/OpenFrontIO/issues/new/choose). You must be assigned to an `approved` issue — unsolicited PRs will be auto-closed.
+> **Before opening a PR:** discuss new features on [Discord](https://discord.gg/K9zernJB5z) first, and file bugs or small improvements as [issues](https://github.com/closefrontio/CloseFrontIO/issues/new/choose). You must be assigned to an `approved` issue — unsolicited PRs will be auto-closed.
 
 **Add approved & assigned issue number here:**
 

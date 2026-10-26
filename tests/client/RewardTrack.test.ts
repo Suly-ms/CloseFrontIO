@@ -25,8 +25,8 @@ import type {
   Reward,
   TrackFlare,
   UserMeResponse,
-} from "@openfront/shared/ApiSchemas";
-import { ProgressionConfigSchema } from "@openfront/shared/ApiSchemas";
+} from "@closefront/shared/ApiSchemas";
+import { ProgressionConfigSchema } from "@closefront/shared/ApiSchemas";
 import {
   POP_CAP,
   ProfileProgression,

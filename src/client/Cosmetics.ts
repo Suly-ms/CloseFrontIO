@@ -2,8 +2,8 @@ import {
   isGrantedSubscription,
   UserMeResponse,
   UserSubscription,
-} from "@openfront/shared/ApiSchemas";
-import { assetUrl } from "@openfront/shared/AssetUrls";
+} from "@closefront/shared/ApiSchemas";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 import {
   ColorPalette,
   CosmeticPack,
@@ -18,13 +18,13 @@ import {
   Pattern,
   Skin,
   Subscription,
-} from "@openfront/shared/CosmeticSchemas";
+} from "@closefront/shared/CosmeticSchemas";
 import {
   PlayerCosmeticRefs,
   PlayerCosmetics,
   PlayerEffect,
   PlayerPattern,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import {
   changeSubscriptionTier,
   getApiBase,

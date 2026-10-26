@@ -2,11 +2,11 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { NukeExecution } from "@openfront/engine/execution/NukeExecution";
-import { PlayerExecution } from "@openfront/engine/execution/PlayerExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
-import { tileTraversalScratch } from "@openfront/engine/game/TileTraversalScratch";
+} from "@closefront/engine-api/game/GameTypes";
+import { NukeExecution } from "@closefront/engine/execution/NukeExecution";
+import { PlayerExecution } from "@closefront/engine/execution/PlayerExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
+import { tileTraversalScratch } from "@closefront/engine/game/TileTraversalScratch";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { setup } from "../../util/Setup";
 import { TestConfig } from "../../util/TestConfig";

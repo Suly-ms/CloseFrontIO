@@ -1,5 +1,5 @@
-import { TerraNullius } from "@openfront/engine-api/game/GameTypes";
-import { ClientID } from "@openfront/engine-api/Schemas";
+import { TerraNullius } from "@closefront/engine-api/game/GameTypes";
+import { ClientID } from "@closefront/engine-api/Schemas";
 
 export class TerraNulliusImpl implements TerraNullius {
   constructor() {}

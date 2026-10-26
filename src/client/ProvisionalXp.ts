@@ -2,14 +2,14 @@ import {
   GameMode,
   GameType,
   HumansVsNations,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   ATTACK_INDEX_SENT,
   BOAT_INDEX_SENT,
   OTHER_INDEX_BUILT,
   type PlayerStats,
-} from "@openfront/engine-api/StatsSchemas";
-import type { XpRules } from "@openfront/shared/ApiSchemas";
+} from "@closefront/engine-api/StatsSchemas";
+import type { XpRules } from "@closefront/shared/ApiSchemas";
 import { applyMultipliers } from "./XpMultipliers";
 
 // A copy of the API's XP formula (computeXp in the API's

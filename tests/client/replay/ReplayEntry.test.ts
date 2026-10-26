@@ -5,7 +5,7 @@
  * viewer sent the game back.
  */
 
-import type { GameRecord } from "@openfront/shared/WireSchemas";
+import type { GameRecord } from "@closefront/shared/WireSchemas";
 import { ClientEnv } from "../../../src/client/ClientEnv";
 import {
   classicReplayHref,
@@ -118,9 +118,9 @@ test("a game from another build is watched on its versioned shell", async () => 
   try {
     expect(await versionedViewerUrl("abcd1234")).toBeNull(); // dev: no shell host
     expect(fetchFn).not.toHaveBeenCalled();
-    config("prod", "openfront.io");
+    config("prod", "closefront.io");
     expect(await versionedViewerUrl("abcd1234")).toBe(
-      "https://replay.openfront.io/abcd1234",
+      "https://replay.closefront.io/abcd1234",
     );
   } finally {
     vi.unstubAllGlobals();

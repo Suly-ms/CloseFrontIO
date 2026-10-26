@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
-import { UserMeResponse } from "@openfront/shared/ApiSchemas";
-import { CosmeticPack, Cosmetics } from "@openfront/shared/CosmeticSchemas";
+import { UserMeResponse } from "@closefront/shared/ApiSchemas";
+import { CosmeticPack, Cosmetics } from "@closefront/shared/CosmeticSchemas";
 import {
   groupCosmeticVariants,
   ownedPackItems,

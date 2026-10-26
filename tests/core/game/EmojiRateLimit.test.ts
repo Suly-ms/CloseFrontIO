@@ -1,5 +1,5 @@
-import { AllPlayers, PlayerType } from "@openfront/engine-api/game/GameTypes";
-import { Game, Player } from "@openfront/engine/game/Game";
+import { AllPlayers, PlayerType } from "@closefront/engine-api/game/GameTypes";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { playerInfo, setup } from "../../util/Setup";
 
 describe("emoji rate limit", () => {

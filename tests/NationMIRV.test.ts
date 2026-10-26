@@ -5,10 +5,10 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { MirvExecution } from "@openfront/engine/execution/MIRVExecution";
-import { MissileSiloExecution } from "@openfront/engine/execution/MissileSiloExecution";
-import { NationExecution } from "@openfront/engine/execution/NationExecution";
+} from "@closefront/engine-api/game/GameTypes";
+import { MirvExecution } from "@closefront/engine/execution/MIRVExecution";
+import { MissileSiloExecution } from "@closefront/engine/execution/MissileSiloExecution";
+import { NationExecution } from "@closefront/engine/execution/NationExecution";
 import { setup } from "./util/Setup";
 import { executeTicks } from "./util/utils";
 

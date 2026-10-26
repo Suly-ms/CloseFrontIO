@@ -1,5 +1,5 @@
-import { ComponentCheckTransformer } from "@openfront/engine/pathfinding/transformers/ComponentCheckTransformer";
-import { PathFinder } from "@openfront/engine/pathfinding/types";
+import { ComponentCheckTransformer } from "@closefront/engine/pathfinding/transformers/ComponentCheckTransformer";
+import { PathFinder } from "@closefront/engine/pathfinding/types";
 import { describe, expect, it } from "vitest";
 
 describe("ComponentCheckTransformer", () => {

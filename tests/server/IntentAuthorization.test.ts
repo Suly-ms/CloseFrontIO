@@ -1,5 +1,5 @@
-import { GameType } from "@openfront/engine-api/game/GameTypes";
-import { GameConfig, Intent } from "@openfront/engine-api/Schemas";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
+import { GameConfig, Intent } from "@closefront/engine-api/Schemas";
 import { describe, expect, it } from "vitest";
 import {
   authorizeIntent,

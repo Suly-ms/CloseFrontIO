@@ -1,4 +1,4 @@
-export const REPO = { owner: "openfrontio", repo: "OpenFrontIO" } as const;
+export const REPO = { owner: "closefrontio", repo: "CloseFrontIO" } as const;
 
 export const STALE_WARN_DAYS = 7;
 export const STALE_CLOSE_DAYS = 14;
@@ -59,7 +59,7 @@ This isn't a judgment of the issue's merit — just routine triage. @${author}, 
   UNASSIGNED_NO_MILESTONE: (assignees: string[]): string =>
     `${assignees.map((u) => "@" + u).join(", ")} — you've been unassigned from this issue automatically because it doesn't have a milestone set.
 
-In OpenFront's workflow, an issue must have a milestone (\`backlog\` or a version like \`v30\`) before anyone can be assigned. This ensures only approved work has people working on it.
+In CloseFront's workflow, an issue must have a milestone (\`backlog\` or a version like \`v30\`) before anyone can be assigned. This ensures only approved work has people working on it.
 
 If this is approved work, a maintainer needs to milestone the issue first, then re-assign you.
 

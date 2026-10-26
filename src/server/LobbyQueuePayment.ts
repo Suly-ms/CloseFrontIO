@@ -1,4 +1,4 @@
-import { LOBBY_QUEUE_CUTOFF_MS } from "@openfront/shared/WireSchemas";
+import { LOBBY_QUEUE_CUTOFF_MS } from "@closefront/shared/WireSchemas";
 import { ServerEnv } from "./ServerEnv";
 
 export type LobbyQueuePaymentResult =

@@ -1,6 +1,6 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
-import { zNum, zPlayerRef } from "@openfront/engine-lib/snapshot/SnapshotType";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
+import { zNum, zPlayerRef } from "@closefront/engine-lib/snapshot/SnapshotType";
 import { z } from "zod";
 import { Execution, Game, Player } from "../game/Game";
 import { execSnapshotType } from "../snapshot/ExecutionSnapshot";

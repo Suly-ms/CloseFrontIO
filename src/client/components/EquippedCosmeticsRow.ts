@@ -1,10 +1,10 @@
-import { UserMeResponse } from "@openfront/shared/ApiSchemas";
+import { UserMeResponse } from "@closefront/shared/ApiSchemas";
 import {
   Cosmetics,
   Effect,
   isNukeExplosionEffect,
-} from "@openfront/shared/CosmeticSchemas";
-import { PlayerCosmetics } from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/CosmeticSchemas";
+import { PlayerCosmetics } from "@closefront/shared/WireSchemas";
 import { html, LitElement, nothing, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { getUserMe } from "../Api";

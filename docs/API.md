@@ -14,7 +14,7 @@ Get game IDs and basic metadata for games that started within a specified time r
 **Endpoint:**
 
 ```
-GET https://api.openfront.io/public/games
+GET https://api.closefront.io/public/games
 ```
 
 **Query Parameters:**
@@ -31,7 +31,7 @@ GET https://api.openfront.io/public/games
 **Example Request:**
 
 ```bash
-curl "https://api.openfront.io/public/games?start=2025-10-25T00:00:00Z&end=2025-10-26T23:59:59Z&type=Public&mode=Team&rankedType=unranked&limit=10&offset=5"
+curl "https://api.closefront.io/public/games?start=2025-10-25T00:00:00Z&end=2025-10-26T23:59:59Z&type=Public&mode=Team&rankedType=unranked&limit=10&offset=5"
 ```
 
 **Response:**
@@ -65,7 +65,7 @@ Retrieve detailed information about a specific game.
 **Endpoint:**
 
 ```
-GET https://api.openfront.io/public/game/:gameId
+GET https://api.closefront.io/public/game/:gameId
 ```
 
 **Query Parameters:**
@@ -76,10 +76,10 @@ GET https://api.openfront.io/public/game/:gameId
 
 ```bash
 # Full game data
-curl "https://api.openfront.io/public/game/ABSgwin6"
+curl "https://api.closefront.io/public/game/ABSgwin6"
 
 # Without turn data
-curl "https://api.openfront.io/public/game/ABSgwin6?turns=false"
+curl "https://api.closefront.io/public/game/ABSgwin6?turns=false"
 ```
 
 **Note:** Public player IDs are stripped from game records for privacy.
@@ -93,13 +93,13 @@ Retrieve information and stats for a specific player.
 **Endpoint:**
 
 ```
-GET https://api.openfront.io/public/player/:playerId
+GET https://api.closefront.io/public/player/:playerId
 ```
 
 **Example:**
 
 ```bash
-curl "https://api.openfront.io/public/player/HabCsQYR"
+curl "https://api.closefront.io/public/player/HabCsQYR"
 ```
 
 ### Get Player Sessions
@@ -111,7 +111,7 @@ like [Get Player Games](#get-player-games).
 **Endpoint:**
 
 ```
-GET https://api.openfront.io/public/player/:playerId/sessions
+GET https://api.closefront.io/public/player/:playerId/sessions
 ```
 
 **Query Parameters:**
@@ -150,7 +150,7 @@ GET https://api.openfront.io/public/player/:playerId/sessions
 **Example:**
 
 ```bash
-curl "https://api.openfront.io/public/player/HabCsQYR/sessions"
+curl "https://api.closefront.io/public/player/HabCsQYR/sessions"
 ```
 
 ### Get Player Games
@@ -161,7 +161,7 @@ pagination rather than the `page`/`limit` scheme used elsewhere.
 **Endpoint:**
 
 ```
-GET https://api.openfront.io/public/player/:playerId/games
+GET https://api.closefront.io/public/player/:playerId/games
 ```
 
 **Query Parameters:**
@@ -202,7 +202,7 @@ GET https://api.openfront.io/public/player/:playerId/games
 **Example:**
 
 ```bash
-curl "https://api.openfront.io/public/player/HabCsQYR/games?filter=team&type=public"
+curl "https://api.closefront.io/public/player/HabCsQYR/games?filter=team&type=public"
 ```
 
 ### Recently Deleted Players
@@ -219,7 +219,7 @@ If you miss the window, reconcile instead by dropping any player whose
 **Endpoint:**
 
 ```
-GET https://api.openfront.io/public/players/recently-deleted
+GET https://api.closefront.io/public/players/recently-deleted
 ```
 
 **Query Parameters:**
@@ -230,7 +230,7 @@ GET https://api.openfront.io/public/players/recently-deleted
 **Example:**
 
 ```bash
-curl "https://api.openfront.io/public/players/recently-deleted?since=2026-09-14T00:00:00Z"
+curl "https://api.closefront.io/public/players/recently-deleted?since=2026-09-14T00:00:00Z"
 ```
 
 **Response:**
@@ -246,17 +246,17 @@ curl "https://api.openfront.io/public/players/recently-deleted?since=2026-09-14T
 
 ### Verify Account Ownership (Identity Tokens)
 
-Third-party sites can let a player prove which OpenFront account they own. The
+Third-party sites can let a player prove which CloseFront account they own. The
 player picks your site under **Account settings → Link to a third-party site**,
 generates a token, and pastes it into your site. You check the token, link the
 returned `publicId` to your user once, and discard the token.
 
 Tokens are only accepted by the site they were generated for (the JWT `aud`
 claim is your domain), expire after 10 minutes, and carry no identity other
-than the player's public ID. They cannot be used to log in to OpenFront.
+than the player's public ID. They cannot be used to log in to CloseFront.
 
 Supported sites: `ofstats.io`, `trackerfront.io`. To add your site, ask the
-OpenFront team. Sites are managed from the admin panel, so no deploy is
+CloseFront team. Sites are managed from the admin panel, so no deploy is
 needed; a new site appears in the game within a few minutes.
 
 You can check a token in either of two ways.
@@ -264,7 +264,7 @@ You can check a token in either of two ways.
 **Option 1: call the validate endpoint.**
 
 ```
-POST https://api.openfront.io/public/identity_token/validate
+POST https://api.closefront.io/public/identity_token/validate
 ```
 
 **Body:**
@@ -275,7 +275,7 @@ POST https://api.openfront.io/public/identity_token/validate
 **Example:**
 
 ```bash
-curl -X POST "https://api.openfront.io/public/identity_token/validate" \
+curl -X POST "https://api.closefront.io/public/identity_token/validate" \
   -H "Content-Type: application/json" \
   -d '{"token": "eyJ...", "audience": "ofstats.io"}'
 ```
@@ -292,10 +292,10 @@ curl -X POST "https://api.openfront.io/public/identity_token/validate" \
 A token that is invalid, expired, or was generated for a different site returns 400.
 
 **Option 2: verify the JWT yourself.** Tokens are EdDSA-signed JWTs. Verify the
-signature against `https://api.openfront.io/.well-known/jwks.json` and check
+signature against `https://api.closefront.io/.well-known/jwks.json` and check
 that:
 
-- `iss` is `https://api.openfront.io`
+- `iss` is `https://api.closefront.io`
 - `aud` is your own domain
 - `typ` is `"identity"`
 - `exp` has not passed
@@ -310,7 +310,7 @@ The player's public ID is the `sub` claim.
   "sub": "T8pcWNuC",
   "iat": 1790306816,
   "exp": 1790307416,
-  "iss": "https://api.openfront.io",
+  "iss": "https://api.closefront.io",
   "aud": "ofstats.io"
 }
 ```
@@ -324,7 +324,7 @@ Shows the top 100 clans by `weighted wins`.
 **Endpoint:**
 
 ```
-GET https://api.openfront.io/public/clans/leaderboard
+GET https://api.closefront.io/public/clans/leaderboard
 ```
 
 Weighted wins have a half-life of 30 days to favor recent wins.
@@ -375,7 +375,7 @@ Key metrics include:
 **Endpoint**
 
 ```
-GET https://openfront.io/public/clan/:clanTag
+GET https://closefront.io/public/clan/:clanTag
 ```
 
 **Query Parameters:**
@@ -386,7 +386,7 @@ GET https://openfront.io/public/clan/:clanTag
 **Example**
 
 ```bash
-curl https://api.openfront.io/public/clan/UN?start=2025-11-15T00:00:00Z &
+curl https://api.closefront.io/public/clan/UN?start=2025-11-15T00:00:00Z &
 end=2025-11-18T23:59:59Z
 ```
 
@@ -397,7 +397,7 @@ A clan session is created any time a player with that clan tag is in a public te
 **Endpoint**
 
 ```
-GET https://api.openfront.io/public/clan/:clanTag/sessions
+GET https://api.closefront.io/public/clan/:clanTag/sessions
 ```
 
 **Query Parameters:**
@@ -423,5 +423,5 @@ Results are ordered by game start time, newest first.
 **Example**
 
 ```bash
-curl "https://api.openfront.io/public/clan/UN/sessions?start=2025-11-15T00:00:00Z&end=2025-11-18T23:59:59Z&limit=10&page=1"
+curl "https://api.closefront.io/public/clan/UN/sessions?start=2025-11-15T00:00:00Z&end=2025-11-18T23:59:59Z&limit=10&page=1"
 ```

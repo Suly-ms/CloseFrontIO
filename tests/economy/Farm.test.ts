@@ -3,8 +3,8 @@ import {
   PlayerType,
   TerrainType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "../util/Setup";
 
 let game: Game;

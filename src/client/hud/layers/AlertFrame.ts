@@ -1,8 +1,8 @@
-import { PlayerType } from "@openfront/engine-api/game/GameTypes";
+import { PlayerType } from "@closefront/engine-api/game/GameTypes";
 import {
   BrokeAllianceUpdate,
   GameUpdateType,
-} from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameUpdates";
 import { LitElement, css, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { Controller } from "../../Controller";

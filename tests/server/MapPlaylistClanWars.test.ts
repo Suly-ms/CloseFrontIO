@@ -3,8 +3,8 @@ import {
   GameMapType,
   GameMode,
   RankedType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameConfigSchema } from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameConfigSchema } from "@closefront/engine-api/Schemas";
 import { describe, expect, it } from "vitest";
 import { MapPlaylist } from "../../src/server/MapPlaylist";
 

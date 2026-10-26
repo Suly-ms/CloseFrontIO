@@ -1,10 +1,10 @@
-import { GameID, ID } from "@openfront/engine-api/Schemas";
-import { replacer } from "@openfront/shared/SharedUtil";
+import { GameID, ID } from "@closefront/engine-api/Schemas";
+import { replacer } from "@closefront/shared/SharedUtil";
 import {
   GameRecord,
   GameRecordSchema,
   PartialGameRecord,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import z from "zod";
 import { registeredSite } from "./ClusterCheckin";
 import { logger } from "./Logger";

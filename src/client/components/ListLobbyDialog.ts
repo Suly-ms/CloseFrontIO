@@ -3,7 +3,7 @@ import {
   MAX_HOSTED_LOBBY_PLAYERS,
   MIN_HOSTED_LOBBY_AUTO_START_MS,
   MIN_HOSTED_LOBBY_PLAYERS,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { html, LitElement, render as litRender, PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { translateText } from "../Utils";

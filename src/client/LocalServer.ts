@@ -3,13 +3,13 @@ import {
   ClientID,
   StampedIntent,
   Turn,
-} from "@openfront/engine-api/Schemas";
-import { EventBus } from "@openfront/shared/EventBus";
+} from "@closefront/engine-api/Schemas";
+import { EventBus } from "@closefront/shared/EventBus";
 import {
   createPartialGameRecord,
   decompressGameRecord,
   replacer,
-} from "@openfront/shared/SharedUtil";
+} from "@closefront/shared/SharedUtil";
 import {
   ClientMessage,
   ClientSendWinnerMessage,
@@ -18,7 +18,7 @@ import {
   PlayerRecord,
   ServerMessage,
   ServerStartGameMessage,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { ClientEnv } from "src/client/ClientEnv";
 import { z } from "zod";
 import { getApiBase } from "./Api";

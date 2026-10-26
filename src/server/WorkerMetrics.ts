@@ -50,21 +50,21 @@ export function initWorkerMetrics(
 
   // Create observable gauges
   const activeGamesGauge = meter.createObservableGauge(
-    "openfront.active_games.gauge",
+    "closefront.active_games.gauge",
     {
       description: "Number of active games on this worker",
     },
   );
 
   const connectedClientsGauge = meter.createObservableGauge(
-    "openfront.connected_clients.gauge",
+    "closefront.connected_clients.gauge",
     {
       description: "Number of connected clients on this worker",
     },
   );
 
   const lobbyClientsGauge = meter.createObservableGauge(
-    "openfront.lobby_clients.gauge",
+    "closefront.lobby_clients.gauge",
     {
       description:
         "Number of clients connected to the /lobbies WebSocket on this worker",
@@ -72,26 +72,26 @@ export function initWorkerMetrics(
   );
 
   const singleplayerGamesGauge = meter.createObservableGauge(
-    "openfront.singleplayer_games.gauge",
+    "closefront.singleplayer_games.gauge",
     {
       description:
         "Number of in-browser singleplayer games heartbeating to this worker",
     },
   );
 
-  const desyncsGauge = meter.createObservableGauge("openfront.desyncs.gauge", {
+  const desyncsGauge = meter.createObservableGauge("closefront.desyncs.gauge", {
     description: "Number of detected desyncs on active games on this worker",
   });
 
   const memoryUsageGauge = meter.createObservableGauge(
-    "openfront.memory_usage.bytes",
+    "closefront.memory_usage.bytes",
     {
       description: "Current memory usage of the worker process in bytes",
     },
   );
 
   const winnerReplayPendingGauge = meter.createObservableGauge(
-    "openfront.winner_replay.pending.gauge",
+    "closefront.winner_replay.pending.gauge",
     {
       description:
         "Winner replays waiting or running on this worker (disputed or one-IP votes)",
@@ -99,7 +99,7 @@ export function initWorkerMetrics(
   );
 
   const winnerReplayOutcomes = meter.createObservableCounter(
-    "openfront.winner_replay.outcomes",
+    "closefront.winner_replay.outcomes",
     {
       description:
         "Disputed or one-IP winner votes settled by replay: agreed with the vote, overturned it, or failed (vote stood); or skipped (one-IP vote, replay queue full: vote stood unconfirmed)",
@@ -107,12 +107,12 @@ export function initWorkerMetrics(
   );
 
   const winnerReplayRuns = meter.createObservableCounter(
-    "openfront.winner_replay.runs",
+    "closefront.winner_replay.runs",
     { description: "Winner replay runs finished on this worker" },
   );
 
   const winnerReplaySeconds = meter.createObservableCounter(
-    "openfront.winner_replay.seconds",
+    "closefront.winner_replay.seconds",
     {
       description:
         "Total run time of finished winner replays; divide by runs for the mean",
@@ -130,9 +130,9 @@ export function initWorkerMetrics(
     for (const segment of gameManager.activeClientsBySegment()) {
       result.observe(segment.count, {
         ...labels,
-        "openfront.platform": segment.platform,
-        "openfront.device": segment.device,
-        "openfront.auth": segment.auth,
+        "closefront.platform": segment.platform,
+        "closefront.device": segment.device,
+        "closefront.auth": segment.auth,
       });
     }
   });
@@ -140,7 +140,7 @@ export function initWorkerMetrics(
   lobbyClientsGauge.addCallback((result) => {
     const labels = getPromLabels();
     for (const [platform, count] of lobbyService.connectedClientsByPlatform()) {
-      result.observe(count, { ...labels, "openfront.platform": platform });
+      result.observe(count, { ...labels, "closefront.platform": platform });
     }
   });
 
@@ -150,7 +150,7 @@ export function initWorkerMetrics(
       platform,
       count,
     ] of singleplayerPresence.activeGamesByPlatform()) {
-      result.observe(count, { ...labels, "openfront.platform": platform });
+      result.observe(count, { ...labels, "closefront.platform": platform });
     }
   });
 
@@ -168,7 +168,7 @@ export function initWorkerMetrics(
     for (const [outcome, count] of Object.entries(
       winnerReplayMetrics.outcomes,
     )) {
-      result.observe(count, { ...labels, "openfront.outcome": outcome });
+      result.observe(count, { ...labels, "closefront.outcome": outcome });
     }
   });
 

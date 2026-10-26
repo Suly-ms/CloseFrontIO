@@ -1,4 +1,4 @@
-import { GameMapType } from "@openfront/engine-api/game/GameTypes";
+import { GameMapType } from "@closefront/engine-api/game/GameTypes";
 import { describe, expect, it, vi } from "vitest";
 import { MapPlaylist } from "../../src/server/MapPlaylist";
 

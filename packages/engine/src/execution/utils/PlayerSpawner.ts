@@ -1,5 +1,5 @@
-import { PlayerType } from "@openfront/engine-api/game/GameTypes";
-import { GameID } from "@openfront/engine-api/Schemas";
+import { PlayerType } from "@closefront/engine-api/game/GameTypes";
+import { GameID } from "@closefront/engine-api/Schemas";
 import { Game } from "../../game/Game";
 import { SpawnExecution } from "../SpawnExecution";
 

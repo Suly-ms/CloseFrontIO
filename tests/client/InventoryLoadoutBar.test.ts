@@ -10,7 +10,7 @@ const cosmetic = (type: ResolvedCosmetic["type"], key: string) =>
   ({
     type,
     cosmetic:
-      type === "flag" ? { name: key, url: "/flags/openfront.svg" } : null,
+      type === "flag" ? { name: key, url: "/flags/closefront.svg" } : null,
     colorPalette: null,
     relationship: "owned",
     key,
@@ -27,8 +27,8 @@ function entriesForAllCategories(): readonly InventoryLoadoutEntry[] {
     {
       category: "flags",
       label: "Flag",
-      items: [cosmetic("flag", "flag:openfront")],
-      summary: "OpenFront equipped",
+      items: [cosmetic("flag", "flag:closefront")],
+      summary: "CloseFront equipped",
     },
     {
       category: "crowns",

@@ -1,4 +1,4 @@
-import { Difficulty, PlayerType } from "@openfront/engine-api/game/GameTypes";
+import { Difficulty, PlayerType } from "@closefront/engine-api/game/GameTypes";
 import fs from "fs";
 import path from "path";
 import { afterEach, describe, expect, it } from "vitest";

@@ -14,12 +14,12 @@ import {
   NukeExplosionAttributesSchema,
   SubscriptionSchema,
   TrailEffectAttributesSchema,
-} from "@openfront/shared/CosmeticSchemas";
+} from "@closefront/shared/CosmeticSchemas";
 import {
   PlayerCosmeticRefsSchema,
   PlayerCosmeticsSchema,
   PlayerEffectSchema,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 
 describe("Effect cosmetic schemas", () => {
   const base = {

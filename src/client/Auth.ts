@@ -1,5 +1,5 @@
-import { TokenPayload, TokenPayloadSchema } from "@openfront/shared/ApiSchemas";
-import { base64urlToUuid } from "@openfront/shared/Base64";
+import { TokenPayload, TokenPayloadSchema } from "@closefront/shared/ApiSchemas";
+import { base64urlToUuid } from "@closefront/shared/Base64";
 import { decodeJwt } from "jose";
 import { UserSettings } from "src/client/UserSettings";
 import { z } from "zod";
@@ -50,7 +50,7 @@ function setSessionState(state: DesktopSessionState): void {
 }
 
 // On the desktop shell a provider login cannot be an OAuth redirect: the
-// redirect_uri would be this window's own `app://openfront/...` URL, which
+// redirect_uri would be this window's own `app://closefront/...` URL, which
 // the API's allowlist refuses (rightly -- the shell registers no scheme
 // handler, so a browser-completed OAuth flow would have nowhere to return
 // to). The player used to get a browser tab showing a bare JSON 400.
@@ -124,13 +124,13 @@ export function steamLogin() {
 }
 
 // The website's account-settings page, for the desktop shell to open in the
-// browser. Never from window.location, which is app://openfront in the shell.
+// browser. Never from window.location, which is app://closefront in the shell.
 //
 // The precedence this used to spell out for itself -- siteOrigin() (NOT
 // serverHttpBase(), which answers with whichever game server the API's list
 // picked, a deployment host with no website on it), then the audience with the
 // same localhost:9000 special case as the shell's own siteUrlForAudience
-// (openfront-desktop's linkApi.ts) -- is now ClientEnv.shareOrigin(), which is
+// (closefront-desktop's linkApi.ts) -- is now ClientEnv.shareOrigin(), which is
 // that same question asked by every outbound link in the client. See
 // deriveShareOrigin.
 function desktopWebAccountSettingsUrl(): string {
@@ -153,7 +153,7 @@ function desktopWebAccountSettingsUrl(): string {
 export async function linkGoogle(): Promise<boolean> {
   if (isDesktopShell()) {
     // Routed to the system browser by the shell's window-open policy
-    // (openfront-desktop's navigationPolicy.ts), like every https link.
+    // (closefront-desktop's navigationPolicy.ts), like every https link.
     window.open(
       desktopWebAccountSettingsUrl(),
       "_blank",
@@ -596,7 +596,7 @@ function ticketReason(
     case "api-unreachable":
       // The shell could not reach OUR api to ask about the account -- nothing
       // to do with Steam, and nothing the player does to their account
-      // changes it. "Can't reach OpenFront. Check your connection." is
+      // changes it. "Can't reach CloseFront. Check your connection." is
       // exactly right, and `network` already says that.
       return "network";
     default:
@@ -639,7 +639,7 @@ async function doPortalLogin(
 }
 
 // Exchange a Steam Web-API ticket for our session. Like the portals, the
-// refresh cookie isn't usable from app://openfront (cross-site), so we
+// refresh cookie isn't usable from app://closefront (cross-site), so we
 // re-exchange a fresh ticket on expiry rather than hitting /auth/refresh.
 async function doSteamLogin(ticket: string): Promise<void> {
   try {
@@ -664,7 +664,7 @@ async function doSteamLogin(ticket: string): Promise<void> {
       // which is Steam's backend rather than anything the player did. Any
       // other status (a Cloudflare WAF 403, a 429) still reached the server
       // -- it is not a transport failure, so it must not render "Can't reach
-      // OpenFront. Check your connection." Fold it into "steam-error", the
+      // CloseFront. Check your connection." Fold it into "steam-error", the
       // generic bucket, rather than "network".
       setSessionState({
         status: "signed-out",
@@ -764,7 +764,7 @@ export async function sendMagicLink(email: string): Promise<boolean> {
       body: JSON.stringify({
         // The domain the server builds the emailed link on, so it has to be a
         // real website: the recipient opens it in a browser, possibly on
-        // another device. window.location.origin is `app://openfront` in the
+        // another device. window.location.origin is `app://closefront` in the
         // shell, which would email a link nothing can open. See
         // deriveShareOrigin in ClientEnv.ts.
         redirectDomain: ClientEnv.shareOrigin(),

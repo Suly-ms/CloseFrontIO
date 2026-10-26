@@ -1,22 +1,22 @@
-import { ClanTagSchema, UsernameSchema } from "@openfront/engine-api/Schemas";
+import { ClanTagSchema, UsernameSchema } from "@closefront/engine-api/Schemas";
 import {
   LevelBadge,
   packLevelBadge,
   unpackLevelBadge,
-} from "@openfront/shared/LevelBadgeWire";
+} from "@closefront/shared/LevelBadgeWire";
 import {
   ClientInfo,
   ClientInfoSchema,
   ClientJoinMessageSchema,
   ServerMessage,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import {
   decodeClientMessage,
   decodeServerMessage,
   encodeClientMessage,
   encodeServerMessage,
-} from "@openfront/shared/ZbinWire";
-import { zb } from "@openfront/zbin";
+} from "@closefront/shared/ZbinWire";
+import { zb } from "@closefront/zbin";
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
 

@@ -9,10 +9,10 @@ import {
   Quads,
   Team,
   Trios,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameConfig } from "@openfront/engine-api/Schemas";
-import { DoomsdayClockSpeed } from "@openfront/engine-lib/game/DoomsdayClock";
-import { stripVersionPrefix } from "@openfront/shared/ServerList";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameConfig } from "@closefront/engine-api/Schemas";
+import { DoomsdayClockSpeed } from "@closefront/engine-lib/game/DoomsdayClock";
+import { stripVersionPrefix } from "@closefront/shared/ServerList";
 import IntlMessageFormat from "intl-messageformat";
 import { ClientEnv } from "./ClientEnv";
 import type { LangSelector } from "./LangSelector";
@@ -23,7 +23,7 @@ export const TUTORIAL_VIDEO_URL = "https://www.youtube.com/embed/7J5zwb_s_Cg";
 
 // The desktop shell cannot embed YouTube inside Electron, so it bundles the
 // same tutorial and serves it under a reserved prefix of its app:// scheme
-// (see openfront-desktop's protocol.ts, which pins this path with a test).
+// (see closefront-desktop's protocol.ts, which pins this path with a test).
 // Only meaningful when Platform.isElectron; on the web this path does not
 // exist.
 export const DESKTOP_TUTORIAL_VIDEO_URL = "/__tutorial/tutorial.webm";

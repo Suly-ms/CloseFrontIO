@@ -1,7 +1,7 @@
-import { GameMapType, GameMode } from "@openfront/engine-api/game/GameTypes";
-import type { GameConfig } from "@openfront/engine-api/Schemas";
-import type { UserMeResponse } from "@openfront/shared/ApiSchemas";
-import type { PublicGameInfo } from "@openfront/shared/WireSchemas";
+import { GameMapType, GameMode } from "@closefront/engine-api/game/GameTypes";
+import type { GameConfig } from "@closefront/engine-api/Schemas";
+import type { UserMeResponse } from "@closefront/shared/ApiSchemas";
+import type { PublicGameInfo } from "@closefront/shared/WireSchemas";
 import { render } from "lit";
 import { describe, expect, it, vi } from "vitest";
 

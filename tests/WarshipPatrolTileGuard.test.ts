@@ -2,9 +2,9 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { WarshipExecution } from "@openfront/engine/execution/WarshipExecution";
-import { Game, Unit } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { WarshipExecution } from "@closefront/engine/execution/WarshipExecution";
+import { Game, Unit } from "@closefront/engine/game/Game";
 import { beforeEach, describe, expect, it } from "vitest";
 import { setup } from "./util/Setup";
 

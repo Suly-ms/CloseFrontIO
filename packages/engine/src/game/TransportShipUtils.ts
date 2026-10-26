@@ -1,5 +1,5 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
 import { SpatialQuery } from "../pathfinding/spatial/SpatialQuery";
 import { Game, Player } from "./Game";
 

@@ -39,7 +39,7 @@ fi
 
 # Remove the metrics stack if an earlier setup installed it.
 docker rm -f node-exporter otel-collector > /dev/null 2>&1 || true
-rm -rf /home/closefront/otel /home/openfront/otel
+rm -rf /home/closefront/otel /home/closefront/otel
 
 echo "👤 Setting up closefront user..."
 # Create closefront user if it doesn't exist

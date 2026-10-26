@@ -21,7 +21,7 @@ describe("checkinBody", () => {
     vi.stubEnv("GAME_ENV", "prod");
     vi.stubEnv("INSTANCE_LETTER", "a");
     vi.stubEnv("NUM_WORKERS", "4");
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     vi.stubEnv("SUBDOMAIN", "blue");
     vi.stubEnv("GIT_COMMIT", "bfd5563a11111111111111111111111111111111");
     // Explicit rather than inherited: whether this repo's own CI box happens
@@ -31,11 +31,11 @@ describe("checkinBody", () => {
   afterEach(() => vi.unstubAllEnvs());
 
   test("registers under the apex when the deployment sits behind one", () => {
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     expect(checkinBody(7)).toEqual({
-      site: "openfront.io",
+      site: "closefront.io",
       letter: "a",
-      host: "blue.openfront.io",
+      host: "blue.closefront.io",
       version: "bfd5563a11111111111111111111111111111111",
       numWorkers: 4,
       liveGames: 7,
@@ -49,15 +49,15 @@ describe("checkinBody", () => {
   // — that is what the client's server list is keyed by — and its game host
   // as `host`, or players would be pointed at the Worker for sockets.
   test("separates the page host from the game host when GAME_DOMAIN is set", () => {
-    vi.stubEnv("DOMAIN", "openfront.dev");
-    vi.stubEnv("GAME_DOMAIN", "server.openfront.dev");
+    vi.stubEnv("DOMAIN", "closefront.dev");
+    vi.stubEnv("GAME_DOMAIN", "server.closefront.dev");
     vi.stubEnv("SUBDOMAIN", "main");
-    vi.stubEnv("SITE_HOST", "main.openfront.dev");
+    vi.stubEnv("SITE_HOST", "main.closefront.dev");
     vi.stubEnv("NUM_WORKERS", "2");
     expect(checkinBody(3)).toEqual({
-      site: "main.openfront.dev",
+      site: "main.closefront.dev",
       letter: "a",
-      host: "main.server.openfront.dev",
+      host: "main.server.closefront.dev",
       version: "bfd5563a11111111111111111111111111111111",
       numWorkers: 2,
       liveGames: 3,
@@ -65,19 +65,19 @@ describe("checkinBody", () => {
   });
 
   // Every deployed host that isn't behind the apex load balancer is its own
-  // site. Mirrors (the openfront.dev apex serving nightly) are aliased in
+  // site. Mirrors (the closefront.dev apex serving nightly) are aliased in
   // the API, so nothing here reports them.
   test.each([
     {
       what: "a branch preview",
-      domain: "openfront.dev",
+      domain: "closefront.dev",
       subdomain: "my-branch",
       numWorkers: 2,
     },
-    { what: "beta", domain: "openfront.io", subdomain: "beta", numWorkers: 4 },
+    { what: "beta", domain: "closefront.io", subdomain: "beta", numWorkers: 4 },
     {
       what: "nightly",
-      domain: "openfront.dev",
+      domain: "closefront.dev",
       subdomain: "nightly",
       numWorkers: 3,
     },
@@ -103,7 +103,7 @@ describe("checkinBody", () => {
   // box it is on: blue and green routinely share one, and flipping to a colour
   // on the same machine buys no redundancy.
   test("reports the machine it runs on when deploy.sh supplied one", () => {
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     vi.stubEnv("MACHINE", "falk2");
     expect(checkinBody(7)).toMatchObject({ machine: "falk2" });
   });
@@ -114,10 +114,10 @@ describe("checkinBody", () => {
   test.each([
     ["MACHINE is unset", ""],
     ["MACHINE is whitespace", "   "],
-    ["MACHINE is not a hostname label", "falk2.openfront.io"],
+    ["MACHINE is not a hostname label", "falk2.closefront.io"],
     ["MACHINE carries a shell fragment", "falk2; rm -rf /"],
   ])("omits the key entirely when %s", (_what, value) => {
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     vi.stubEnv("MACHINE", value);
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const body = checkinBody(7);
@@ -129,13 +129,13 @@ describe("checkinBody", () => {
   // A malformed value costs the field, never the check-in: every other key is
   // still exactly what it would have been.
   test("a malformed machine leaves the rest of the body untouched", () => {
-    vi.stubEnv("SITE_HOST", "openfront.io");
+    vi.stubEnv("SITE_HOST", "closefront.io");
     vi.stubEnv("MACHINE", "falk 2");
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     expect(checkinBody(7)).toEqual({
-      site: "openfront.io",
+      site: "closefront.io",
       letter: "a",
-      host: "blue.openfront.io",
+      host: "blue.closefront.io",
       version: "bfd5563a11111111111111111111111111111111",
       numWorkers: 4,
       liveGames: 7,
@@ -158,16 +158,16 @@ describe("checkinBody", () => {
 
 describe("sendCheckin", () => {
   const body = {
-    site: "openfront.io",
+    site: "closefront.io",
     letter: "a",
-    host: "blue.openfront.io",
+    host: "blue.closefront.io",
     version: "bfd5563a11111111111111111111111111111111",
     numWorkers: 4,
     liveGames: 7,
   };
 
   beforeEach(() => {
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     vi.stubEnv("API_KEY", "secret");
   });
   afterEach(() => vi.unstubAllEnvs());
@@ -180,7 +180,7 @@ describe("sendCheckin", () => {
       string,
       RequestInit,
     ];
-    expect(url).toBe("https://api.openfront.io/cluster/checkin");
+    expect(url).toBe("https://api.closefront.io/cluster/checkin");
     expect(init.method).toBe("POST");
     expect((init.headers as Record<string, string>)["x-api-key"]).toBe(
       "secret",
@@ -220,13 +220,13 @@ describe("sendCheckin", () => {
     const result = await sendCheckin(
       body,
       fetchReturning(
-        { reason: "letter_bound_to_other_host", host: "green.openfront.io" },
+        { reason: "letter_bound_to_other_host", host: "green.closefront.io" },
         409,
       ),
     );
     expect(isRefusal(result)).toBe(true);
     expect(result).toEqual({
-      refused: "letter_bound_to_other_host (host: green.openfront.io)",
+      refused: "letter_bound_to_other_host (host: green.closefront.io)",
     });
   });
 

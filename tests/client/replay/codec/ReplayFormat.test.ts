@@ -8,8 +8,8 @@ import {
   GameType,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameUpdateType } from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameUpdateType } from "@closefront/engine-api/game/GameUpdates";
 import { gunzip as gunzipCb } from "zlib";
 import { FALLOUT_BIT } from "../../../../src/client/render/gl/utils/TileCodec";
 import { PlayerTypeEnum } from "../../../../src/client/render/types";

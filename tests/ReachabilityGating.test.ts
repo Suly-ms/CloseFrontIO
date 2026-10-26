@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
-import { GameMapType, GameMode } from "@openfront/engine-api/game/GameTypes";
-import type { GameConfig } from "@openfront/engine-api/Schemas";
+import { GameMapType, GameMode } from "@closefront/engine-api/game/GameTypes";
+import type { GameConfig } from "@closefront/engine-api/Schemas";
 import type {
   PublicGameInfo,
   PublicGames,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ClientEnv } from "../src/client/ClientEnv";
 import { shouldBlockMultiplayerAction } from "../src/client/GameModeSelector";
@@ -149,7 +149,7 @@ async function confirmOutage(): Promise<void> {
 beforeEach(() => {
   // connectedCallback reads ClientEnv.gameCreationRate(), which throws
   // without the config the server injects into index.html. No serverHost and
-  // no openfrontDesktop: this is the web build, where the update and session
+  // no closefrontDesktop: this is the web build, where the update and session
   // gates do not exist and reachability is the only one that can fire.
   window.BOOTSTRAP_CONFIG = {
     gameEnv: "dev",

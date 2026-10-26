@@ -1,4 +1,4 @@
-import { flattenedEmojiTable } from "@openfront/engine-api/Schemas";
+import { flattenedEmojiTable } from "@closefront/engine-api/Schemas";
 import { describe, expect, it } from "vitest";
 import {
   FAVORITE_SLOTS,

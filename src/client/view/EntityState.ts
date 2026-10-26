@@ -10,12 +10,12 @@ import {
   PlayerID,
   PlayerType,
   TrainType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   ATTACK_DELTA_OUTGOING,
   PlayerUpdate,
   UnitUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameUpdates";
 import {
   PlayerState,
   PlayerStatic,

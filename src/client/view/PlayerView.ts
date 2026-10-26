@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   BuildableUnit,
   Cell,
@@ -14,17 +14,17 @@ import {
   Team,
   Tick,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   AllianceView,
   AttackUpdate,
   PlayerUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
-import { PlayerLike } from "@openfront/engine-api/game/ReadViews";
-import { ClientID } from "@openfront/engine-api/Schemas";
-import { PatternDecoder } from "@openfront/shared/PatternDecoder";
-import { createRandomName } from "@openfront/shared/SharedUtil";
-import { PlayerCosmetics } from "@openfront/shared/WireSchemas";
+} from "@closefront/engine-api/game/GameUpdates";
+import { PlayerLike } from "@closefront/engine-api/game/ReadViews";
+import { ClientID } from "@closefront/engine-api/Schemas";
+import { PatternDecoder } from "@closefront/shared/PatternDecoder";
+import { createRandomName } from "@closefront/shared/SharedUtil";
+import { PlayerCosmetics } from "@closefront/shared/WireSchemas";
 import { Colord, colord } from "colord";
 import { base64url } from "jose";
 import { PlayerState, PlayerStatic, PlayerTypeEnum } from "../render/types";

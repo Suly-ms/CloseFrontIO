@@ -1,18 +1,18 @@
-﻿import { TileRef } from "@openfront/engine-api/game/GameMap";
+﻿import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   Cell,
   GameMapSize,
   PlayerInfo,
   PlayerType,
-} from "@openfront/engine-api/game/GameTypes";
-import { type CustomTribe } from "@openfront/engine-api/game/Maps.gen";
-import { GameID } from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/game/GameTypes";
+import { type CustomTribe } from "@closefront/engine-api/game/Maps.gen";
+import { GameID } from "@closefront/engine-api/Schemas";
 import {
   type TribeNameData,
   resolveTribeNameData,
-} from "@openfront/engine-lib/execution/utils/TribeNames";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
-import { simpleHash } from "@openfront/engine-lib/Util";
+} from "@closefront/engine-lib/execution/utils/TribeNames";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
+import { simpleHash } from "@closefront/engine-lib/Util";
 import { Game } from "../game/Game";
 import { SpawnExecution } from "./SpawnExecution";
 

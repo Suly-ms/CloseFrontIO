@@ -1,10 +1,10 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   PlayerBuildableUnitType,
   PlayerID,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { EventBus, GameEvent } from "@openfront/shared/EventBus";
+} from "@closefront/engine-api/game/GameTypes";
+import { EventBus, GameEvent } from "@closefront/shared/EventBus";
 import { favoriteSlotForKey } from "./EmojiKeys";
 import { Platform } from "./Platform";
 import { UIState } from "./UIState";

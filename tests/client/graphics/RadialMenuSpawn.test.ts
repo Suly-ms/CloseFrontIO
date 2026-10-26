@@ -10,11 +10,11 @@ vi.mock("../../../src/client/hud/layers/BuildMenu", () => ({
 vi.mock("../../../src/client/Utils", () => ({
   translateText: (key: string) => key,
 }));
-vi.mock("@openfront/engine-lib/Format", () => ({
+vi.mock("@closefront/engine-lib/Format", () => ({
   renderNumber: (num: number) => num.toString(),
 }));
 
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   centerButtonElement,
   MenuElementParams,

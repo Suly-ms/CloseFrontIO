@@ -3,11 +3,11 @@ import {
   ServerStartGameMessageSchema,
   type ServerLobbyInfoMessage,
   type ServerStartGameMessage,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import {
   decodeServerMessage,
   encodeServerMessage,
-} from "@openfront/shared/ZbinWire";
+} from "@closefront/shared/ZbinWire";
 import { describe, expect, it } from "vitest";
 import { testGameConfig } from "../util/Wire";
 

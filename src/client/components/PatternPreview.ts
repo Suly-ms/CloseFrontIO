@@ -1,6 +1,6 @@
-import { DefaultPattern } from "@openfront/shared/CosmeticSchemas";
-import { PatternDecoder } from "@openfront/shared/PatternDecoder";
-import { PlayerPattern } from "@openfront/shared/WireSchemas";
+import { DefaultPattern } from "@closefront/shared/CosmeticSchemas";
+import { PatternDecoder } from "@closefront/shared/PatternDecoder";
+import { PlayerPattern } from "@closefront/shared/WireSchemas";
 import { Colord } from "colord";
 import { base64url } from "jose";
 import { html, LitElement, PropertyValues, TemplateResult } from "lit";

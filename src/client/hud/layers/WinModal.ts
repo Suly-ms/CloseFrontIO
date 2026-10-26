@@ -1,9 +1,9 @@
-import { GameType, RankedType } from "@openfront/engine-api/game/GameTypes";
-import { GameUpdateType } from "@openfront/engine-api/game/GameUpdates";
-import type { AllPlayersStats, Winner } from "@openfront/engine-api/Schemas";
-import type { GameXpEligible, Progress } from "@openfront/shared/ApiSchemas";
-import { Pattern } from "@openfront/shared/CosmeticSchemas";
-import { EventBus } from "@openfront/shared/EventBus";
+import { GameType, RankedType } from "@closefront/engine-api/game/GameTypes";
+import { GameUpdateType } from "@closefront/engine-api/game/GameUpdates";
+import type { AllPlayersStats, Winner } from "@closefront/engine-api/Schemas";
+import type { GameXpEligible, Progress } from "@closefront/shared/ApiSchemas";
+import { Pattern } from "@closefront/shared/CosmeticSchemas";
+import { EventBus } from "@closefront/shared/EventBus";
 import { html, LitElement, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import {
@@ -506,7 +506,7 @@ export class WinModal extends LitElement implements Controller {
     return html`
       <div class="text-center mb-6 bg-black/30 p-2.5 rounded-sm">
         <h3 class="text-xl font-semibold text-white mb-3">
-          ${translateText("win_modal.support_openfront")}
+          ${translateText("win_modal.support_closefront")}
         </h3>
         ${isDesktopShell()
           ? null
@@ -593,7 +593,7 @@ export class WinModal extends LitElement implements Controller {
           ${translateText("win_modal.discord_description")}
         </p>
         <a
-          href="https://discord.com/invite/openfront"
+          href="https://discord.com/invite/closefront"
           target="_blank"
           rel="noopener noreferrer"
           class="inline-block px-6 py-3 bg-indigo-600 text-white rounded-sm font-semibold transition-all duration-200 hover:bg-indigo-700 hover:-translate-y-px no-underline"

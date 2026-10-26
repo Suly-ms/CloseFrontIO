@@ -10,9 +10,9 @@ import {
   isTrailEffect,
   TRAIL_EFFECT_TYPES,
   type Cosmetics,
-} from "@openfront/shared/CosmeticSchemas";
-import { decodePatternData } from "@openfront/shared/PatternDecoder";
-import type { PlayerCosmetics } from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/CosmeticSchemas";
+import { decodePatternData } from "@closefront/shared/PatternDecoder";
+import type { PlayerCosmetics } from "@closefront/shared/WireSchemas";
 import type { Colord } from "colord";
 import { base64url } from "jose";
 import type { SpiralParams } from "../../frame/SpiralTrails";

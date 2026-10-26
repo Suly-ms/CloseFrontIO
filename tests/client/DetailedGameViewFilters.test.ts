@@ -5,9 +5,9 @@ import {
   GameType,
   HumansVsNations,
   Quads,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameConfig } from "@openfront/engine-api/Schemas";
-import { PublicGameInfo } from "@openfront/shared/WireSchemas";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameConfig } from "@closefront/engine-api/Schemas";
+import { PublicGameInfo } from "@closefront/shared/WireSchemas";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   DEFAULT_FILTERS,

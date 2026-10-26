@@ -21,6 +21,6 @@ export function getApiBase() {
 
 export function getAudience() {
   // Sourced from BOOTSTRAP_CONFIG (server/desktop-injected) rather than
-  // window.location, so the desktop app (app://openfront) targets real infra.
+  // window.location, so the desktop app (app://closefront) targets real infra.
   return ClientEnv.jwtAudience();
 }

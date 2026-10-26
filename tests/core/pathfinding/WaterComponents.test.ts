@@ -1,7 +1,7 @@
 import {
   ConnectedComponents,
   LAND_MARKER,
-} from "@openfront/engine/pathfinding/algorithms/ConnectedComponents";
+} from "@closefront/engine/pathfinding/algorithms/ConnectedComponents";
 import { describe, expect, it } from "vitest";
 import { createGameMap, createIslandMap, L, W } from "./_fixtures";
 

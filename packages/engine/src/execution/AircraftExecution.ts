@@ -1,5 +1,5 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { zRef } from "@openfront/engine-lib/snapshot/SnapshotType";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { zRef } from "@closefront/engine-lib/snapshot/SnapshotType";
 import { z } from "zod";
 import { Execution, Game, Unit } from "../game/Game";
 import { PathFinding } from "../pathfinding/PathFinder";

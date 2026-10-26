@@ -1,5 +1,5 @@
 {
-  "name": "@openfront/shared",
+  "name": "@closefront/shared",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -7,9 +7,9 @@
     "./*": "./src/*.ts"
   },
   "dependencies": {
-    "@openfront/engine-api": "0.0.0",
-    "@openfront/engine-lib": "0.0.0",
-    "@openfront/zbin": "0.0.0",
+    "@closefront/engine-api": "0.0.0",
+    "@closefront/engine-lib": "0.0.0",
+    "@closefront/zbin": "0.0.0",
     "jose": "^6.2.3",
     "nanoid": "^5.1.16",
     "zod": "^4.4.2"

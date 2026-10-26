@@ -6,13 +6,13 @@
 // "p1" / "creator-cid" placeholders older tests used — those tests could only
 // pass by mocking the Schemas module. Use cid() to spell a readable id.
 
-import { GameConfig } from "@openfront/engine-api/Schemas";
+import { GameConfig } from "@closefront/engine-api/Schemas";
 import {
   ClientMessage,
   PublicGameType,
   ServerMessage,
-} from "@openfront/shared/WireSchemas";
-import { ZbContext } from "@openfront/zbin";
+} from "@closefront/shared/WireSchemas";
+import { ZbContext } from "@closefront/zbin";
 import { vi } from "vitest";
 import { Client } from "../../src/server/Client";
 import { GameServer, GameServerDeps } from "../../src/server/GameServer";

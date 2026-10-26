@@ -1,27 +1,27 @@
-import { GameMap } from "@openfront/engine-api/game/GameMap";
-import { MapManifest } from "@openfront/engine-api/game/MapFiles";
-import { genTerrainFromBin } from "@openfront/engine-lib/game/TerrainMapLoader";
-import { TileSet } from "@openfront/engine-lib/game/TileSet";
-import { EngineConfig } from "@openfront/engine/configuration/EngineConfig";
-import { FlatBinaryHeap } from "@openfront/engine/execution/utils/FlatBinaryHeap";
-import { Game } from "@openfront/engine/game/Game";
-import { AStar } from "@openfront/engine/pathfinding/algorithms/AStar";
-import { AbstractGraphAStar } from "@openfront/engine/pathfinding/algorithms/AStar.AbstractGraph";
-import { AStarRail } from "@openfront/engine/pathfinding/algorithms/AStar.Rail";
-import { AStarWater } from "@openfront/engine/pathfinding/algorithms/AStar.Water";
-import { AStarWaterBounded } from "@openfront/engine/pathfinding/algorithms/AStar.WaterBounded";
-import { AStarWaterHierarchical } from "@openfront/engine/pathfinding/algorithms/AStar.WaterHierarchical";
-import { BFSGrid } from "@openfront/engine/pathfinding/algorithms/BFS.Grid";
+import { GameMap } from "@closefront/engine-api/game/GameMap";
+import { MapManifest } from "@closefront/engine-api/game/MapFiles";
+import { genTerrainFromBin } from "@closefront/engine-lib/game/TerrainMapLoader";
+import { TileSet } from "@closefront/engine-lib/game/TileSet";
+import { EngineConfig } from "@closefront/engine/configuration/EngineConfig";
+import { FlatBinaryHeap } from "@closefront/engine/execution/utils/FlatBinaryHeap";
+import { Game } from "@closefront/engine/game/Game";
+import { AStar } from "@closefront/engine/pathfinding/algorithms/AStar";
+import { AbstractGraphAStar } from "@closefront/engine/pathfinding/algorithms/AStar.AbstractGraph";
+import { AStarRail } from "@closefront/engine/pathfinding/algorithms/AStar.Rail";
+import { AStarWater } from "@closefront/engine/pathfinding/algorithms/AStar.Water";
+import { AStarWaterBounded } from "@closefront/engine/pathfinding/algorithms/AStar.WaterBounded";
+import { AStarWaterHierarchical } from "@closefront/engine/pathfinding/algorithms/AStar.WaterHierarchical";
+import { BFSGrid } from "@closefront/engine/pathfinding/algorithms/BFS.Grid";
 import {
   BucketQueue,
   MinHeap,
-} from "@openfront/engine/pathfinding/algorithms/PriorityQueue";
-import { WaterPathMemo } from "@openfront/engine/pathfinding/PathFinder";
+} from "@closefront/engine/pathfinding/algorithms/PriorityQueue";
+import { WaterPathMemo } from "@closefront/engine/pathfinding/PathFinder";
 import {
   restoreGame,
   snapshotGame,
-} from "@openfront/engine/snapshot/GameSnapshot";
-import { decodeSnapshotValue } from "@openfront/engine/snapshot/SnapshotCodec";
+} from "@closefront/engine/snapshot/GameSnapshot";
+import { decodeSnapshotValue } from "@closefront/engine/snapshot/SnapshotCodec";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

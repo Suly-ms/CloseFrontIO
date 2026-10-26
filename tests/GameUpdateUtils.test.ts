@@ -1,13 +1,13 @@
-import { PlayerType } from "@openfront/engine-api/game/GameTypes";
+import { PlayerType } from "@closefront/engine-api/game/GameTypes";
 import {
   AttackUpdate,
   GameUpdateType,
   PlayerUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameUpdates";
 import {
   diffPlayerUpdate,
   packAttackTroopDeltas,
-} from "@openfront/engine/game/GameUpdateUtils";
+} from "@closefront/engine/game/GameUpdateUtils";
 import { describe, expect, it } from "vitest";
 import type { PlayerState } from "../src/client/render/types";
 import { applyStateUpdate } from "../src/client/view/PlayerStateUpdate";

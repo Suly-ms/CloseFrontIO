@@ -4,7 +4,7 @@ import {
   MIN_USERNAME_LENGTH,
   RENDERABLE_NAME_CHARS,
   UsernameSchema,
-} from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/Schemas";
 import { z } from "zod";
 import { translateText } from "../Utils";
 

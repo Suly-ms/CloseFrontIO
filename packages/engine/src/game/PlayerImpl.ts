@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   AllianceInfo,
   AllPlayers,
@@ -22,7 +22,7 @@ import {
   TerraNullius,
   Tick,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   AllianceView,
   ATTACK_DELTA_INCOMING,
@@ -30,12 +30,12 @@ import {
   AttackUpdate,
   GameUpdateType,
   PlayerUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
-import { ReadonlyTileSet } from "@openfront/engine-api/game/ReadViews";
-import { ClientID } from "@openfront/engine-api/Schemas";
-import { andFN, manhattanDistFN } from "@openfront/engine-lib/game/GameMapImpl";
-import { TileSet } from "@openfront/engine-lib/game/TileSet";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
+} from "@closefront/engine-api/game/GameUpdates";
+import { ReadonlyTileSet } from "@closefront/engine-api/game/ReadViews";
+import { ClientID } from "@closefront/engine-api/Schemas";
+import { andFN, manhattanDistFN } from "@closefront/engine-lib/game/GameMapImpl";
+import { TileSet } from "@closefront/engine-lib/game/TileSet";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
 import {
   snapshotType,
   zInt,
@@ -45,7 +45,7 @@ import {
   zRef,
   zTile,
   zTiles,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
 import {
   assertNever,
   findClosestBy,
@@ -53,7 +53,7 @@ import {
   simpleHash,
   toInt,
   within,
-} from "@openfront/engine-lib/Util";
+} from "@closefront/engine-lib/Util";
 import { z } from "zod";
 import {
   newPlayerInfo,

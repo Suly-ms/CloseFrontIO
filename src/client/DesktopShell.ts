@@ -1,15 +1,15 @@
 // The Electron desktop (Steam) shell exposes this global via a contextBridge
-// preload script — see openfront-desktop's src/preload/preload.ts. Its mere
+// preload script — see closefront-desktop's src/preload/preload.ts. Its mere
 // presence is a reliable signal we're running inside that shell, since only
 // the desktop build's preload script ever sets it.
 declare global {
   interface Window {
-    openfrontDesktop?: unknown;
+    closefrontDesktop?: unknown;
   }
 }
 
 export function isDesktopShell(): boolean {
-  return typeof window !== "undefined" && window.openfrontDesktop !== undefined;
+  return typeof window !== "undefined" && window.closefrontDesktop !== undefined;
 }
 
 // The shell's own version, distinct from the game version this client was
@@ -40,7 +40,7 @@ type LocaleBridge = { steamLocale?: unknown };
  * ever needs to be.
  */
 export function desktopSteamLocale(): string | null {
-  const desktop = window.openfrontDesktop as LocaleBridge | undefined;
+  const desktop = window.closefrontDesktop as LocaleBridge | undefined;
   const locale = desktop?.steamLocale;
   if (typeof locale !== "string") return null;
   // Shape first, then BCP-47 proper. The regex alone accepts tags that are
@@ -73,7 +73,7 @@ export function desktopSteamLocale(): string | null {
 const DESKTOP_VERSION_TIMEOUT_MS = 500;
 
 export async function desktopVersion(): Promise<string | null> {
-  const desktop = window.openfrontDesktop as VersionBridge | undefined;
+  const desktop = window.closefrontDesktop as VersionBridge | undefined;
   if (!desktop?.version) return null;
   let timer: ReturnType<typeof setTimeout> | undefined;
   const timeout = new Promise<null>((resolve) => {
@@ -121,7 +121,7 @@ export type DesktopUpdateStatus =
 /**
  * The update-error kinds this client knows how to reason about.
  *
- * openfront-desktop's src/main/update/state.ts (`UpdateErrorKind`) is the
+ * closefront-desktop's src/main/update/state.ts (`UpdateErrorKind`) is the
  * SOURCE OF TRUTH -- the shell produces these values and this client only
  * consumes them. The two repositories cannot import from each other, so this
  * must track that one by hand, the same arrangement multiplayerAllowed below
@@ -175,7 +175,7 @@ type UpdateBridgeHolder = { update?: DesktopUpdateBridge };
  */
 export function desktopUpdate(): DesktopUpdateBridge | null {
   if (typeof window === "undefined") return null;
-  const desktop = window.openfrontDesktop as UpdateBridgeHolder | undefined;
+  const desktop = window.closefrontDesktop as UpdateBridgeHolder | undefined;
   return desktop?.update ?? null;
 }
 
@@ -251,7 +251,7 @@ export function publishDesktopUpdateState(state: DesktopUpdateState): void {
  * Takes the whole state rather than the bare status because the error kind is
  * load-bearing in that decision.
  *
- * This mirrors multiplayerAllowed in openfront-desktop's
+ * This mirrors multiplayerAllowed in closefront-desktop's
  * src/main/update/state.ts. The two repositories cannot import from each other;
  * if you change the rule, change it in both. Both are covered by tests
  * asserting all four error kinds.
@@ -395,7 +395,7 @@ export function multiplayerAllowedForSession(
  * the same handoff the first-launch gate uses, and it needs no return path
  * into the shell, which is why every provider login on desktop goes through
  * it (see Auth.ts) rather than an OAuth redirect: `window.location.href` in
- * the shell is `app://openfront/...`, which the API's redirect_uri allowlist
+ * the shell is `app://closefront/...`, which the API's redirect_uri allowlist
  * refuses, and the shell registers no scheme handler for a browser-completed
  * OAuth flow to come back to anyway.
  *
@@ -411,7 +411,7 @@ export interface DesktopLinkGateBridge {
 
 export function desktopLinkGate(): DesktopLinkGateBridge | null {
   if (typeof window === "undefined") return null;
-  const desktop = window.openfrontDesktop as
+  const desktop = window.closefrontDesktop as
     | { showLinkGate?: unknown }
     | undefined;
   return typeof desktop?.showLinkGate === "function"
@@ -444,7 +444,7 @@ export interface DesktopQuitBridge {
 
 export function desktopQuit(): DesktopQuitBridge | null {
   if (typeof window === "undefined") return null;
-  const desktop = window.openfrontDesktop as { quit?: unknown } | undefined;
+  const desktop = window.closefrontDesktop as { quit?: unknown } | undefined;
   return typeof desktop?.quit === "function"
     ? (desktop as DesktopQuitBridge)
     : null;

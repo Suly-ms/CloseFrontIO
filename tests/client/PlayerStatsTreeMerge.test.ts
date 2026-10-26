@@ -3,8 +3,8 @@ import {
   ATTACK_INDEX_MAX_RECV,
   ATTACK_INDEX_RECV,
   ATTACK_INDEX_SENT,
-} from "@openfront/engine-api/StatsSchemas";
-import type { PlayerStatsLeaf } from "@openfront/shared/ApiSchemas";
+} from "@closefront/engine-api/StatsSchemas";
+import type { PlayerStatsLeaf } from "@closefront/shared/ApiSchemas";
 import { afterEach, describe, expect, it } from "vitest";
 import type { PlayerStatsSummary } from "../../src/client/components/baseComponents/stats/PlayerStatsSummary";
 import { PlayerStatsTreeView } from "../../src/client/components/baseComponents/stats/PlayerStatsTree";

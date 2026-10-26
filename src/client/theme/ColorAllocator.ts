@@ -1,5 +1,5 @@
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
-import { simpleHash } from "@openfront/engine-lib/Util";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
+import { simpleHash } from "@closefront/engine-lib/Util";
 import { Colord, extend } from "colord";
 import labPlugin from "colord/plugins/lab";
 import lchPlugin from "colord/plugins/lch";

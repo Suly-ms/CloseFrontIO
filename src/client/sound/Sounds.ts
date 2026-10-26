@@ -1,5 +1,5 @@
-import { assetUrl } from "@openfront/shared/AssetUrls";
-import { GameEvent } from "@openfront/shared/EventBus";
+import { assetUrl } from "@closefront/shared/AssetUrls";
+import { GameEvent } from "@closefront/shared/EventBus";
 import { AudioCategory } from "../UserSettings";
 
 export type SoundEffect =

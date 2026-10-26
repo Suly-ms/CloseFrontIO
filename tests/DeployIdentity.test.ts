@@ -94,15 +94,15 @@ describe("deploy.sh identity", () => {
       env: "prod",
       machine: "falk2",
       subdomain: "blue",
-      domain: "openfront.io",
-      siteHost: "openfront.io",
+      domain: "closefront.io",
+      siteHost: "closefront.io",
     });
     expect(r).toEqual({
       letter: "",
       numWorkers: "",
-      gameHost: "blue.openfront.io",
+      gameHost: "blue.closefront.io",
       deploymentName: "blue",
-      siteHost: "openfront.io",
+      siteHost: "closefront.io",
     });
   });
 
@@ -113,16 +113,16 @@ describe("deploy.sh identity", () => {
       env: "staging",
       machine: "staging",
       subdomain: "feat-foo",
-      domain: "openfront.dev",
-      gameDomain: "server.openfront.dev",
+      domain: "closefront.dev",
+      gameDomain: "server.closefront.dev",
     });
     expect(r).toEqual({
       letter: "",
       numWorkers: "",
-      gameHost: "feat-foo.server.openfront.dev",
+      gameHost: "feat-foo.server.closefront.dev",
       deploymentName: "feat-foo",
       // Under GAME_DOMAIN the page has its own name, which the Worker serves.
-      siteHost: "feat-foo.openfront.dev",
+      siteHost: "feat-foo.closefront.dev",
     });
   });
 
@@ -131,9 +131,9 @@ describe("deploy.sh identity", () => {
       env: "prod",
       machine: "falk2",
       subdomain: "beta",
-      domain: "openfront.io",
+      domain: "closefront.io",
     });
-    expect(r.gameHost).toBe("beta.openfront.io");
+    expect(r.gameHost).toBe("beta.closefront.io");
     expect(r.siteHost).toBe("");
   });
 
@@ -145,19 +145,19 @@ describe("deploy.sh identity", () => {
       env: "staging",
       machine: "nbg3",
       subdomain: "blue",
-      domain: "openfront.dev",
-      gameDomain: "server.openfront.dev",
+      domain: "closefront.dev",
+      gameDomain: "server.closefront.dev",
       letter: "f",
       numWorkers: "2",
-      gameHost: "blue.nbg3.server.openfront.dev",
-      siteHost: "openfront.dev",
+      gameHost: "blue.nbg3.server.closefront.dev",
+      siteHost: "closefront.dev",
     });
     expect(r).toEqual({
       letter: "f",
       numWorkers: "2",
-      gameHost: "blue.nbg3.server.openfront.dev",
+      gameHost: "blue.nbg3.server.closefront.dev",
       deploymentName: "nbg3-blue",
-      siteHost: "openfront.dev",
+      siteHost: "closefront.dev",
     });
   });
 
@@ -166,12 +166,12 @@ describe("deploy.sh identity", () => {
       env: "staging",
       machine: "staging",
       subdomain: "blue",
-      domain: "openfront.dev",
-      gameDomain: "server.openfront.dev",
+      domain: "closefront.dev",
+      gameDomain: "server.closefront.dev",
       letter: "a",
       numWorkers: "2",
-      gameHost: "blue.server.openfront.dev",
-      siteHost: "openfront.dev",
+      gameHost: "blue.server.closefront.dev",
+      siteHost: "closefront.dev",
     });
     expect(r.deploymentName).toBe("blue");
   });
@@ -181,34 +181,34 @@ describe("deploy.sh identity", () => {
   const dev = {
     env: "staging",
     machine: "staging",
-    domain: "openfront.dev",
-    gameDomain: "server.openfront.dev",
+    domain: "closefront.dev",
+    gameDomain: "server.closefront.dev",
   } as const;
   const prod = {
     env: "prod",
     machine: "falk2",
-    domain: "openfront.io",
+    domain: "closefront.io",
   } as const;
   it.each<[string, Inputs, string]>([
-    ["blue on dev", { ...dev, subdomain: "blue" }, "openfront.dev"],
-    ["green on dev", { ...dev, subdomain: "green" }, "openfront.dev"],
-    ["blue on prod", { ...prod, subdomain: "blue" }, "openfront.io"],
-    ["green on prod", { ...prod, subdomain: "green" }, "openfront.io"],
+    ["blue on dev", { ...dev, subdomain: "blue" }, "closefront.dev"],
+    ["green on dev", { ...dev, subdomain: "green" }, "closefront.dev"],
+    ["blue on prod", { ...prod, subdomain: "blue" }, "closefront.io"],
+    ["green on prod", { ...prod, subdomain: "green" }, "closefront.io"],
     [
       "an explicit SITE_HOST on a colour",
-      { ...dev, subdomain: "green", siteHost: "green.openfront.dev" },
-      "green.openfront.dev",
+      { ...dev, subdomain: "green", siteHost: "green.closefront.dev" },
+      "green.closefront.dev",
     ],
-    ["main on dev", { ...dev, subdomain: "main" }, "main.openfront.dev"],
+    ["main on dev", { ...dev, subdomain: "main" }, "main.closefront.dev"],
     [
       "bluegreen (not a slot)",
       { ...dev, subdomain: "bluegreen" },
-      "bluegreen.openfront.dev",
+      "bluegreen.closefront.dev",
     ],
     [
       "blue2 (not a slot)",
       { ...dev, subdomain: "blue2" },
-      "blue2.openfront.dev",
+      "blue2.closefront.dev",
     ],
     ["blue2 on prod (not a slot)", { ...prod, subdomain: "blue2" }, ""],
   ])("resolves the site of %s", (_what, inputs, siteHost) => {
@@ -222,7 +222,7 @@ describe("deploy.sh identity", () => {
       env: "prod",
       machine: "falk2",
       subdomain: "blue",
-      domain: "openfront.io",
+      domain: "closefront.io",
       letter: "c",
       numWorkers: "20",
     });
@@ -236,7 +236,7 @@ describe("deploy.sh identity", () => {
         env: "staging",
         machine: "staging",
         subdomain: "blue",
-        domain: "openfront.dev",
+        domain: "closefront.dev",
         letter,
       }),
     ).toContain("one lowercase letter");
@@ -248,7 +248,7 @@ describe("deploy.sh identity", () => {
         env: "staging",
         machine: "staging",
         subdomain: "blue",
-        domain: "openfront.dev",
+        domain: "closefront.dev",
         numWorkers: n,
       }),
     ).toContain("positive integer");
@@ -260,8 +260,8 @@ describe("deploy.sh identity", () => {
         env: "staging",
         machine: "staging",
         subdomain: "blue",
-        domain: "openfront.dev",
-        gameHost: "blue.openfront.dev`; rm -rf /",
+        domain: "closefront.dev",
+        gameHost: "blue.closefront.dev`; rm -rf /",
       }),
     ).toContain("must be a hostname");
   });

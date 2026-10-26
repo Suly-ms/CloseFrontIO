@@ -1,4 +1,4 @@
-import { assetUrl } from "@openfront/shared/AssetUrls";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 import { Howl } from "howler";
 import {
   html,

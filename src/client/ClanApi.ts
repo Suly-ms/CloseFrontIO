@@ -24,7 +24,7 @@ import {
   ClanRequestsResponseSchema,
   DiscordInviteResponseSchema,
   JoinClanResponseSchema,
-} from "@openfront/shared/ClanApiSchemas";
+} from "@closefront/shared/ClanApiSchemas";
 import { getApiBase, getUserMe } from "./Api";
 import { getAuthHeader } from "./Auth";
 
@@ -52,7 +52,7 @@ export type {
   ClanMemberStats,
   ClanMemberWL,
   ClanRequestsResponse,
-} from "@openfront/shared/ClanApiSchemas";
+} from "@closefront/shared/ClanApiSchemas";
 
 async function clanFetch(
   path: string,

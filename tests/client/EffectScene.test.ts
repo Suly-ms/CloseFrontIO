@@ -1,4 +1,4 @@
-import type { Effect } from "@openfront/shared/CosmeticSchemas";
+import type { Effect } from "@closefront/shared/CosmeticSchemas";
 import { afterEach, describe, expect, it } from "vitest";
 import "../../src/client/components/EffectPreview";
 import type {

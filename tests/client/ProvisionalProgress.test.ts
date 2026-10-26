@@ -1,12 +1,12 @@
-import { GameMode, GameType } from "@openfront/engine-api/game/GameTypes";
-import type { PlayerStats } from "@openfront/engine-api/StatsSchemas";
+import { GameMode, GameType } from "@closefront/engine-api/game/GameTypes";
+import type { PlayerStats } from "@closefront/engine-api/StatsSchemas";
 import type {
   GameXpResponse,
   Progress,
   ProgressionConfig,
   UserMeResponse,
-} from "@openfront/shared/ApiSchemas";
-import { XpRulesSchema } from "@openfront/shared/ApiSchemas";
+} from "@closefront/shared/ApiSchemas";
+import { XpRulesSchema } from "@closefront/shared/ApiSchemas";
 import {
   afterEach,
   beforeEach,

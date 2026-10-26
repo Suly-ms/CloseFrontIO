@@ -1,7 +1,7 @@
-import { PlayerInfo, PlayerType } from "@openfront/engine-api/game/GameTypes";
-import { Executor } from "@openfront/engine/execution/ExecutionManager";
-import { SpawnExecution } from "@openfront/engine/execution/SpawnExecution";
-import { SpawnTimerExecution } from "@openfront/engine/execution/SpawnTimerExecution";
+import { PlayerInfo, PlayerType } from "@closefront/engine-api/game/GameTypes";
+import { Executor } from "@closefront/engine/execution/ExecutionManager";
+import { SpawnExecution } from "@closefront/engine/execution/SpawnExecution";
+import { SpawnTimerExecution } from "@closefront/engine/execution/SpawnTimerExecution";
 import { setup } from "../../util/Setup";
 
 describe("Spawn execution", () => {

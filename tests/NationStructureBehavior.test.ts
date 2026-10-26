@@ -3,14 +3,14 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
-import { AttackExecution } from "@openfront/engine/execution/AttackExecution";
-import { ConstructionExecution } from "@openfront/engine/execution/ConstructionExecution";
-import { NationStructureBehavior } from "@openfront/engine/execution/nation/NationStructureBehavior";
-import { NationStructurePlacement } from "@openfront/engine/execution/nation/NationStructurePlacement";
-import { Game, Player } from "@openfront/engine/game/Game";
-import { Cluster } from "@openfront/engine/game/TrainStation";
+} from "@closefront/engine-api/game/GameTypes";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
+import { AttackExecution } from "@closefront/engine/execution/AttackExecution";
+import { ConstructionExecution } from "@closefront/engine/execution/ConstructionExecution";
+import { NationStructureBehavior } from "@closefront/engine/execution/nation/NationStructureBehavior";
+import { NationStructurePlacement } from "@closefront/engine/execution/nation/NationStructurePlacement";
+import { Game, Player } from "@closefront/engine/game/Game";
+import { Cluster } from "@closefront/engine/game/TrainStation";
 import { vi } from "vitest";
 import { createGame, L, W } from "./core/pathfinding/_fixtures";
 

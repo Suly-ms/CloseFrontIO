@@ -2,14 +2,14 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   BOAT_INDEX_DESTROY,
   BOAT_INDEX_LOST,
-} from "@openfront/engine-api/StatsSchemas";
-import { NukeExecution } from "@openfront/engine/execution/NukeExecution";
-import { PlayerExecution } from "@openfront/engine/execution/PlayerExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/StatsSchemas";
+import { NukeExecution } from "@closefront/engine/execution/NukeExecution";
+import { PlayerExecution } from "@closefront/engine/execution/PlayerExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 import { constructionExecution } from "./util/utils";
 

@@ -1,21 +1,21 @@
-import { GameMap } from "@openfront/engine-api/game/GameMap";
+import { GameMap } from "@closefront/engine-api/game/GameMap";
 import {
   Nation,
   TeamGameSpawnAreas,
-} from "@openfront/engine-api/game/GameTypes";
-import type { SnapshotHeader } from "@openfront/engine-api/game/SnapshotHeader";
-import { GameConfig, GameConfigSchema } from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/game/GameTypes";
+import type { SnapshotHeader } from "@closefront/engine-api/game/SnapshotHeader";
+import { GameConfig, GameConfigSchema } from "@closefront/engine-api/Schemas";
 import {
   GameMapImpl,
   GameMapSnapshot,
-} from "@openfront/engine-lib/game/GameMapImpl";
+} from "@closefront/engine-lib/game/GameMapImpl";
 import {
   readVersioned,
   SnapshotError,
   SnapshotType,
   Versioned,
   VersionedSchema,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
 import { z } from "zod";
 import { EngineConfig } from "../configuration/EngineConfig";
 import { AllianceImpl, AllianceSnapshot } from "../game/AllianceImpl";
@@ -46,7 +46,7 @@ import {
   SnapshotWriter,
 } from "./SnapshotContext";
 
-export const SNAPSHOT_MAGIC = "OpenFrontGameSnapshot";
+export const SNAPSHOT_MAGIC = "CloseFrontGameSnapshot";
 
 /**
  * Version of the root layout below. Everything inside it carries its own

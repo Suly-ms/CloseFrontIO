@@ -2,8 +2,8 @@ import {
   GameMode,
   GameType,
   type GameMapType,
-} from "@openfront/engine-api/game/GameTypes";
-import { type GameEndInfo } from "@openfront/shared/WireSchemas";
+} from "@closefront/engine-api/game/GameTypes";
+import { type GameEndInfo } from "@closefront/shared/WireSchemas";
 import {
   html,
   LitElement,

@@ -1,5 +1,5 @@
-import { ShoreCoercingTransformer } from "@openfront/engine/pathfinding/transformers/ShoreCoercingTransformer";
-import { PathFinder } from "@openfront/engine/pathfinding/types";
+import { ShoreCoercingTransformer } from "@closefront/engine/pathfinding/transformers/ShoreCoercingTransformer";
+import { PathFinder } from "@closefront/engine/pathfinding/types";
 import { describe, expect, it } from "vitest";
 import { createGameMap, createIslandMap, L, W } from "../_fixtures";
 

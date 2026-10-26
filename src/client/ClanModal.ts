@@ -1,4 +1,4 @@
-import { GameEnv } from "@openfront/shared/configuration/Env";
+import { GameEnv } from "@closefront/shared/configuration/Env";
 import { html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { getUserMe, invalidateUserMe } from "./Api";

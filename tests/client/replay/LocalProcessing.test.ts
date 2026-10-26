@@ -5,8 +5,8 @@
  * viewer plays as it grows, and stores once it's done.
  */
 
-import type { ConnectMessage } from "@openfront/engine-api/worker/WorkerMessages";
-import type { GameRecord } from "@openfront/shared/WireSchemas";
+import type { ConnectMessage } from "@closefront/engine-api/worker/WorkerMessages";
+import type { GameRecord } from "@closefront/shared/WireSchemas";
 import {
   gunzipInBrowser,
   gzipInBrowser,

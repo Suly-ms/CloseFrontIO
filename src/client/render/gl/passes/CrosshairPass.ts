@@ -25,7 +25,7 @@ import { createProgram } from "../utils/GlUtils";
 import fragSrc from "../shaders/crosshair/crosshair.frag.glsl?raw";
 import vertSrc from "../shaders/crosshair/crosshair.vert.glsl?raw";
 
-import { assetUrl } from "@openfront/shared/AssetUrls";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 
 const statusAtlasUrl = assetUrl("atlases/status-atlas.png");
 

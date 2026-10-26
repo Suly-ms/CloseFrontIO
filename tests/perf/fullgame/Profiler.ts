@@ -1,4 +1,4 @@
-import { Execution, Game } from "@openfront/engine/game/Game";
+import { Execution, Game } from "@closefront/engine/game/Game";
 import { Session } from "node:inspector";
 
 // ── Per-tick wall-time statistics ──

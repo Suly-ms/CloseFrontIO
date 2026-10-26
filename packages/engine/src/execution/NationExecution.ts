@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   Difficulty,
   GameMode,
@@ -8,16 +8,16 @@ import {
   Relation,
   TerrainType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameID } from "@openfront/engine-api/Schemas";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameID } from "@closefront/engine-api/Schemas";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
 import {
   VersionedSchema,
   zNum,
   zPlayerRef,
   zRandom,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
-import { assertNever, simpleHash } from "@openfront/engine-lib/Util";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
+import { assertNever, simpleHash } from "@closefront/engine-lib/Util";
 import { z } from "zod";
 import { Execution, Game, Player } from "../game/Game";
 import {

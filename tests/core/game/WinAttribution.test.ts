@@ -2,9 +2,9 @@ import {
   GameMode,
   PlayerInfo,
   PlayerType,
-} from "@openfront/engine-api/game/GameTypes";
-import { MarkDisconnectedExecution } from "@openfront/engine/execution/MarkDisconnectedExecution";
-import { GameImpl } from "@openfront/engine/game/GameImpl";
+} from "@closefront/engine-api/game/GameTypes";
+import { MarkDisconnectedExecution } from "@closefront/engine/execution/MarkDisconnectedExecution";
+import { GameImpl } from "@closefront/engine/game/GameImpl";
 import { describe, expect, test } from "vitest";
 import { setup } from "../../util/Setup";
 

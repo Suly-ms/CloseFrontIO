@@ -1,7 +1,7 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { Game } from "@openfront/engine/game/Game";
-import { PathFinding } from "@openfront/engine/pathfinding/PathFinder";
-import { SteppingPathFinder } from "@openfront/engine/pathfinding/types";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { Game } from "@closefront/engine/game/Game";
+import { PathFinding } from "@closefront/engine/pathfinding/PathFinder";
+import { SteppingPathFinder } from "@closefront/engine/pathfinding/types";
 import { beforeAll, describe, expect, it } from "vitest";
 import { setup } from "../../util/Setup";
 

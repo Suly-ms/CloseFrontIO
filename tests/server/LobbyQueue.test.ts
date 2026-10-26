@@ -1,5 +1,5 @@
-import { GameType } from "@openfront/engine-api/game/GameTypes";
-import { LOBBY_QUEUE_CUTOFF_MS } from "@openfront/shared/WireSchemas";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
+import { LOBBY_QUEUE_CUTOFF_MS } from "@closefront/shared/WireSchemas";
 import EventEmitter from "events";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";

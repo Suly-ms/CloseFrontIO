@@ -1,12 +1,12 @@
-import { GAME_ID_REGEX } from "@openfront/engine-api/Schemas";
+import { GAME_ID_REGEX } from "@closefront/engine-api/Schemas";
 import {
   isRewardClaimable,
   UserMeResponse,
-} from "@openfront/shared/ApiSchemas";
-import { assetUrl } from "@openfront/shared/AssetUrls";
-import { GameEnv } from "@openfront/shared/configuration/Env";
-import { EventBus } from "@openfront/shared/EventBus";
-import { toWireGameStartInfo } from "@openfront/shared/SharedUtil";
+} from "@closefront/shared/ApiSchemas";
+import { assetUrl } from "@closefront/shared/AssetUrls";
+import { GameEnv } from "@closefront/shared/configuration/Env";
+import { EventBus } from "@closefront/shared/EventBus";
+import { toWireGameStartInfo } from "@closefront/shared/SharedUtil";
 import {
   GameInfo,
   GameRecord,
@@ -14,7 +14,7 @@ import {
   LobbyInfoEvent,
   PublicGameInfo,
   WireGameStartInfo,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { ClientEnv } from "src/client/ClientEnv";
 import { renderNavVersion } from "src/client/GameVersion";
 import { responseHasLinkedIdentity } from "./AccountIdentity";
@@ -516,12 +516,12 @@ class Client {
     await customElements.whenDefined("mobile-nav-bar");
     await customElements.whenDefined("desktop-nav-bar");
 
-    const openFrontFont = new FontFace(
-      "OpenFront",
-      `url(${assetUrl("fonts/OpenFront.ttf")})`,
+    const closeFrontFont = new FontFace(
+      "CloseFront",
+      `url(${assetUrl("fonts/CloseFront.ttf")})`,
     );
-    document.fonts.add(openFrontFont);
-    openFrontFont.load().catch(() => {});
+    document.fonts.add(closeFrontFont);
+    closeFrontFont.load().catch(() => {});
 
     // The tagged version only, so a player's version reads the same across web
     // and Steam. The build's full identity -- the commit on an untagged build,
@@ -1961,7 +1961,7 @@ class Client {
       // Not reachable from the desktop shell today: it classifies every
       // https:// URL as open-externally, so redirectToVersionedShell() hands
       // the replay host to the OS browser and this window stays on
-      // app://openfront/. That is a policy in a different repo though, and
+      // app://closefront/. That is a policy in a different repo though, and
       // nothing here would notice if it changed -- so guard rather than depend
       // on it. On the replay host, fall back to the in-place leave.
       if (!isReplayShellHost(window.location.hostname)) {

@@ -55,10 +55,10 @@ beforeEach(() => {
     gameEnv: "prod",
     numWorkers: 1,
     turnstileSiteKey: "x",
-    jwtAudience: "openfront.io",
+    jwtAudience: "closefront.io",
     instanceId: "test",
     gitCommit: "test",
-    serverHost: "main.openfront.dev",
+    serverHost: "main.closefront.dev",
   };
   ClientEnv.reset();
   fetchMock = vi.fn();
@@ -95,7 +95,7 @@ describe("createPaymentsCheckout request shape", () => {
     });
 
     const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
-    expect(url).toBe("https://api.openfront.io/payments/checkout");
+    expect(url).toBe("https://api.closefront.io/payments/checkout");
     expect(init.method).toBe("POST");
     expect((init.headers as Record<string, string>).Authorization).toBe(
       "Bearer test",
@@ -522,7 +522,7 @@ describe("finalizeSteamOrder", () => {
     const result = await finalizeSteamOrder("1234");
 
     const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
-    expect(url).toBe("https://api.openfront.io/payments/steam/finalize");
+    expect(url).toBe("https://api.closefront.io/payments/steam/finalize");
     expect(init.method).toBe("POST");
     expect((init.headers as Record<string, string>).Authorization).toBe(
       "Bearer test",

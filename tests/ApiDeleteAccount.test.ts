@@ -19,7 +19,7 @@ function setConfig() {
     gameEnv: "prod",
     numWorkers: 1,
     turnstileSiteKey: "x",
-    jwtAudience: "openfront.dev",
+    jwtAudience: "closefront.dev",
     instanceId: "desktop",
     gitCommit: "test",
   };

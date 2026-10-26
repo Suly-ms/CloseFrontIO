@@ -1,4 +1,4 @@
-import { PoolConfig } from "@openfront/engine-api/Schemas";
+import { PoolConfig } from "@closefront/engine-api/Schemas";
 import { describe, expect, it } from "vitest";
 import { poolIndexFor, poolTargetFor } from "../../src/server/PoolRouting";
 

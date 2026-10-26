@@ -2,9 +2,9 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { ShellExecution } from "@openfront/engine/execution/ShellExecution";
-import { Game, Player, Unit } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { ShellExecution } from "@closefront/engine/execution/ShellExecution";
+import { Game, Player, Unit } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 
 const coastX = 7;

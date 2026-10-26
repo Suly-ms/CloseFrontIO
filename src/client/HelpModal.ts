@@ -1,4 +1,4 @@
-import { assetUrl } from "@openfront/shared/AssetUrls";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 import { html } from "lit";
 import { customElement, query, state } from "lit/decorators.js";
 import {

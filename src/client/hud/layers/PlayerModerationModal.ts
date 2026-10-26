@@ -1,6 +1,6 @@
-import { PlayerType } from "@openfront/engine-api/game/GameTypes";
-import { assetUrl } from "@openfront/shared/AssetUrls";
-import { EventBus } from "@openfront/shared/EventBus";
+import { PlayerType } from "@closefront/engine-api/game/GameTypes";
+import { assetUrl } from "@closefront/shared/AssetUrls";
+import { EventBus } from "@closefront/shared/EventBus";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { actionButton } from "../../components/ui/ActionButton";

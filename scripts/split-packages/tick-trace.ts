@@ -23,21 +23,21 @@ import {
   GameMapType,
   GameMode,
   GameType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   ErrorUpdate,
   GameUpdateType,
   GameUpdateViewData,
   HashUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
-import { GameStartInfo, Turn } from "@openfront/engine-api/Schemas";
-import { createGameRunner } from "@openfront/engine/GameRunner";
-import { loadMapFiles } from "@openfront/shared/GameMapLoader";
+} from "@closefront/engine-api/game/GameUpdates";
+import { GameStartInfo, Turn } from "@closefront/engine-api/Schemas";
+import { createGameRunner } from "@closefront/engine/GameRunner";
+import { loadMapFiles } from "@closefront/shared/GameMapLoader";
 import {
   decompressGameRecord,
   toWireGameStartInfo,
-} from "@openfront/shared/SharedUtil";
-import { GameRecord } from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/SharedUtil";
+import { GameRecord } from "@closefront/shared/WireSchemas";
 import { createHash, Hash } from "crypto";
 import fs from "fs";
 import path from "path";
@@ -63,7 +63,7 @@ function recordGame(name: string, gameID: string): TraceGame {
     async load() {
       const file = path.join(RECORDS_DIR, `${gameID}.json`);
       if (!fs.existsSync(file)) {
-        const res = await fetch(`https://api.openfront.io/game/${gameID}`, {
+        const res = await fetch(`https://api.closefront.io/game/${gameID}`, {
           // The API serves a Cloudflare challenge to non-browser agents.
           headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64)" },
         });

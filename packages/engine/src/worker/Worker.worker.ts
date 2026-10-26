@@ -1,7 +1,7 @@
 import {
   ErrorUpdate,
   GameUpdateViewData,
-} from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameUpdates";
 import {
   AttackClusteredPositionsResultMessage,
   HumanDisconnectsResultMessage,
@@ -19,7 +19,7 @@ import {
   SnapshotResultMessage,
   TransportShipSpawnResultMessage,
   WorkerMessage,
-} from "@openfront/engine-api/worker/WorkerMessages";
+} from "@closefront/engine-api/worker/WorkerMessages";
 import {
   createGameRunner,
   createGameRunnerFromSnapshot,

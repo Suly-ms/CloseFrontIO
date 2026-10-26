@@ -1,7 +1,7 @@
 import type {
   PrestigeResponse,
   UserMeResponse,
-} from "@openfront/shared/ApiSchemas";
+} from "@closefront/shared/ApiSchemas";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mocks as in AccountModal.rendering.test.ts.

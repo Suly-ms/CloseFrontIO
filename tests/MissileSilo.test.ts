@@ -1,15 +1,15 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameID } from "@openfront/engine-api/Schemas";
-import { MirvExecution } from "@openfront/engine/execution/MIRVExecution";
-import { NukeExecution } from "@openfront/engine/execution/NukeExecution";
-import { SpawnExecution } from "@openfront/engine/execution/SpawnExecution";
-import { UpgradeStructureExecution } from "@openfront/engine/execution/UpgradeStructureExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameID } from "@closefront/engine-api/Schemas";
+import { MirvExecution } from "@closefront/engine/execution/MIRVExecution";
+import { NukeExecution } from "@closefront/engine/execution/NukeExecution";
+import { SpawnExecution } from "@closefront/engine/execution/SpawnExecution";
+import { UpgradeStructureExecution } from "@closefront/engine/execution/UpgradeStructureExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 import { constructionExecution, executeTicks } from "./util/utils";
 

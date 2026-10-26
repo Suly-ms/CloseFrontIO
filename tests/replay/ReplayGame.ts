@@ -11,7 +11,7 @@
  *
  * Usage:
  *   npm run replay:game -- <gameID | path/to/record.json>
- *                          [--api-base https://api.openfront.io]
+ *                          [--api-base https://api.closefront.io]
  *                          [--teams 0,1,0,1]
  *
  * A bare game ID is fetched from the public API. --teams overrides each
@@ -21,26 +21,26 @@
  *
  * Exits non-zero if the replay diverges from the recorded hashes.
  */
-import { PlayerInfo, PlayerType } from "@openfront/engine-api/game/GameTypes";
+import { PlayerInfo, PlayerType } from "@closefront/engine-api/game/GameTypes";
 import {
   GameUpdateType,
   HashUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
-import { GameStartInfo } from "@openfront/engine-api/Schemas";
-import { loadTerrainMap } from "@openfront/engine-lib/game/TerrainMapLoader";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
-import { simpleHash } from "@openfront/engine-lib/Util";
-import { EngineConfig } from "@openfront/engine/configuration/EngineConfig";
-import { Executor } from "@openfront/engine/execution/ExecutionManager";
-import { createGame } from "@openfront/engine/game/GameImpl";
-import { createNationsForGame } from "@openfront/engine/game/NationCreation";
-import { GameRunner } from "@openfront/engine/GameRunner";
-import { loadMapFiles } from "@openfront/shared/GameMapLoader";
+} from "@closefront/engine-api/game/GameUpdates";
+import { GameStartInfo } from "@closefront/engine-api/Schemas";
+import { loadTerrainMap } from "@closefront/engine-lib/game/TerrainMapLoader";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
+import { simpleHash } from "@closefront/engine-lib/Util";
+import { EngineConfig } from "@closefront/engine/configuration/EngineConfig";
+import { Executor } from "@closefront/engine/execution/ExecutionManager";
+import { createGame } from "@closefront/engine/game/GameImpl";
+import { createNationsForGame } from "@closefront/engine/game/NationCreation";
+import { GameRunner } from "@closefront/engine/GameRunner";
+import { loadMapFiles } from "@closefront/shared/GameMapLoader";
 import {
   decompressGameRecord,
   toWireGameStartInfo,
-} from "@openfront/shared/SharedUtil";
-import { GameRecord, GameRecordSchema } from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/SharedUtil";
+import { GameRecord, GameRecordSchema } from "@closefront/shared/WireSchemas";
 import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
@@ -61,7 +61,7 @@ interface Options {
 function parseArgs(argv: string[]): Options {
   const opts: Options = {
     source: "",
-    apiBase: "https://api.openfront.io",
+    apiBase: "https://api.closefront.io",
     teams: null,
   };
   for (let i = 0; i < argv.length; i++) {

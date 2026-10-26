@@ -1,4 +1,4 @@
-# Copilot Instructions — openfront-client
+# Copilot Instructions — closefront-client
 
 > This file provides GitHub Copilot with project-wide context.
 > Keeping this concise and accurate reduces token usage by 20-30%.

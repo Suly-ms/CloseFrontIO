@@ -2,7 +2,7 @@ import {
   CloseCode,
   CloseReason,
   isTerminalClose,
-} from "@openfront/shared/CloseCodes";
+} from "@closefront/shared/CloseCodes";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getUserMe, userMeFailureClose } from "../../src/server/jwt";
 

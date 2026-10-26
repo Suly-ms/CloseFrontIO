@@ -1,14 +1,14 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   BuildableUnit,
   BuildMenus,
   Gold,
   PlayerBuildableUnitType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { renderNumber } from "@openfront/engine-lib/Format";
-import { assetUrl } from "@openfront/shared/AssetUrls";
-import { EventBus } from "@openfront/shared/EventBus";
+} from "@closefront/engine-api/game/GameTypes";
+import { renderNumber } from "@closefront/engine-lib/Format";
+import { assetUrl } from "@closefront/shared/AssetUrls";
+import { EventBus } from "@closefront/shared/EventBus";
 import { css, html, LitElement } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { translateText } from "../../../client/Utils";

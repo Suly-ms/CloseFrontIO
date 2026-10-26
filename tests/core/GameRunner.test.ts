@@ -3,10 +3,10 @@ import {
   Nation,
   PlayerInfo,
   PlayerType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameConfig, GameID } from "@openfront/engine-api/Schemas";
-import { NationExecution } from "@openfront/engine/execution/NationExecution";
-import { SpawnExecution } from "@openfront/engine/execution/SpawnExecution";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameConfig, GameID } from "@closefront/engine-api/Schemas";
+import { NationExecution } from "@closefront/engine/execution/NationExecution";
+import { SpawnExecution } from "@closefront/engine/execution/SpawnExecution";
 import { setup } from "../util/Setup";
 import { executeTicks } from "../util/utils";
 

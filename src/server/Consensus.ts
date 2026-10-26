@@ -2,11 +2,11 @@ import {
   AllPlayersStats,
   ClientID,
   Winner,
-} from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/Schemas";
 import {
   ClientSendWinnerMessage,
   LiveStats,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { createHash } from "crypto";
 import { VoteRound } from "./VoteTally";
 

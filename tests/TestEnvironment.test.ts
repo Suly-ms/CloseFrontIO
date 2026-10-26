@@ -12,18 +12,18 @@ describe("test environment", () => {
   it("provides a working jsdom localStorage", () => {
     expect(typeof localStorage).toBe("object");
 
-    localStorage.setItem("openfront-test-probe", "value");
-    expect(localStorage.getItem("openfront-test-probe")).toBe("value");
-    localStorage.removeItem("openfront-test-probe");
-    expect(localStorage.getItem("openfront-test-probe")).toBeNull();
+    localStorage.setItem("closefront-test-probe", "value");
+    expect(localStorage.getItem("closefront-test-probe")).toBe("value");
+    localStorage.removeItem("closefront-test-probe");
+    expect(localStorage.getItem("closefront-test-probe")).toBeNull();
   });
 
   it("provides a working jsdom sessionStorage", () => {
     expect(typeof sessionStorage).toBe("object");
 
-    sessionStorage.setItem("openfront-test-probe", "value");
-    expect(sessionStorage.getItem("openfront-test-probe")).toBe("value");
-    sessionStorage.removeItem("openfront-test-probe");
-    expect(sessionStorage.getItem("openfront-test-probe")).toBeNull();
+    sessionStorage.setItem("closefront-test-probe", "value");
+    expect(sessionStorage.getItem("closefront-test-probe")).toBe("value");
+    sessionStorage.removeItem("closefront-test-probe");
+    expect(sessionStorage.getItem("closefront-test-probe")).toBeNull();
   });
 });

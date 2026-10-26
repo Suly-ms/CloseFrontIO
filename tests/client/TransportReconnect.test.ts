@@ -1,10 +1,10 @@
-import { CloseCode, CloseReason } from "@openfront/shared/CloseCodes";
-import { EventBus } from "@openfront/shared/EventBus";
-import { ServerMessage } from "@openfront/shared/WireSchemas";
+import { CloseCode, CloseReason } from "@closefront/shared/CloseCodes";
+import { EventBus } from "@closefront/shared/EventBus";
+import { ServerMessage } from "@closefront/shared/WireSchemas";
 import {
   decodeClientMessage,
   encodeServerMessage,
-} from "@openfront/shared/ZbinWire";
+} from "@closefront/shared/ZbinWire";
 import { afterEach, beforeEach, describe, expect, it, Mock, vi } from "vitest";
 import { testGameConfig } from "../util/Wire";
 

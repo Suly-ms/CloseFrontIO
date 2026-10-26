@@ -1,4 +1,4 @@
-import type { PlayerCosmetics } from "@openfront/shared/WireSchemas";
+import type { PlayerCosmetics } from "@closefront/shared/WireSchemas";
 import { render } from "lit";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 

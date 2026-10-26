@@ -19,7 +19,7 @@ vi.mock("../../src/client/Utils", () => ({
   showToast: vi.fn(),
 }));
 
-import type { Progress, UserMeResponse } from "@openfront/shared/ApiSchemas";
+import type { Progress, UserMeResponse } from "@closefront/shared/ApiSchemas";
 import { NavAccountMenu } from "../../src/client/components/NavAccountMenu";
 
 const progress: Progress = {

@@ -1,4 +1,4 @@
-import { MAX_USERNAME_LENGTH } from "@openfront/engine-api/Schemas";
+import { MAX_USERNAME_LENGTH } from "@closefront/engine-api/Schemas";
 import { describe, expect, it } from "vitest";
 import type { JoinVerifyResponse } from "../../src/server/JoinVerify";
 import {

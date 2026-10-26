@@ -1,6 +1,6 @@
-import { GameMapType } from "@openfront/engine-api/game/GameTypes";
-import { UserMeResponse } from "@openfront/shared/ApiSchemas";
-import { PublicGameInfo } from "@openfront/shared/WireSchemas";
+import { GameMapType } from "@closefront/engine-api/game/GameTypes";
+import { UserMeResponse } from "@closefront/shared/ApiSchemas";
+import { PublicGameInfo } from "@closefront/shared/WireSchemas";
 import { html, nothing, svg, TemplateResult } from "lit";
 import { responseHasLinkedIdentity } from "../AccountIdentity";
 import { gamePortal } from "../GamePortal";

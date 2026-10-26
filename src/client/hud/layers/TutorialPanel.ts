@@ -2,9 +2,9 @@ import {
   PlayerType,
   Relation,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { renderNumber } from "@openfront/engine-lib/Format";
-import { EventBus } from "@openfront/shared/EventBus";
+} from "@closefront/engine-api/game/GameTypes";
+import { renderNumber } from "@closefront/engine-lib/Format";
+import { EventBus } from "@closefront/shared/EventBus";
 import { LitElement, html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { Controller } from "../../Controller";

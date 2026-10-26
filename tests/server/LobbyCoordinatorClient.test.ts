@@ -1,4 +1,4 @@
-import { CloseCode } from "@openfront/shared/CloseCodes";
+import { CloseCode } from "@closefront/shared/CloseCodes";
 import EventEmitter from "events";
 import { afterEach, beforeEach, describe, expect, it, Mock, vi } from "vitest";
 import {
@@ -43,7 +43,7 @@ class FakeSocket extends EventEmitter implements CoordinatorSocket {
 
 const HELLO = {
   letter: "a",
-  host: "blue.openfront.io",
+  host: "blue.closefront.io",
   version: "bfd5563a11111111111111111111111111111111",
   numWorkers: 4,
   instanceId: "abcd1234",
@@ -75,7 +75,7 @@ describe("LobbyCoordinatorClient", () => {
       onUpdateLobby: vi.fn<CoordinatorHandlers["onUpdateLobby"]>(),
     };
     client = new LobbyCoordinatorClient({
-      url: "wss://api.openfront.io/cluster/lobbies?site=openfront.io",
+      url: "wss://api.closefront.io/cluster/lobbies?site=closefront.io",
       apiKey: "secret",
       hello: HELLO,
       handlers,
@@ -360,18 +360,18 @@ describe("coordinatorUrl", () => {
   afterEach(() => vi.unstubAllEnvs());
 
   it("is null without LOBBY_COORDINATOR=api or without a site", () => {
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     vi.stubEnv("LOBBY_COORDINATOR", "");
-    expect(coordinatorUrl("openfront.io")).toBeNull();
+    expect(coordinatorUrl("closefront.io")).toBeNull();
     vi.stubEnv("LOBBY_COORDINATOR", "api");
     expect(coordinatorUrl(undefined)).toBeNull();
   });
 
   it("points at the API's lobbies endpoint over wss for the site", () => {
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     vi.stubEnv("LOBBY_COORDINATOR", "api");
-    expect(coordinatorUrl("openfront.io")).toBe(
-      "wss://api.openfront.io/cluster/lobbies?site=openfront.io",
+    expect(coordinatorUrl("closefront.io")).toBe(
+      "wss://api.closefront.io/cluster/lobbies?site=closefront.io",
     );
     vi.stubEnv("DOMAIN", "localhost");
     expect(coordinatorUrl("localhost")).toBe(

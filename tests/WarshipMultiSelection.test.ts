@@ -2,10 +2,10 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { MoveWarshipExecution } from "@openfront/engine/execution/MoveWarshipExecution";
-import { WarshipExecution } from "@openfront/engine/execution/WarshipExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { MoveWarshipExecution } from "@closefront/engine/execution/MoveWarshipExecution";
+import { WarshipExecution } from "@closefront/engine/execution/WarshipExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 import { executeTicks } from "./util/utils";
 

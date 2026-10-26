@@ -3,9 +3,9 @@
 // However buildUnit do not create executions (e.g.: WarshipExecution)
 // If you also need execution use function below. Does not work with things not
 
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
-import { ConstructionExecution } from "@openfront/engine/execution/ConstructionExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
+import { ConstructionExecution } from "@closefront/engine/execution/ConstructionExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 
 // built via UI (e.g.: trade ships)
 export function constructionExecution(

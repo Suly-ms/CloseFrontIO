@@ -1,14 +1,14 @@
-import { GameMode, GameType } from "@openfront/engine-api/game/GameTypes";
-import { GAME_ID_REGEX, GameConfig } from "@openfront/engine-api/Schemas";
-import { assetUrl } from "@openfront/shared/AssetUrls";
-import { EventBus } from "@openfront/shared/EventBus";
+import { GameMode, GameType } from "@closefront/engine-api/game/GameTypes";
+import { GAME_ID_REGEX, GameConfig } from "@closefront/engine-api/Schemas";
+import { assetUrl } from "@closefront/shared/AssetUrls";
+import { EventBus } from "@closefront/shared/EventBus";
 import {
   ClientInfo,
   GameInfo,
   GameRecordSchema,
   LobbyInfoEvent,
   PublicGameInfo,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { html, TemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { ClientEnv } from "src/client/ClientEnv";

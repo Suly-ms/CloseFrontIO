@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   Difficulty,
   GameMapSize,
@@ -9,15 +9,15 @@ import {
   PlayerType,
   TerrainType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameConfig } from "@openfront/engine-api/Schemas";
-import { genTerrainFromBin } from "@openfront/engine-lib/game/TerrainMapLoader";
-import { AttackExecution } from "@openfront/engine/execution/AttackExecution";
-import { NukeExecution } from "@openfront/engine/execution/NukeExecution";
-import { PlayerExecution } from "@openfront/engine/execution/PlayerExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
-import { createGame } from "@openfront/engine/game/GameImpl";
-import { PathFinding } from "@openfront/engine/pathfinding/PathFinder";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameConfig } from "@closefront/engine-api/Schemas";
+import { genTerrainFromBin } from "@closefront/engine-lib/game/TerrainMapLoader";
+import { AttackExecution } from "@closefront/engine/execution/AttackExecution";
+import { NukeExecution } from "@closefront/engine/execution/NukeExecution";
+import { PlayerExecution } from "@closefront/engine/execution/PlayerExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
+import { createGame } from "@closefront/engine/game/GameImpl";
+import { PathFinding } from "@closefront/engine/pathfinding/PathFinder";
 import { encodeTerrainTile } from "../src/client/render/gl/utils/ColorUtils";
 import { TestConfig } from "./util/TestConfig";
 import { executeTicks } from "./util/utils";

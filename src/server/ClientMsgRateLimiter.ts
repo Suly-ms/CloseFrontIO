@@ -1,4 +1,4 @@
-import { ClientID } from "@openfront/engine-api/Schemas";
+import { ClientID } from "@closefront/engine-api/Schemas";
 import { RateLimiter } from "limiter";
 
 const INTENTS_PER_SECOND = 10;

@@ -1,10 +1,10 @@
-import { Tick, UnitType } from "@openfront/engine-api/game/GameTypes";
-import { NukeMagnitude } from "@openfront/engine-lib/configuration/Config";
+import { Tick, UnitType } from "@closefront/engine-api/game/GameTypes";
+import { NukeMagnitude } from "@closefront/engine-lib/configuration/Config";
 import {
   AttackLogicInput,
   AttackLogicResult,
   EngineConfig,
-} from "@openfront/engine/configuration/EngineConfig";
+} from "@closefront/engine/configuration/EngineConfig";
 
 export class TestConfig extends EngineConfig {
   private _proximityBonusPortsNb: number = 0;

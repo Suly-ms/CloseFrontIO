@@ -20,7 +20,7 @@ vi.mock("../../src/client/ProgressionApi", () => ({
 import {
   type PublicProgress,
   PublicProgressSchema,
-} from "@openfront/shared/ApiSchemas";
+} from "@closefront/shared/ApiSchemas";
 import {
   formatProgressDate,
   milestoneRuns,

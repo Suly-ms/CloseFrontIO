@@ -53,7 +53,7 @@ function runPull(env: {
   const envFile = path.join(tempDir, "deploy.env");
   fs.writeFileSync(
     envFile,
-    `GHCR_IMAGE=ghcr.io/openfrontio/openfront-prod:v1\nGHCR_TOKEN=${env.GHCR_TOKEN ?? ""}\nGHCR_USER=${env.GHCR_USER ?? ""}\nAPI_KEY=k3y\n`,
+    `GHCR_IMAGE=ghcr.io/closefrontio/closefront-prod:v1\nGHCR_TOKEN=${env.GHCR_TOKEN ?? ""}\nGHCR_USER=${env.GHCR_USER ?? ""}\nAPI_KEY=k3y\n`,
   );
   const fakeDocker = `#!/bin/bash
 if [ "$1" = login ]; then
@@ -70,7 +70,7 @@ exit 0
   const script = [
     "set -eo pipefail",
     `export PATH='${binDir}':"$PATH"`,
-    "GHCR_IMAGE=ghcr.io/openfrontio/openfront-prod:v1",
+    "GHCR_IMAGE=ghcr.io/closefrontio/closefront-prod:v1",
     `ENV_FILE='${envFile}'`,
     extractPullBlock(),
     'echo "reached end"',
@@ -105,7 +105,7 @@ describe("update.sh pull image", () => {
     expect(r.reachedEnd).toBe(true);
     expect(r.calls).toEqual([
       "login ghcr.io -u evan --password-stdin stdin=ghs_token",
-      "pull ghcr.io/openfrontio/openfront-prod:v1",
+      "pull ghcr.io/closefrontio/closefront-prod:v1",
       "logout ghcr.io",
     ]);
   });
@@ -113,7 +113,7 @@ describe("update.sh pull image", () => {
   it("drops the token from the env file the containers get", () => {
     const r = runPull({ GHCR_TOKEN: "ghs_token", GHCR_USER: "evan" });
     expect(r.envFile).toBe(
-      "GHCR_IMAGE=ghcr.io/openfrontio/openfront-prod:v1\nAPI_KEY=k3y\n",
+      "GHCR_IMAGE=ghcr.io/closefrontio/closefront-prod:v1\nAPI_KEY=k3y\n",
     );
     expect(r.leftoverBackup).toBe(false);
   });
@@ -146,6 +146,6 @@ describe("update.sh pull image", () => {
   it("pulls anonymously without a token", () => {
     const r = runPull({});
     expect(r.status).toBe(0);
-    expect(r.calls).toEqual(["pull ghcr.io/openfrontio/openfront-prod:v1"]);
+    expect(r.calls).toEqual(["pull ghcr.io/closefrontio/closefront-prod:v1"]);
   });
 });

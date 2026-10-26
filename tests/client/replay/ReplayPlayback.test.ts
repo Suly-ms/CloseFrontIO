@@ -1,4 +1,4 @@
-import { GameType } from "@openfront/engine-api/game/GameTypes";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
 import { gunzip as gunzipCb } from "zlib";
 import {
   ReplayPlayback,

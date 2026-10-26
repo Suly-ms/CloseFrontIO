@@ -1,5 +1,5 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
 import { Game, Player, Unit } from "../../game/Game";
 import { UniversalPathFinding } from "../../pathfinding/PathFinder";
 

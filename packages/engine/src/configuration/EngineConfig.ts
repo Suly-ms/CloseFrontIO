@@ -7,18 +7,18 @@ import {
   TerraNullius,
   Tick,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { PlayerLike } from "@openfront/engine-api/game/ReadViews";
-import { TeamCountConfig } from "@openfront/engine-api/Schemas";
-import { NukeType } from "@openfront/engine-api/StatsSchemas";
-import { Config } from "@openfront/engine-lib/configuration/Config";
-import { exp, log, pow2 } from "@openfront/engine-lib/DetMath";
+} from "@closefront/engine-api/game/GameTypes";
+import { PlayerLike } from "@closefront/engine-api/game/ReadViews";
+import { TeamCountConfig } from "@closefront/engine-api/Schemas";
+import { NukeType } from "@closefront/engine-api/StatsSchemas";
+import { Config } from "@closefront/engine-lib/configuration/Config";
+import { exp, log, pow2 } from "@closefront/engine-lib/DetMath";
 import {
   assertNever,
   sigmoid,
   toInt,
   within,
-} from "@openfront/engine-lib/Util";
+} from "@closefront/engine-lib/Util";
 import type { EngineUnitInfo, Game, Player, Unit } from "../game/Game";
 
 export interface AttackLogicInput {

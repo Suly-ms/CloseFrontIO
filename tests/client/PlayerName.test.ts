@@ -1,5 +1,5 @@
-import { UsernameSchema } from "@openfront/engine-api/Schemas";
-import type { UserMeResponse } from "@openfront/shared/ApiSchemas";
+import { UsernameSchema } from "@closefront/engine-api/Schemas";
+import type { UserMeResponse } from "@closefront/shared/ApiSchemas";
 import { describe, expect, it } from "vitest";
 import {
   accountNameHeld,

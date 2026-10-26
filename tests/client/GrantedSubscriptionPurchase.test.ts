@@ -41,7 +41,7 @@ vi.mock("../../src/client/Payments", async (importOriginal) => ({
 import type {
   Cosmetics,
   Subscription,
-} from "@openfront/shared/CosmeticSchemas";
+} from "@closefront/shared/CosmeticSchemas";
 import {
   changeSubscriptionTier,
   getUserMe,
@@ -399,13 +399,13 @@ describe("purchaseCosmetic: a granted subscriber in the Steam build", () => {
   // infra carries the unused days onto a Steam agreement
   // (`steam:extend_agreement`); the Stripe rail still forfeits them.
   beforeEach(() => {
-    (window as unknown as { openfrontDesktop?: unknown }).openfrontDesktop = {
+    (window as unknown as { closefrontDesktop?: unknown }).closefrontDesktop = {
       steam: {},
     };
   });
   afterEach(() => {
-    delete (window as unknown as { openfrontDesktop?: unknown })
-      .openfrontDesktop;
+    delete (window as unknown as { closefrontDesktop?: unknown })
+      .closefrontDesktop;
   });
 
   it("promises the free days are added to the end, not forfeited", async () => {

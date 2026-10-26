@@ -3,7 +3,7 @@ import type {
   Progress,
   ProgressionConfig,
   TrackFlare,
-} from "@openfront/shared/ApiSchemas";
+} from "@closefront/shared/ApiSchemas";
 import {
   html,
   LitElement,

@@ -6,22 +6,22 @@ import {
   PlayerType,
   Relation,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameConfig } from "@openfront/engine-api/Schemas";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
-import { AllianceRequestExecution } from "@openfront/engine/execution/alliance/AllianceRequestExecution";
-import { AttackExecution } from "@openfront/engine/execution/AttackExecution";
-import { DonateTroopsExecution } from "@openfront/engine/execution/DonateTroopExecution";
-import { NationAllianceBehavior } from "@openfront/engine/execution/nation/NationAllianceBehavior";
-import { NationAttackBehavior } from "@openfront/engine/execution/nation/NationAttackBehavior";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameConfig } from "@closefront/engine-api/Schemas";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
+import { AllianceRequestExecution } from "@closefront/engine/execution/alliance/AllianceRequestExecution";
+import { AttackExecution } from "@closefront/engine/execution/AttackExecution";
+import { DonateTroopsExecution } from "@closefront/engine/execution/DonateTroopExecution";
+import { NationAllianceBehavior } from "@closefront/engine/execution/nation/NationAllianceBehavior";
+import { NationAttackBehavior } from "@closefront/engine/execution/nation/NationAttackBehavior";
 import {
   EMOJI_ASSIST_ACCEPT,
   EMOJI_ASSIST_RELATION_TOO_LOW,
   NationEmojiBehavior,
-} from "@openfront/engine/execution/nation/NationEmojiBehavior";
-import { NationWarshipBehavior } from "@openfront/engine/execution/nation/NationWarshipBehavior";
-import { TribeAttackBehavior } from "@openfront/engine/execution/TribeAttackBehavior";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine/execution/nation/NationEmojiBehavior";
+import { NationWarshipBehavior } from "@closefront/engine/execution/nation/NationWarshipBehavior";
+import { TribeAttackBehavior } from "@closefront/engine/execution/TribeAttackBehavior";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 import { executeTicks } from "./util/utils";
 

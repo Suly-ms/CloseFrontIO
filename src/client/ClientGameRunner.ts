@@ -1,23 +1,23 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   BuildableUnit,
   PlayerType,
   Structures,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   ErrorUpdate,
   GameUpdateType,
   GameUpdateViewData,
   HashUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
-import { ClientID, GameID } from "@openfront/engine-api/Schemas";
-import { Config } from "@openfront/engine-lib/configuration/Config";
-import { TerrainMapData } from "@openfront/engine-lib/game/TerrainMapLoader";
-import { findClosestBy } from "@openfront/engine-lib/Util";
-import { EventBus } from "@openfront/shared/EventBus";
-import { GameMapLoader } from "@openfront/shared/GameMapLoader";
-import { replacer } from "@openfront/shared/SharedUtil";
+} from "@closefront/engine-api/game/GameUpdates";
+import { ClientID, GameID } from "@closefront/engine-api/Schemas";
+import { Config } from "@closefront/engine-lib/configuration/Config";
+import { TerrainMapData } from "@closefront/engine-lib/game/TerrainMapLoader";
+import { findClosestBy } from "@closefront/engine-lib/Util";
+import { EventBus } from "@closefront/shared/EventBus";
+import { GameMapLoader } from "@closefront/shared/GameMapLoader";
+import { replacer } from "@closefront/shared/SharedUtil";
 import {
   GameRecord,
   GroupTokenEvent,
@@ -25,7 +25,7 @@ import {
   PlayerCosmeticRefs,
   ServerMessage,
   WireGameStartInfo,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { ClientEnv } from "../client/ClientEnv";
 import { reloadForUpdate, translateText } from "../client/Utils";
 import { MapLayerController } from "./controllers/MapLayerController";

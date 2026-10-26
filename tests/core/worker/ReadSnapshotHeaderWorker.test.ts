@@ -3,7 +3,7 @@
  * game: the page asks it what a saved game is before it can start one.
  */
 
-import type { ReadSnapshotHeaderResultMessage } from "@openfront/engine-api/worker/WorkerMessages";
+import type { ReadSnapshotHeaderResultMessage } from "@closefront/engine-api/worker/WorkerMessages";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -20,7 +20,7 @@ const self = Object.assign(new EventTarget(), { postMessage: vi.fn() });
 
 beforeAll(async () => {
   vi.stubGlobal("self", self);
-  await import("@openfront/engine/worker/Worker.worker");
+  await import("@closefront/engine/worker/Worker.worker");
 });
 
 afterAll(() => {

@@ -6,10 +6,10 @@
  * so the game starts without blocking on layer images.
  */
 
-import { GameMapSize, GameMapType } from "@openfront/engine-api/game/GameTypes";
-import { MapLayer } from "@openfront/engine-api/game/MapFiles";
-import { TerrainMapData } from "@openfront/engine-lib/game/TerrainMapLoader";
-import { GameMapLoader } from "@openfront/shared/GameMapLoader";
+import { GameMapSize, GameMapType } from "@closefront/engine-api/game/GameTypes";
+import { MapLayer } from "@closefront/engine-api/game/MapFiles";
+import { TerrainMapData } from "@closefront/engine-lib/game/TerrainMapLoader";
+import { GameMapLoader } from "@closefront/shared/GameMapLoader";
 import { Controller } from "../Controller";
 import { pushMapLayerState } from "../MapLayerSettings";
 import { MapRenderer } from "../render/gl";

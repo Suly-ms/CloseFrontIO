@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   NukeState,
   Tick,
@@ -6,9 +6,9 @@ import {
   TransportShipState,
   UnitType,
   WarshipState,
-} from "@openfront/engine-api/game/GameTypes";
-import { UnitUpdate } from "@openfront/engine-api/game/GameUpdates";
-import { UnitLike } from "@openfront/engine-api/game/ReadViews";
+} from "@closefront/engine-api/game/GameTypes";
+import { UnitUpdate } from "@closefront/engine-api/game/GameUpdates";
+import { UnitLike } from "@closefront/engine-api/game/ReadViews";
 import type { UnitState } from "../render/types";
 import { TrainType as RendererTrainType } from "../render/types";
 import { applyUnitUpdateInPlace, unitStateFromUpdate } from "./EntityState";

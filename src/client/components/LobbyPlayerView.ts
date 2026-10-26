@@ -9,15 +9,15 @@ import {
   Team,
   Trios,
   formatPlayerDisplayName,
-} from "@openfront/engine-api/game/GameTypes";
-import { ClientID, TeamCountConfig } from "@openfront/engine-api/Schemas";
-import { assignTeamsLobbyPreview } from "@openfront/engine-lib/game/TeamAssignment";
+} from "@closefront/engine-api/game/GameTypes";
+import { ClientID, TeamCountConfig } from "@closefront/engine-api/Schemas";
+import { assignTeamsLobbyPreview } from "@closefront/engine-lib/game/TeamAssignment";
 import {
   type LevelBadge,
   unpackLevelBadge,
-} from "@openfront/shared/LevelBadgeWire";
-import { createRandomName } from "@openfront/shared/SharedUtil";
-import { ClientInfo } from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/LevelBadgeWire";
+import { createRandomName } from "@closefront/shared/SharedUtil";
+import { ClientInfo } from "@closefront/shared/WireSchemas";
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";

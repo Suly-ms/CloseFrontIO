@@ -1,4 +1,4 @@
-import { Progress, UserMeResponse } from "@openfront/shared/ApiSchemas";
+import { Progress, UserMeResponse } from "@closefront/shared/ApiSchemas";
 import {
   html,
   LitElement,

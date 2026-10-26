@@ -1,8 +1,8 @@
-import { GameID } from "@openfront/engine-api/Schemas";
+import { GameID } from "@closefront/engine-api/Schemas";
 import {
   ClientPlatform,
   ClientPlatformSchema,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 
 // A singleplayer game runs entirely in the browser: this worker never hosts
 // it, so the only way to know one is in progress is the client saying so.

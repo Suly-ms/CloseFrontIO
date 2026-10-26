@@ -1,22 +1,22 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   MessageType,
   Structures,
   TerraNullius,
   TrajectoryTile,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { NukeType } from "@openfront/engine-api/StatsSchemas";
-import { atan2 } from "@openfront/engine-lib/DetMath";
-import { listNukeBreakAlliance } from "@openfront/engine-lib/execution/NukeAlliance";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
+} from "@closefront/engine-api/game/GameTypes";
+import { NukeType } from "@closefront/engine-api/StatsSchemas";
+import { atan2 } from "@closefront/engine-lib/DetMath";
+import { listNukeBreakAlliance } from "@closefront/engine-lib/execution/NukeAlliance";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
 import {
   zInt,
   zNum,
   zPlayerRef,
   zRef,
   zTile,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
 import { z } from "zod";
 import { Execution, Game, isUnit, Player, Unit } from "../game/Game";
 import { UniversalPathFinding } from "../pathfinding/PathFinder";

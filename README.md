@@ -1,29 +1,29 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="proprietary/images/OpenFrontLogoDark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="proprietary/images/OpenFrontLogo.svg">
-    <img src="proprietary/images/OpenFrontLogo.svg" alt="OpenFrontIO Logo" width="300">
+    <source media="(prefers-color-scheme: dark)" srcset="proprietary/images/CloseFrontLogoDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="proprietary/images/CloseFrontLogo.svg">
+    <img src="proprietary/images/CloseFrontLogo.svg" alt="CloseFrontIO Logo" width="300">
   </picture>
 </p>
 
-[OpenFront.io](https://openfront.io/) is an online real-time strategy game focused on territorial control and alliance building. Players compete to expand their territory, build structures, and form strategic alliances in various maps based on real-world geography.
+[CloseFront.io](https://closefront.io/) is an online real-time strategy game focused on territorial control and alliance building. Players compete to expand their territory, build structures, and form strategic alliances in various maps based on real-world geography.
 
 This is a fork/rewrite of WarFront.io. Credit to https://github.com/WarFrontIO.
 
-![CI](https://github.com/openfrontio/OpenFrontIO/actions/workflows/ci.yml/badge.svg)
-[![Crowdin](https://badges.crowdin.net/openfront-mls/localized.svg)](https://crowdin.com/project/openfront-mls)
-[![CLA assistant](https://cla-assistant.io/readme/badge/openfrontio/OpenFrontIO)](https://cla-assistant.io/openfrontio/OpenFrontIO)
+![CI](https://github.com/closefrontio/CloseFrontIO/actions/workflows/ci.yml/badge.svg)
+[![Crowdin](https://badges.crowdin.net/closefront-mls/localized.svg)](https://crowdin.com/project/closefront-mls)
+[![CLA assistant](https://cla-assistant.io/readme/badge/closefrontio/CloseFrontIO)](https://cla-assistant.io/closefrontio/CloseFrontIO)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Assets: CC BY-SA 4.0](https://img.shields.io/badge/Assets-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ## License
 
-OpenFront source code is licensed under the **GNU Affero General Public License v3.0**
+CloseFront source code is licensed under the **GNU Affero General Public License v3.0**
 
 Current copyright notices appear in:
 
-- Footer: "© OpenFront and Contributors"
-- Loading screen: "© OpenFront and Contributors"
+- Footer: "© CloseFront and Contributors"
+- Loading screen: "© CloseFront and Contributors"
 
 Modified versions must preserve these notices in reasonably visible locations.
 
@@ -57,8 +57,8 @@ npm install --global --ignore-scripts npm@12.1.0
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/openfrontio/OpenFrontIO.git
-   cd OpenFrontIO
+   git clone https://github.com/closefrontio/CloseFrontIO.git
+   cd CloseFrontIO
    ```
 
 2. **Install dependencies**
@@ -107,7 +107,7 @@ npm run start:server-dev
 
 Sometimes it's useful to connect to production servers when replaying a game, testing user profiles, purchases, or login flow.
 
-> To replay a production game, make sure you're on the same commit that the game you want to replay was executed on, you can find the `gitCommit` value via `https://api.openfront.io/game/[gameId]`.
+> To replay a production game, make sure you're on the same commit that the game you want to replay was executed on, you can find the `gitCommit` value via `https://api.closefront.io/game/[gameId]`.
 > Unfinished games cannot be replayed on localhost.
 
 To connect to staging api servers:
@@ -151,10 +151,10 @@ npm run dev:prod
 
 - `/src/client` - Frontend game client
 - `/src/server` - Backend game server
-- `/packages/engine` - Deterministic game simulation (`@openfront/engine`)
-- `/packages/engine-api` - The engine's contract: types, schemas, game updates and the worker protocol (`@openfront/engine-api`)
-- `/packages/engine-lib` - Engine code also used outside the engine: map grid, rules, helpers (`@openfront/engine-lib`)
-- `/packages/shared` - Code shared by client and server: wire schemas, env, asset URLs (`@openfront/shared`)
+- `/packages/engine` - Deterministic game simulation (`@closefront/engine`)
+- `/packages/engine-api` - The engine's contract: types, schemas, game updates and the worker protocol (`@closefront/engine-api`)
+- `/packages/engine-lib` - Engine code also used outside the engine: map grid, rules, helpers (`@closefront/engine-lib`)
+- `/packages/shared` - Code shared by client and server: wire schemas, env, asset URLs (`@closefront/shared`)
 - `/packages/zbin` - Compact binary wire format for zod schemas (self-contained, zod-only)
 - `/resources` - Static assets (images, maps, etc.)
 

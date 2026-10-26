@@ -1,5 +1,5 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { TerraNullius } from "@openfront/engine-api/game/GameTypes";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { TerraNullius } from "@closefront/engine-api/game/GameTypes";
 import {
   snapshotType,
   zInt,
@@ -7,7 +7,7 @@ import {
   zPlayerRef,
   zTile,
   zTiles,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
 import { z } from "zod";
 import type {
   SnapshotReader,

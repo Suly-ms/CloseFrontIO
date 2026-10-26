@@ -1,6 +1,6 @@
-import { GameMapType } from "@openfront/engine-api/game/GameTypes";
-import { MapManifest } from "@openfront/engine-api/game/MapFiles";
-import { GameMapLoader, MapData } from "@openfront/shared/GameMapLoader";
+import { GameMapType } from "@closefront/engine-api/game/GameTypes";
+import { MapManifest } from "@closefront/engine-api/game/MapFiles";
+import { GameMapLoader, MapData } from "@closefront/shared/GameMapLoader";
 import fs from "fs";
 import path from "path";
 

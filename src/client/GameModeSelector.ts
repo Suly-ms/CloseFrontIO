@@ -1,6 +1,6 @@
-import { GameMapType, GameType } from "@openfront/engine-api/game/GameTypes";
-import { UserMeResponse } from "@openfront/shared/ApiSchemas";
-import { PublicGameInfo, PublicGames } from "@openfront/shared/WireSchemas";
+import { GameMapType, GameType } from "@closefront/engine-api/game/GameTypes";
+import { UserMeResponse } from "@closefront/shared/ApiSchemas";
+import { PublicGameInfo, PublicGames } from "@closefront/shared/WireSchemas";
 import { html, LitElement, nothing, type TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { ClientEnv } from "src/client/ClientEnv";

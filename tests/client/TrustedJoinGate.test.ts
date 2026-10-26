@@ -1,9 +1,9 @@
-import { GameMapType, GameMode } from "@openfront/engine-api/game/GameTypes";
-import type { GameConfig } from "@openfront/engine-api/Schemas";
+import { GameMapType, GameMode } from "@closefront/engine-api/game/GameTypes";
+import type { GameConfig } from "@closefront/engine-api/Schemas";
 import type {
   PublicGameInfo,
   PublicGames,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ClientEnv } from "../../src/client/ClientEnv";
 

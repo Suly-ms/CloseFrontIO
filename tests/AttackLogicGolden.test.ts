@@ -10,12 +10,12 @@
  * This is a test of the formula, not of the simulation. See
  * AttackScenarios.test.ts for end-to-end numbers on real maps.
  */
-import { PlayerType, TerrainType } from "@openfront/engine-api/game/GameTypes";
-import { GameConfig } from "@openfront/engine-api/Schemas";
+import { PlayerType, TerrainType } from "@closefront/engine-api/game/GameTypes";
+import { GameConfig } from "@closefront/engine-api/Schemas";
 import {
   AttackLogicInput,
   EngineConfig,
-} from "@openfront/engine/configuration/EngineConfig";
+} from "@closefront/engine/configuration/EngineConfig";
 
 const config = new EngineConfig({} as GameConfig, false);
 

@@ -66,7 +66,7 @@ function installShell(
       return drained;
     }),
   };
-  (window as any).openfrontDesktop = {
+  (window as any).closefrontDesktop = {
     steam:
       options.steam === false
         ? undefined
@@ -166,7 +166,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  delete (window as any).openfrontDesktop;
+  delete (window as any).closefrontDesktop;
   vi.restoreAllMocks();
   vi.useRealTimers();
 });

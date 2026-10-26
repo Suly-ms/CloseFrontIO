@@ -1,4 +1,4 @@
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
 import { Game, Unit } from "../../game/Game";
 
 /** Whether a finished lighthouse of the port's owner stands within range. */

@@ -1,4 +1,4 @@
-import { PlayerCosmetics, PlayerPattern } from "@openfront/shared/WireSchemas";
+import { PlayerCosmetics, PlayerPattern } from "@closefront/shared/WireSchemas";
 import { ResolvedCosmetic } from "./Cosmetics";
 
 export type EquippedCosmeticType = "pattern" | "skin" | "crown" | "effect";

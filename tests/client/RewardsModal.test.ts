@@ -19,7 +19,7 @@ vi.mock("../../src/client/CrazyGamesSDK", () => ({
   crazyGamesSDK: { isOnCrazyGames: vi.fn(() => false) },
 }));
 
-import type { Reward } from "@openfront/shared/ApiSchemas";
+import type { Reward } from "@closefront/shared/ApiSchemas";
 import type { RewardsChangedDetail } from "../../src/client/components/RewardsPanel";
 import { RewardsModal } from "../../src/client/RewardsModal";
 

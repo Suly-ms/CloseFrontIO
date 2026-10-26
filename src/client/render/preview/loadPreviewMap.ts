@@ -1,4 +1,4 @@
-import { GameMapType } from "@openfront/engine-api/game/GameTypes";
+import { GameMapType } from "@closefront/engine-api/game/GameTypes";
 import { terrainMapFileLoader } from "../../TerrainMapFileLoader";
 import {
   buildPreviewMap,

@@ -1,4 +1,4 @@
-import { GameType } from "@openfront/engine-api/game/GameTypes";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
 import { describe, expect, it } from "vitest";
 import {
   cid,

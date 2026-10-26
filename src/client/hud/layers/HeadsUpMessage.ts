@@ -2,8 +2,8 @@ import {
   GameMode,
   GameType,
   RankedType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameUpdateType } from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameUpdateType } from "@closefront/engine-api/game/GameUpdates";
 import { LitElement, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { Controller } from "../../Controller";

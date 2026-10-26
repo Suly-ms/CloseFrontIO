@@ -10,7 +10,7 @@ import {
 } from "../src/client/DesktopShell";
 
 afterEach(() => {
-  delete (window as { openfrontDesktop?: unknown }).openfrontDesktop;
+  delete (window as { closefrontDesktop?: unknown }).closefrontDesktop;
 });
 
 describe("desktopUpdate", () => {
@@ -19,7 +19,7 @@ describe("desktopUpdate", () => {
   });
 
   it("is null on an older shell that predates the update bridge", () => {
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = {
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = {
       ping: () => Promise.resolve("pong"),
     };
 
@@ -28,7 +28,7 @@ describe("desktopUpdate", () => {
 
   it("returns the bridge when the shell provides one", () => {
     const update = { subscribe: vi.fn(), apply: vi.fn(), retry: vi.fn() };
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = { update };
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = { update };
 
     expect(desktopUpdate()).toBe(update);
   });

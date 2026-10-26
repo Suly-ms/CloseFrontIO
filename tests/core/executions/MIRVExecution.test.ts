@@ -3,9 +3,9 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { MirvExecution } from "@openfront/engine/execution/MIRVExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { MirvExecution } from "@closefront/engine/execution/MIRVExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "../../util/Setup";
 import { executeTicks } from "../../util/utils";
 

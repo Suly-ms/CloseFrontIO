@@ -1,8 +1,8 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { PlayerInfo, PlayerType } from "@openfront/engine-api/game/GameTypes";
-import { calculateBoundingBox, inscribed } from "@openfront/engine-lib/Util";
-import { PlayerExecution } from "@openfront/engine/execution/PlayerExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { PlayerInfo, PlayerType } from "@closefront/engine-api/game/GameTypes";
+import { calculateBoundingBox, inscribed } from "@closefront/engine-lib/Util";
+import { PlayerExecution } from "@closefront/engine/execution/PlayerExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { beforeEach, describe, expect, test } from "vitest";
 import { setup } from "../../util/Setup";
 

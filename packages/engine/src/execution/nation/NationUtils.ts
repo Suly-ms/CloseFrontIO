@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   Cell,
   Difficulty,
@@ -7,9 +7,9 @@ import {
   PlayerType,
   Structures,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
-import { assertNever, calculateBoundingBox } from "@openfront/engine-lib/Util";
+} from "@closefront/engine-api/game/GameTypes";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
+import { assertNever, calculateBoundingBox } from "@closefront/engine-lib/Util";
 import { Game, Player } from "../../game/Game";
 
 /** Starting gold from which nations place many structures at once, ballooning their max troops */

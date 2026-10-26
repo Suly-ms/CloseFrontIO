@@ -1,6 +1,6 @@
-import { GameMap, TileRef } from "@openfront/engine-api/game/GameMap";
-import { Cell } from "@openfront/engine-api/game/GameTypes";
-import { UnitLike } from "@openfront/engine-api/game/ReadViews";
+import { GameMap, TileRef } from "@closefront/engine-api/game/GameMap";
+import { Cell } from "@closefront/engine-api/game/GameTypes";
+import { UnitLike } from "@closefront/engine-api/game/ReadViews";
 import { exp } from "./DetMath";
 import { TileSet } from "./game/TileSet";
 
@@ -260,7 +260,7 @@ export function sigmoid(
 }
 
 // Longest label a featured lobby may show in the browser. Long enough for
-// "Europe — Official OpenFront Masters Scrims", short enough that one row
+// "Europe — Official CloseFront Masters Scrims", short enough that one row
 // cannot crowd out the rest of the list. Lives here rather than in Schemas so
 // the sanitiser that enforces it has no import back into Schemas — that edge
 // would close a require cycle.

@@ -4,15 +4,15 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { toInt } from "@openfront/engine-lib/Util";
-import { AttackExecution } from "@openfront/engine/execution/AttackExecution";
-import { MarkDisconnectedExecution } from "@openfront/engine/execution/MarkDisconnectedExecution";
-import { PlayerExecution } from "@openfront/engine/execution/PlayerExecution";
-import { TransportShipExecution } from "@openfront/engine/execution/TransportShipExecution";
-import { getSpawnTiles } from "@openfront/engine/execution/Util";
-import { WarshipExecution } from "@openfront/engine/execution/WarshipExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { toInt } from "@closefront/engine-lib/Util";
+import { AttackExecution } from "@closefront/engine/execution/AttackExecution";
+import { MarkDisconnectedExecution } from "@closefront/engine/execution/MarkDisconnectedExecution";
+import { PlayerExecution } from "@closefront/engine/execution/PlayerExecution";
+import { TransportShipExecution } from "@closefront/engine/execution/TransportShipExecution";
+import { getSpawnTiles } from "@closefront/engine/execution/Util";
+import { WarshipExecution } from "@closefront/engine/execution/WarshipExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 import { UseRealAttackLogic } from "./util/TestConfig";
 import { executeTicks } from "./util/utils";

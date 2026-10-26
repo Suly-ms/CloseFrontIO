@@ -1,4 +1,4 @@
-import type { PaymentsProvider } from "@openfront/shared/ApiSchemas";
+import type { PaymentsProvider } from "@closefront/shared/ApiSchemas";
 import {
   createPaymentsCheckout,
   finalizeSteamOrder,
@@ -60,7 +60,7 @@ export interface SteamMicroTxnBridge {
   consumePending(): Promise<MicroTxnAuthorization[]>;
 }
 
-// window.openfrontDesktop is declared `unknown` by DesktopShell.ts (kept loose
+// window.closefrontDesktop is declared `unknown` by DesktopShell.ts (kept loose
 // there on purpose), so narrow it locally -- same convention SteamSDK.ts
 // follows, and for the same reason (a second `declare global` with a different
 // type triggers TS2717).
@@ -71,7 +71,7 @@ interface SteamPaymentsBridge {
 
 function steamBridge(): SteamPaymentsBridge | undefined {
   if (typeof window === "undefined") return undefined;
-  const desktop = window.openfrontDesktop as
+  const desktop = window.closefrontDesktop as
     | { steam?: SteamPaymentsBridge }
     | undefined;
   return desktop?.steam;

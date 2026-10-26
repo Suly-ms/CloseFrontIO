@@ -1,5 +1,5 @@
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
-import { zInt, zPlayerRef } from "@openfront/engine-lib/snapshot/SnapshotType";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
+import { zInt, zPlayerRef } from "@closefront/engine-lib/snapshot/SnapshotType";
 import { z } from "zod";
 import { Execution, Game, Player } from "../game/Game";
 import { execSnapshotType } from "../snapshot/ExecutionSnapshot";

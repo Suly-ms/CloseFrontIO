@@ -7,8 +7,8 @@ import {
   Pattern,
   Skin,
   Subscription,
-} from "@openfront/shared/CosmeticSchemas";
-import { PlayerPattern } from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/CosmeticSchemas";
+import { PlayerPattern } from "@closefront/shared/WireSchemas";
 import { html, LitElement, nothing, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { ResolvedCosmetic } from "../Cosmetics";

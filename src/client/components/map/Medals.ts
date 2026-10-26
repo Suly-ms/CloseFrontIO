@@ -1,4 +1,4 @@
-import { Difficulty } from "@openfront/engine-api/game/GameTypes";
+import { Difficulty } from "@closefront/engine-api/game/GameTypes";
 import { html, TemplateResult } from "lit";
 import medalIconRaw from "../../../../resources/images/MedalIconWhite.svg?raw";
 import { translateText } from "../../Utils";

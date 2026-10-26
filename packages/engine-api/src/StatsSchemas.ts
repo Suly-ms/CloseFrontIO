@@ -1,4 +1,4 @@
-import { zb, ZbEncodeError } from "@openfront/zbin";
+import { zb, ZbEncodeError } from "@closefront/zbin";
 import { z } from "zod";
 import { UnitType } from "./game/GameTypes";
 

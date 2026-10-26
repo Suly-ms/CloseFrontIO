@@ -6,8 +6,8 @@ import {
   PlayerType,
   Quads,
   Team,
-} from "@openfront/engine-api/game/GameTypes";
-import { Game } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { Game } from "@closefront/engine/game/Game";
 import { describe, expect, test } from "vitest";
 import { setup } from "../../util/Setup";
 

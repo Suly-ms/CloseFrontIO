@@ -43,10 +43,10 @@ beforeEach(() => {
     gameEnv: "prod",
     numWorkers: 1,
     turnstileSiteKey: "x",
-    jwtAudience: "openfront.io",
+    jwtAudience: "closefront.io",
     instanceId: "test",
     gitCommit: "test",
-    serverHost: "main.openfront.dev",
+    serverHost: "main.closefront.dev",
   };
   ClientEnv.reset();
   fetchMock = vi.fn();

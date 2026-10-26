@@ -3,14 +3,14 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   BOAT_INDEX_CAPTURE,
   GOLD_INDEX_STEAL,
-} from "@openfront/engine-api/StatsSchemas";
-import { TradeShipExecution } from "@openfront/engine/execution/TradeShipExecution";
-import { Game, Player, Unit } from "@openfront/engine/game/Game";
-import { PathStatus } from "@openfront/engine/pathfinding/types";
+} from "@closefront/engine-api/StatsSchemas";
+import { TradeShipExecution } from "@closefront/engine/execution/TradeShipExecution";
+import { Game, Player, Unit } from "@closefront/engine/game/Game";
+import { PathStatus } from "@closefront/engine/pathfinding/types";
 import { setup } from "../../util/Setup";
 import { executeTicks } from "../../util/utils";
 

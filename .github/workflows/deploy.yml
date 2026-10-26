@@ -8,11 +8,11 @@ on:
       target_domain:
         description: "Deployment Domain"
         required: true
-        default: "openfront.dev"
+        default: "closefront.dev"
         type: choice
         options:
-          - openfront.io
-          - openfront.dev
+          - closefront.io
+          - closefront.dev
       target_host:
         description: "Deployment Host"
         required: true
@@ -29,8 +29,8 @@ on:
         default: ""
         type: string
       # A fleet member on a second machine needs a name of its own
-      # (blue.staging2.server.openfront.dev): the registry keys letters by
-      # host, so two boxes answering as blue.server.openfront.dev would share
+      # (blue.staging2.server.closefront.dev): the registry keys letters by
+      # host, so two boxes answering as blue.server.closefront.dev would share
       # one. Empty is <subdomain>.<game domain>.
       game_host:
         description: "Game host (only for a machine-scoped fleet member)"
@@ -44,7 +44,7 @@ on:
     branches:
       - main
 
-  # Nightly build: rebuild and deploy main to nightly/green/blue .openfront.dev
+  # Nightly build: rebuild and deploy main to nightly/green/blue .closefront.dev
   # 07:00 UTC = 11:00 PM PST (midnight PDT during summer)
   schedule:
     - cron: "0 7 * * *"
@@ -60,16 +60,16 @@ jobs:
   deploy:
     # Forks can deploy main to their own prod environment. Scheduled and
     # manually dispatched fleet deploys remain restricted to the official repo.
-    if: ${{ github.repository == 'openfrontio/OpenFrontIO' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
+    if: ${{ github.repository == 'closefrontio/CloseFrontIO' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
     # Use different logic based on event type
-    name: Deploy to ${{ inputs.target_domain || vars.PRODUCTION_DOMAIN || 'openfront.dev' }}${{ matrix.subdomain && format(' ({0} on {1})', matrix.subdomain, matrix.host) }}
+    name: Deploy to ${{ inputs.target_domain || vars.PRODUCTION_DOMAIN || 'closefront.dev' }}${{ matrix.subdomain && format(' ({0} on {1})', matrix.subdomain, matrix.host) }}
     runs-on: ubuntu-latest
     # The schedule fans out to nightly and the dev fleet, one leg per entry
     # of the DEPLOY_TARGETS_DEV REPOSITORY var (repository-level because
     # GitHub expands strategy.matrix before a job's environment exists).
     # Same shape as release.yml's DEPLOY_TARGETS_*: host is the machine
     # deploy.sh resolves through SERVER_HOSTS_JSON, subdomain the slot;
-    # gameHost (blue.<machine>.server.openfront.dev) puts the machine in the
+    # gameHost (blue.<machine>.server.closefront.dev) puts the machine in the
     # name, and site overrides the default, which already puts the blue and
     # green slots on the apex. Defaults to today's single box. Every other event deploys a single subdomain,
     # expressed as a one-element matrix with an empty string so RAW_SUBDOMAIN
@@ -91,9 +91,9 @@ jobs:
       contents: read
       id-token: write
       packages: write
-    environment: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') && 'prod' || (inputs.target_domain == 'openfront.io' && 'prod' || '') }}
+    environment: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') && 'prod' || (inputs.target_domain == 'closefront.io' && 'prod' || '') }}
     env:
-      DOMAIN: ${{ github.event_name == 'push' && vars.PRODUCTION_DOMAIN || inputs.target_domain || 'openfront.dev' }}
+      DOMAIN: ${{ github.event_name == 'push' && vars.PRODUCTION_DOMAIN || inputs.target_domain || 'closefront.dev' }}
       # Sanitized into SUBDOMAIN by the first step below - do not use directly.
       RAW_SUBDOMAIN: ${{ matrix.subdomain || (github.event_name == 'push' && vars.PRODUCTION_SUBDOMAIN) || (github.event_name == 'push' && github.ref_name) || inputs.target_subdomain || 'main' }}
     steps:
@@ -192,12 +192,12 @@ jobs:
           EOF
       - uses: actions/create-github-app-token@v3
         id: generate-token
-        if: ${{ github.repository == 'openfrontio/OpenFrontIO' }}
+        if: ${{ github.repository == 'closefrontio/CloseFrontIO' }}
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: Export the token
-        if: ${{ github.repository == 'openfrontio/OpenFrontIO' }}
+        if: ${{ github.repository == 'closefrontio/CloseFrontIO' }}
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
@@ -207,32 +207,32 @@ jobs:
       # pinned in this tree. The app token is scoped to that repo, read only.
       - uses: actions/create-github-app-token@v3
         id: gatekeeper-token
-        if: ${{ github.repository == 'openfrontio/OpenFrontIO' }}
+        if: ${{ github.repository == 'closefrontio/CloseFrontIO' }}
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          owner: openfrontio
+          owner: closefrontio
           repositories: gatekeeper
           permission-contents: read
       - name: 🔒 Resolve the pinned security module
         id: gatekeeper
-        if: ${{ github.repository == 'openfrontio/OpenFrontIO' }}
+        if: ${{ github.repository == 'closefrontio/CloseFrontIO' }}
         run: echo "sha=$(git rev-parse HEAD:src/server/gatekeeper)" >> "$GITHUB_OUTPUT"
       - name: 🔒 Check out the security module
         uses: actions/checkout@v7
-        if: ${{ github.repository == 'openfrontio/OpenFrontIO' }}
+        if: ${{ github.repository == 'closefrontio/CloseFrontIO' }}
         with:
-          repository: openfrontio/gatekeeper
+          repository: closefrontio/gatekeeper
           ref: ${{ steps.gatekeeper.outputs.sha }}
           path: src/server/gatekeeper
           token: ${{ steps.gatekeeper-token.outputs.token }}
           persist-credentials: false
       - name: 📝 Create deployment
-        if: ${{ github.repository == 'openfrontio/OpenFrontIO' && steps.generate-token.outputs.token != '' }}
+        if: ${{ github.repository == 'closefrontio/CloseFrontIO' && steps.generate-token.outputs.token != '' }}
         uses: actions/github-script@v9
         id: deployment
         env:
-          ENVIRONMENT: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') && 'prod' || (inputs.target_domain == 'openfront.io' && 'prod' || 'staging') }}
+          ENVIRONMENT: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') && 'prod' || (inputs.target_domain == 'closefront.io' && 'prod' || 'staging') }}
           FQDN: ${{ env.FQDN }}
         with:
           github-token: ${{ steps.generate-token.outputs.token }}
@@ -285,7 +285,7 @@ jobs:
           # update.sh pulls the private image with this job's own token.
           GHCR_USER: ${{ github.actor }}
           GHCR_TOKEN: ${{ github.token }}
-          ENV: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main' && 'prod') || (inputs.target_domain == 'openfront.io' && 'prod') || 'staging' }}
+          ENV: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main' && 'prod') || (inputs.target_domain == 'closefront.io' && 'prod') || 'staging' }}
           STANDALONE_MODE: ${{ github.event_name == 'push' && 'true' || '' }}
           # The schedule names a machine per leg; a dispatch picks one; main
           # uses the production host configured in the prod environment.
@@ -324,7 +324,7 @@ jobs:
           # The value has to sit in the && branch -- `cond && '' || vars.X`
           # would yield vars.X for EVERY run, because '' is falsy here and
           # these are value operators, not a ternary.
-          GAME_DOMAIN: ${{ github.event_name != 'push' && inputs.target_domain != 'openfront.io' && vars.GAME_DOMAIN || '' }}
+          GAME_DOMAIN: ${{ github.event_name != 'push' && inputs.target_domain != 'closefront.io' && vars.GAME_DOMAIN || '' }}
           # "api" joins the site's shared public-lobby roster (infra
           # docs/lobby-coordinator.md); anything else keeps per-server
           # scheduling. Read from the repo-level var here (staging jobs have
@@ -353,7 +353,7 @@ jobs:
           # and fail a deploy that actually succeeded. Same shape as the
           # deploy step above: the value must be in the && branch, since ''
           # is falsy and would fall straight through a trailing ||.
-          GAME_DOMAIN: ${{ github.event_name != 'push' && inputs.target_domain != 'openfront.io' && vars.GAME_DOMAIN || '' }}
+          GAME_DOMAIN: ${{ github.event_name != 'push' && inputs.target_domain != 'closefront.io' && vars.GAME_DOMAIN || '' }}
         run: |
           echo "::group::Wait for deployment to start"
           set -euxo pipefail
@@ -378,7 +378,7 @@ jobs:
           echo "Deployment started in ${SECONDS} seconds" >> $GITHUB_STEP_SUMMARY
           echo "::endgroup::"
       - name: 🔄 Update deployment status
-        if: ${{ always() && github.repository == 'openfrontio/OpenFrontIO' && steps.generate-token.outputs.token != '' && steps.deployment.outcome == 'success' && steps.deployment.outputs.deployment_id != '' }}
+        if: ${{ always() && github.repository == 'closefrontio/CloseFrontIO' && steps.generate-token.outputs.token != '' && steps.deployment.outcome == 'success' && steps.deployment.outputs.deployment_id != '' }}
         uses: actions/github-script@v9
         env:
           FQDN: ${{ env.FQDN }}

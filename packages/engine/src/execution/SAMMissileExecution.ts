@@ -1,12 +1,12 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { MessageType, UnitType } from "@openfront/engine-api/game/GameTypes";
-import { NukeType } from "@openfront/engine-api/StatsSchemas";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { MessageType, UnitType } from "@closefront/engine-api/game/GameTypes";
+import { NukeType } from "@closefront/engine-api/StatsSchemas";
 import {
   zNum,
   zPlayerRef,
   zRef,
   zTile,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
 import { z } from "zod";
 import { Execution, Game, Player, Unit } from "../game/Game";
 import { PathFinding } from "../pathfinding/PathFinder";

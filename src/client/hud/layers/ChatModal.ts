@@ -1,10 +1,10 @@
 import { LitElement, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 
-import { PlayerType } from "@openfront/engine-api/game/GameTypes";
+import { PlayerType } from "@closefront/engine-api/game/GameTypes";
 import { GameView, PlayerView } from "../../view";
 
-import { EventBus, GameEvent } from "@openfront/shared/EventBus";
+import { EventBus, GameEvent } from "@closefront/shared/EventBus";
 import quickChatData from "resources/QuickChat.json";
 import { CloseViewEvent, ShowChatMenuEvent } from "../../InputHandler";
 import { TransformHandler } from "../../TransformHandler";

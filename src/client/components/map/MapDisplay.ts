@@ -1,4 +1,4 @@
-import { Difficulty, GameMapType } from "@openfront/engine-api/game/GameTypes";
+import { Difficulty, GameMapType } from "@closefront/engine-api/game/GameTypes";
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { terrainMapFileLoader } from "../../TerrainMapFileLoader";

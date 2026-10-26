@@ -5,8 +5,8 @@
  * LocalProcessing.ts.
  */
 
-import { assetUrl } from "@openfront/shared/AssetUrls";
-import { FetchGameMapLoader } from "@openfront/shared/FetchGameMapLoader";
+import { assetUrl } from "@closefront/shared/AssetUrls";
+import { FetchGameMapLoader } from "@closefront/shared/FetchGameMapLoader";
 import { gzipInBrowser } from "./BrowserGzip";
 import {
   processGameRecord,

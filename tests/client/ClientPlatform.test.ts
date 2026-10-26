@@ -16,7 +16,7 @@ describe("clientPlatform", () => {
   afterEach(() => {
     onCrazyGames.value = false;
     onPoki.value = false;
-    delete (window as { openfrontDesktop?: unknown }).openfrontDesktop;
+    delete (window as { closefrontDesktop?: unknown }).closefrontDesktop;
   });
 
   it("is web by default", () => {
@@ -42,7 +42,7 @@ describe("clientPlatform", () => {
   });
 
   it("is steam inside the desktop shell, even without a Steam bridge", () => {
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = {};
+    (window as { closefrontDesktop?: unknown }).closefrontDesktop = {};
     onCrazyGames.value = true;
     expect(clientPlatform()).toBe("steam");
   });

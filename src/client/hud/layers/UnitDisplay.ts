@@ -4,9 +4,9 @@ import {
   Gold,
   PlayerBuildableUnitType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { renderNumber } from "@openfront/engine-lib/Format";
-import { EventBus } from "@openfront/shared/EventBus";
+} from "@closefront/engine-api/game/GameTypes";
+import { renderNumber } from "@closefront/engine-lib/Format";
+import { EventBus } from "@closefront/shared/EventBus";
 import { html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
 import { Controller } from "../../Controller";

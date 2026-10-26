@@ -4,9 +4,9 @@ import {
   GameMapType,
   GameMode,
   GameType,
-} from "@openfront/engine-api/game/GameTypes";
-import type { GameConfig } from "@openfront/engine-api/Schemas";
-import type { AnalyticsRecord } from "@openfront/shared/WireSchemas";
+} from "@closefront/engine-api/game/GameTypes";
+import type { GameConfig } from "@closefront/engine-api/Schemas";
+import type { AnalyticsRecord } from "@closefront/shared/WireSchemas";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("../../src/client/Api", () => ({
@@ -304,7 +304,7 @@ describe("GameInfoView", () => {
     const viewUpdate = vi.spyOn(view, "requestUpdate");
     const controlsUpdate = vi.spyOn(controls, "requestUpdate");
     const selector = new LangSelector();
-    selector.translations = { "main.title": "OpenFront" };
+    selector.translations = { "main.title": "CloseFront" };
     selector.defaultTranslations = selector.translations;
 
     (

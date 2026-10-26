@@ -1,8 +1,8 @@
-import type { GameType } from "@openfront/engine-api/game/GameTypes";
+import type { GameType } from "@closefront/engine-api/game/GameTypes";
 import type {
   GameXpEligible,
   GameXpResponse,
-} from "@openfront/shared/ApiSchemas";
+} from "@closefront/shared/ApiSchemas";
 import { html, LitElement, nothing, svg, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import {

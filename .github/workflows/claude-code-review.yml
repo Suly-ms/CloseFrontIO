@@ -1,7 +1,7 @@
-# Thin caller for the shared review workflow in openfrontio/.github. Only the
+# Thin caller for the shared review workflow in closefrontio/.github. Only the
 # trigger and the `paths` filter live here; the prompt, tool allowlist,
 # primary/backup account fallback and posting gate are in the shared file:
-# https://github.com/openfrontio/.github/blob/main/.github/workflows/claude-code-review.yml
+# https://github.com/closefrontio/.github/blob/main/.github/workflows/claude-code-review.yml
 #
 # pull_request_target, not pull_request: most PRs here come from forks, and a
 # plain pull_request run from a fork gets no secrets. The shared workflow
@@ -25,7 +25,7 @@ on:
 
 jobs:
   review:
-    uses: openfrontio/.github/.github/workflows/claude-code-review.yml@main
+    uses: closefrontio/.github/.github/workflows/claude-code-review.yml@main
     with:
       runner: ubuntu-latest
     secrets: inherit

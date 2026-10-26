@@ -1,6 +1,6 @@
 # Issue Lifecycle
 
-Deterministic GitHub Actions that enforce OpenFront's issue lifecycle. No LLM calls — only the default `GITHUB_TOKEN`.
+Deterministic GitHub Actions that enforce CloseFront's issue lifecycle. No LLM calls — only the default `GITHUB_TOKEN`.
 
 ## Rules
 

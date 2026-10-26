@@ -3,8 +3,8 @@ import {
   PrestigeResponse,
   PublicProgress,
   UserMeResponse,
-} from "@openfront/shared/ApiSchemas";
-import { assetUrl } from "@openfront/shared/AssetUrls";
+} from "@closefront/shared/ApiSchemas";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 import { html, nothing, PropertyValues, TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { ClientEnv } from "src/client/ClientEnv";
@@ -369,7 +369,7 @@ export class AccountModal extends BaseModal {
   }
 
   // Re-entry to the desktop shell's account-linking gate shown at first
-  // launch. Absent entirely on plain web (no window.openfrontDesktop there),
+  // launch. Absent entirely on plain web (no window.closefrontDesktop there),
   // present whenever the desktop bridge exposes a callable showLinkGate —
   // see desktopLinkGate() in DesktopShell.ts for why the guard is scoped
   // that way. Needed because the desktop app's menu bar will eventually be

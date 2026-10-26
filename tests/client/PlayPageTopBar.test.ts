@@ -12,7 +12,7 @@ vi.mock("../../src/client/CrazyGamesSDK", () => ({
     addAuthListener: vi.fn(),
   },
 }));
-vi.mock("@openfront/shared/AssetUrls", () => ({
+vi.mock("@closefront/shared/AssetUrls", () => ({
   assetUrl: (path: string) => path,
 }));
 

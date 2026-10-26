@@ -1,4 +1,4 @@
-import type { NewsItem, StreamsFeed } from "@openfront/shared/ApiSchemas";
+import type { NewsItem, StreamsFeed } from "@closefront/shared/ApiSchemas";
 import {
   ClaimAllRewardsResponse,
   ClaimAllRewardsResponseSchema,
@@ -45,12 +45,12 @@ import {
   UserMeResponse,
   UserMeResponseSchema,
   VisibilityResponseSchema,
-} from "@openfront/shared/ApiSchemas";
+} from "@closefront/shared/ApiSchemas";
 import {
   AnalyticsRecord,
   ArchivedAnalyticsRecordSchema,
   GameInfo,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import newsItemsFallback from "resources/news.json";
 import streamsFallback from "resources/streams.json";
 import { z } from "zod";
@@ -645,7 +645,7 @@ export async function updateUsername(
 }
 
 // GET /creators/code/:code — public lookup for a creator by their code
-// (Creator Code programme), e.g. to preview/prefill an openfront.io/c/CODE
+// (Creator Code programme), e.g. to preview/prefill an closefront.io/c/CODE
 // share link before binding. No auth. 404 means the code doesn't resolve to
 // any (active) creator; folds into null along with every other failure —
 // callers can't act on the difference.
@@ -1615,7 +1615,7 @@ export type PaymentsCheckoutResult =
   // "Invalid hostname", soft_pack_not_purchasable) or a 200 body we could not
   // read. Not actionable by the player; log it and show a generic failure.
   | { ok: false; code: "client_bug" }
-  // 403: the tier is sold only to players who own OpenFront on Steam.
+  // 403: the tier is sold only to players who own CloseFront on Steam.
   | { ok: false; code: "steam_licence_required" }
   // 400 "Pack not available" / "Tier not available": the catalog this client
   // rendered from is stale. Refetch cosmetics.json before showing the store

@@ -5,9 +5,9 @@ import {
   PlayerType,
   RankedType,
   Team,
-} from "@openfront/engine-api/game/GameTypes";
-import { WinCheckExecution } from "@openfront/engine/execution/WinCheckExecution";
-import { Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { WinCheckExecution } from "@closefront/engine/execution/WinCheckExecution";
+import { Player } from "@closefront/engine/game/Game";
 import { playerInfo, setup } from "../../util/Setup";
 
 describe("WinCheckExecution", () => {

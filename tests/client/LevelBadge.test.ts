@@ -6,11 +6,11 @@ vi.mock("../../src/client/Utils", () => ({
     params ? `${key}:${JSON.stringify(params)}` : key,
 }));
 
-import { GameType } from "@openfront/engine-api/game/GameTypes";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
 import {
   GameXpResponseSchema,
   type XpBreakdown,
-} from "@openfront/shared/ApiSchemas";
+} from "@closefront/shared/ApiSchemas";
 import { render as renderTemplate } from "lit";
 import {
   LevelBadge,

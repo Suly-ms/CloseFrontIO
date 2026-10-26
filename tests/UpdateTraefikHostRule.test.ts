@@ -39,14 +39,14 @@ function hostRuleFor(
 
 describe("update.sh legacy Traefik host rule", () => {
   it("emits a single host when GAME_DOMAIN is absent", () => {
-    expect(hostRuleFor("main", "openfront.dev")).toBe(
-      "Host(`main.openfront.dev`)",
+    expect(hostRuleFor("main", "closefront.dev")).toBe(
+      "Host(`main.closefront.dev`)",
     );
   });
 
   it("matches both page and game hosts when GAME_DOMAIN is set", () => {
-    expect(hostRuleFor("main", "openfront.dev", "server.openfront.dev")).toBe(
-      "Host(`main.openfront.dev`) || Host(`main.server.openfront.dev`)",
+    expect(hostRuleFor("main", "closefront.dev", "server.closefront.dev")).toBe(
+      "Host(`main.closefront.dev`) || Host(`main.server.closefront.dev`)",
     );
   });
 
@@ -54,10 +54,10 @@ describe("update.sh legacy Traefik host rule", () => {
     expect(
       hostRuleFor(
         "blue",
-        "openfront.dev",
-        "server.openfront.dev",
-        "blue.staging2.server.openfront.dev",
+        "closefront.dev",
+        "server.closefront.dev",
+        "blue.staging2.server.closefront.dev",
       ),
-    ).toBe("Host(`blue.staging2.server.openfront.dev`)");
+    ).toBe("Host(`blue.staging2.server.closefront.dev`)");
   });
 });

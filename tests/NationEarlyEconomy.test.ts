@@ -4,11 +4,11 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
-import { ConstructionExecution } from "@openfront/engine/execution/ConstructionExecution";
-import { NationStructureBehavior } from "@openfront/engine/execution/nation/NationStructureBehavior";
-import { UpgradeStructureExecution } from "@openfront/engine/execution/UpgradeStructureExecution";
+} from "@closefront/engine-api/game/GameTypes";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
+import { ConstructionExecution } from "@closefront/engine/execution/ConstructionExecution";
+import { NationStructureBehavior } from "@closefront/engine/execution/nation/NationStructureBehavior";
+import { UpgradeStructureExecution } from "@closefront/engine/execution/UpgradeStructureExecution";
 import { createGame, L, W } from "./core/pathfinding/_fixtures";
 
 // size x size with a lake in the middle half: `nation` owns the west coast, `other` the

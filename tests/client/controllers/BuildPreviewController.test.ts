@@ -1,5 +1,5 @@
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
-import { EventBus } from "@openfront/shared/EventBus";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
+import { EventBus } from "@closefront/shared/EventBus";
 import { describe, expect, test, vi } from "vitest";
 import {
   BuildPreviewController,

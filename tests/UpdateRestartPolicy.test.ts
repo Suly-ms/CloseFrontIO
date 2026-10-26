@@ -44,10 +44,10 @@ describe("update.sh restart policy", () => {
   // next deploy touches it. For nightly that is the 07:00 UTC scheduled run,
   // so up to ~24 hours (OPE-361).
   it.each([
-    ["main", "openfront.dev"],
-    ["nightly", "openfront.dev"],
-    ["green", "openfront.dev"],
-    ["blue", "openfront.dev"],
+    ["main", "closefront.dev"],
+    ["nightly", "closefront.dev"],
+    ["green", "closefront.dev"],
+    ["blue", "closefront.dev"],
   ])("restarts the long-lived %s.%s deployment after a crash", (sub, dom) => {
     expect(restartPolicyFor(sub, dom)).toBe("always");
   });
@@ -62,9 +62,9 @@ describe("update.sh restart policy", () => {
   // Preview deployments are not long-lived; `always` would resurrect them on
   // a host reboot after their owner stopped using them.
   it.each([["fix-some-bug"], ["t3code-mirv-cooldown-timer"], ["experiment"]])(
-    "leaves the per-branch preview %s.openfront.dev down after a crash",
+    "leaves the per-branch preview %s.closefront.dev down after a crash",
     (sub) => {
-      expect(restartPolicyFor(sub, "openfront.dev")).toBe("no");
+      expect(restartPolicyFor(sub, "closefront.dev")).toBe("no");
     },
   );
 
@@ -79,10 +79,10 @@ describe("update.sh restart policy", () => {
     ["overnightly"],
     ["premain"],
   ])("does not treat %s as a long-lived subdomain", (sub) => {
-    expect(restartPolicyFor(sub, "openfront.dev")).toBe("no");
+    expect(restartPolicyFor(sub, "closefront.dev")).toBe("no");
   });
 
   it("does not restart a deployment whose subdomain somehow arrived empty", () => {
-    expect(restartPolicyFor("", "openfront.dev")).toBe("no");
+    expect(restartPolicyFor("", "closefront.dev")).toBe("no");
   });
 });

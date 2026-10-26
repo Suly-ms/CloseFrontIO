@@ -1,11 +1,11 @@
-import { GameType } from "@openfront/engine-api/game/GameTypes";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
 import {
   GameConfig,
   GameConfigSchema,
   PoolConfig,
   PoolConfigSchema,
-} from "@openfront/engine-api/Schemas";
-import { CreateGameInputSchema } from "@openfront/shared/WorkerSchemas";
+} from "@closefront/engine-api/Schemas";
+import { CreateGameInputSchema } from "@closefront/shared/WorkerSchemas";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { poolIndexFor } from "../../src/server/PoolRouting";
 import {

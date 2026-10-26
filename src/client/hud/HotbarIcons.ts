@@ -1,4 +1,4 @@
-import { assetUrl } from "@openfront/shared/AssetUrls";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 
 export const bankIcon = assetUrl("images/BankIconWhite.svg");
 export const farmIcon = assetUrl("images/FarmIconWhite.svg");

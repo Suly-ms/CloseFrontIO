@@ -1,4 +1,4 @@
-import { GameRecord, GameRecordSchema } from "@openfront/shared/WireSchemas";
+import { GameRecord, GameRecordSchema } from "@closefront/shared/WireSchemas";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
 // archive() is the only path a finished game takes to the API. A POST lost to
@@ -31,7 +31,7 @@ describe("archive retries", () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
-    vi.stubEnv("DOMAIN", "openfront.io");
+    vi.stubEnv("DOMAIN", "closefront.io");
     vi.spyOn(GameRecordSchema, "safeParse").mockReturnValue({
       success: true,
       data: record,

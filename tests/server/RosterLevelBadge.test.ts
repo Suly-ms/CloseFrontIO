@@ -1,16 +1,16 @@
-import { GameType } from "@openfront/engine-api/game/GameTypes";
-import { GameConfig } from "@openfront/engine-api/Schemas";
-import { UserMeResponseSchema } from "@openfront/shared/ApiSchemas";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
+import { GameConfig } from "@closefront/engine-api/Schemas";
+import { UserMeResponseSchema } from "@closefront/shared/ApiSchemas";
 import {
   LevelBadge,
   packLevelBadge,
   unpackLevelBadge,
-} from "@openfront/shared/LevelBadgeWire";
-import { GameInfo, ServerMessage } from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/LevelBadgeWire";
+import { GameInfo, ServerMessage } from "@closefront/shared/WireSchemas";
 import {
   decodeServerMessage,
   encodeServerMessage,
-} from "@openfront/shared/ZbinWire";
+} from "@closefront/shared/ZbinWire";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   levelBadgeForPlayer,

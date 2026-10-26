@@ -1,4 +1,4 @@
-import type { SteamUser } from "@openfront/shared/ApiSchemas";
+import type { SteamUser } from "@closefront/shared/ApiSchemas";
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { translateText } from "../../../Utils";

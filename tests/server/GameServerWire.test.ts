@@ -1,11 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { GameMode, GameType } from "@openfront/engine-api/game/GameTypes";
+import { GameMode, GameType } from "@closefront/engine-api/game/GameTypes";
 import {
   ClientMessage,
   PartialGameRecord,
-} from "@openfront/shared/WireSchemas";
-import { createGameWireContext } from "@openfront/shared/ZbinWire";
+} from "@closefront/shared/WireSchemas";
+import { createGameWireContext } from "@closefront/shared/ZbinWire";
 import {
   cid,
   makeClient,

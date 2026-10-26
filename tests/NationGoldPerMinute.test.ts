@@ -29,11 +29,11 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { EngineConfig } from "@openfront/engine/configuration/EngineConfig";
-import { NationExecution } from "@openfront/engine/execution/NationExecution";
-import { RecomputeRailClusterExecution } from "@openfront/engine/execution/RecomputeRailClusterExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { EngineConfig } from "@closefront/engine/configuration/EngineConfig";
+import { NationExecution } from "@closefront/engine/execution/NationExecution";
+import { RecomputeRailClusterExecution } from "@closefront/engine/execution/RecomputeRailClusterExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

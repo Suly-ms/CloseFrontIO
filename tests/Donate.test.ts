@@ -1,8 +1,8 @@
-import { PlayerInfo, PlayerType } from "@openfront/engine-api/game/GameTypes";
-import { GameID } from "@openfront/engine-api/Schemas";
-import { DonateGoldExecution } from "@openfront/engine/execution/DonateGoldExecution";
-import { DonateTroopsExecution } from "@openfront/engine/execution/DonateTroopExecution";
-import { SpawnExecution } from "@openfront/engine/execution/SpawnExecution";
+import { PlayerInfo, PlayerType } from "@closefront/engine-api/game/GameTypes";
+import { GameID } from "@closefront/engine-api/Schemas";
+import { DonateGoldExecution } from "@closefront/engine/execution/DonateGoldExecution";
+import { DonateTroopsExecution } from "@closefront/engine/execution/DonateTroopExecution";
+import { SpawnExecution } from "@closefront/engine/execution/SpawnExecution";
 import { setup } from "./util/Setup";
 
 describe("Donate troops to an ally", () => {

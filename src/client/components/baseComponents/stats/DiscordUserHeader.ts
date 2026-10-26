@@ -1,4 +1,4 @@
-import type { DiscordUser } from "@openfront/shared/ApiSchemas";
+import type { DiscordUser } from "@closefront/shared/ApiSchemas";
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { getDiscordAvatarUrl, translateText } from "../../../Utils";

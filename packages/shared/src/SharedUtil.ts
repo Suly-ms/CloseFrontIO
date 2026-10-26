@@ -1,13 +1,13 @@
-import { GameType, PlayerType } from "@openfront/engine-api/game/GameTypes";
+import { GameType, PlayerType } from "@closefront/engine-api/game/GameTypes";
 import {
   GameConfig,
   GameID,
   Tribe,
   Turn,
   Winner,
-} from "@openfront/engine-api/Schemas";
-import { resolveTribeNameData } from "@openfront/engine-lib/execution/utils/TribeNames";
-import { LOBBY_LABEL_MAX, simpleHash } from "@openfront/engine-lib/Util";
+} from "@closefront/engine-api/Schemas";
+import { resolveTribeNameData } from "@closefront/engine-lib/execution/utils/TribeNames";
+import { LOBBY_LABEL_MAX, simpleHash } from "@closefront/engine-lib/Util";
 import { customAlphabet } from "nanoid";
 import {
   GameRecord,

@@ -1,5 +1,5 @@
-import type { UserMeResponse } from "@openfront/shared/ApiSchemas";
-import type { LevelBadge } from "@openfront/shared/LevelBadgeWire";
+import type { UserMeResponse } from "@closefront/shared/ApiSchemas";
+import type { LevelBadge } from "@closefront/shared/LevelBadgeWire";
 import { getUserMe } from "./Api";
 
 // The viewer's OWN level badge while they hide their level ("hide my level").

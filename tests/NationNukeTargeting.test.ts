@@ -1,22 +1,22 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   Difficulty,
   GameMode,
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   Config,
   NukeMagnitude,
-} from "@openfront/engine-lib/configuration/Config";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
-import { NationAllianceBehavior } from "@openfront/engine/execution/nation/NationAllianceBehavior";
-import { NationEmojiBehavior } from "@openfront/engine/execution/nation/NationEmojiBehavior";
-import { NationNukeBehavior } from "@openfront/engine/execution/nation/NationNukeBehavior";
-import { NationAttackBehavior } from "@openfront/engine/execution/nation/NationAttackBehavior";
-import { NationWarshipBehavior } from "@openfront/engine/execution/nation/NationWarshipBehavior";
-import { Game, Player, Unit } from "@openfront/engine/game/Game";
+} from "@closefront/engine-lib/configuration/Config";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
+import { NationAllianceBehavior } from "@closefront/engine/execution/nation/NationAllianceBehavior";
+import { NationEmojiBehavior } from "@closefront/engine/execution/nation/NationEmojiBehavior";
+import { NationNukeBehavior } from "@closefront/engine/execution/nation/NationNukeBehavior";
+import { NationAttackBehavior } from "@closefront/engine/execution/nation/NationAttackBehavior";
+import { NationWarshipBehavior } from "@closefront/engine/execution/nation/NationWarshipBehavior";
+import { Game, Player, Unit } from "@closefront/engine/game/Game";
 import { setup } from "./util/Setup";
 import { TestConfig } from "./util/TestConfig";
 

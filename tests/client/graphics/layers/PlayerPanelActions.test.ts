@@ -20,7 +20,7 @@ vi.mock("../../../../src/client/Utils", () => ({
   renderDuration: vi.fn(),
   showToast: vi.fn(),
 }));
-vi.mock("@openfront/engine-lib/Format", () => ({
+vi.mock("@closefront/engine-lib/Format", () => ({
   renderNumber: vi.fn(),
   renderTroops: vi.fn(),
 }));
@@ -40,9 +40,9 @@ import {
   AllPlayers,
   GameType,
   PlayerType,
-} from "@openfront/engine-api/game/GameTypes";
-import { flattenedEmojiTable } from "@openfront/engine-api/Schemas";
-import { EventBus } from "@openfront/shared/EventBus";
+} from "@closefront/engine-api/game/GameTypes";
+import { flattenedEmojiTable } from "@closefront/engine-api/Schemas";
+import { EventBus } from "@closefront/shared/EventBus";
 import { actionButton } from "../../../../src/client/components/ui/ActionButton";
 import { PlayerPanel } from "../../../../src/client/hud/layers/PlayerPanel";
 import {

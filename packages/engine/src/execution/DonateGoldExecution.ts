@@ -3,13 +3,13 @@ import {
   Gold,
   PlayerID,
   PlayerType,
-} from "@openfront/engine-api/game/GameTypes";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
+} from "@closefront/engine-api/game/GameTypes";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
 import {
   zPlayerRef,
   zRandom,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
-import { assertNever, toInt } from "@openfront/engine-lib/Util";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
+import { assertNever, toInt } from "@closefront/engine-lib/Util";
 import { z } from "zod";
 import { Execution, Game, Player } from "../game/Game";
 import { execSnapshotType } from "../snapshot/ExecutionSnapshot";

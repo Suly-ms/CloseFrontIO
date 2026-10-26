@@ -1,5 +1,5 @@
-import { PathFinderStepper } from "@openfront/engine/pathfinding/PathFinderStepper";
-import { PathFinder, PathStatus } from "@openfront/engine/pathfinding/types";
+import { PathFinderStepper } from "@closefront/engine/pathfinding/PathFinderStepper";
+import { PathFinder, PathStatus } from "@closefront/engine/pathfinding/types";
 import { describe, expect, it } from "vitest";
 
 describe("PathFinderStepper", () => {

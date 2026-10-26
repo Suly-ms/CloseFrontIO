@@ -73,15 +73,15 @@ describe("getAudience / getApiBase from BOOTSTRAP_CONFIG", () => {
   beforeEach(() => ClientEnv.reset());
 
   it("returns the configured audience (desktop staging)", () => {
-    setConfig("openfront.dev");
-    expect(getAudience()).toBe("openfront.dev");
-    expect(getApiBase()).toBe("https://api.openfront.dev");
+    setConfig("closefront.dev");
+    expect(getAudience()).toBe("closefront.dev");
+    expect(getApiBase()).toBe("https://api.closefront.dev");
   });
 
   it("returns the configured audience (prod)", () => {
-    setConfig("openfront.io");
-    expect(getAudience()).toBe("openfront.io");
-    expect(getApiBase()).toBe("https://api.openfront.io");
+    setConfig("closefront.io");
+    expect(getAudience()).toBe("closefront.io");
+    expect(getApiBase()).toBe("https://api.closefront.io");
   });
 });
 
@@ -122,7 +122,7 @@ describe("creator code client functions", () => {
   }
 
   beforeEach(() => {
-    setConfig("openfront.io");
+    setConfig("closefront.io");
     invalidateUserMe();
     fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
@@ -371,7 +371,7 @@ describe("claimReward", () => {
   }
 
   beforeEach(() => {
-    setConfig("openfront.io");
+    setConfig("closefront.io");
     fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
     vi.spyOn(console, "error").mockImplementation(() => {});
@@ -389,7 +389,7 @@ describe("claimReward", () => {
       currency: { soft: 150, hard: 0 },
     });
     const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
-    expect(url).toBe("https://api.openfront.io/rewards/7/claim");
+    expect(url).toBe("https://api.closefront.io/rewards/7/claim");
     expect(init.method).toBe("POST");
   });
 

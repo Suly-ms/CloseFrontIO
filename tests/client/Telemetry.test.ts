@@ -68,7 +68,7 @@ function page(extra: Record<string, unknown> = {}) {
   (window as any).BOOTSTRAP_CONFIG = {
     gameEnv: "prod",
     turnstileSiteKey: "site-key",
-    jwtAudience: "openfront.io",
+    jwtAudience: "closefront.io",
     gitCommit: "abc1234",
     ...extra,
   };
@@ -116,7 +116,7 @@ describe("Telemetry", () => {
     expect(initializeFaro.mock.calls[0][0]).toMatchObject({
       url: "https://faro.example/collect/k",
       app: {
-        name: "openfront-client",
+        name: "closefront-client",
         version: "abc1234",
         environment: "prod",
       },
@@ -376,14 +376,14 @@ describe("Telemetry", () => {
       payload: {
         name: "navigation",
         attributes: {
-          fromUrl: "https://openfront.io/#steam-link?token=secret",
-          toUrl: "https://openfront.io/game/abc?x=1#y",
+          fromUrl: "https://closefront.io/#steam-link?token=secret",
+          toUrl: "https://closefront.io/game/abc?x=1#y",
           other: "kept",
         },
       },
       meta: {
-        page: { url: "https://openfront.io/#token-login?token-login=secret" },
-        app: { name: "openfront-client" },
+        page: { url: "https://closefront.io/#token-login?token-login=secret" },
+        app: { name: "closefront-client" },
         session: { id: sessionIds().inside },
       },
     };
@@ -393,14 +393,14 @@ describe("Telemetry", () => {
       payload: {
         name: "navigation",
         attributes: {
-          fromUrl: "https://openfront.io/",
-          toUrl: "https://openfront.io/game/abc",
+          fromUrl: "https://closefront.io/",
+          toUrl: "https://closefront.io/game/abc",
           other: "kept",
         },
       },
       meta: {
-        page: { url: "https://openfront.io/" },
-        app: { name: "openfront-client" },
+        page: { url: "https://closefront.io/" },
+        app: { name: "closefront-client" },
         session: { id: sessionIds().inside },
       },
     });
@@ -435,7 +435,7 @@ describe("Telemetry", () => {
         attributes: { blockedURI: "https://cdn.ofedge.io/x.mp3" },
       },
       meta: {
-        page: { url: "https://openfront.io/" },
+        page: { url: "https://closefront.io/" },
         session: { id: sessionIds().inside },
       },
     };
@@ -445,7 +445,7 @@ describe("Telemetry", () => {
       type: "event",
       payload: { name: "session_start", attributes: {} },
       meta: {
-        page: { url: "https://openfront.io/" },
+        page: { url: "https://closefront.io/" },
         session: { id: sessionIds().inside },
       },
     };

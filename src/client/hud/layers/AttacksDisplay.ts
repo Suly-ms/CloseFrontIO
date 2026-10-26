@@ -2,15 +2,15 @@ import {
   MessageType,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   AttackUpdate,
   GameUpdateType,
   UnitIncomingUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
-import { renderTroops } from "@openfront/engine-lib/Format";
-import { assetUrl } from "@openfront/shared/AssetUrls";
-import { EventBus } from "@openfront/shared/EventBus";
+} from "@closefront/engine-api/game/GameUpdates";
+import { renderTroops } from "@closefront/engine-lib/Format";
+import { assetUrl } from "@closefront/shared/AssetUrls";
+import { EventBus } from "@closefront/shared/EventBus";
 import { html, LitElement } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { Controller } from "../../Controller";

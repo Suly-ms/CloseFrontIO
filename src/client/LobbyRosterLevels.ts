@@ -1,6 +1,6 @@
-import { ClientID, GameID } from "@openfront/engine-api/Schemas";
-import { LevelBadge, unpackLevelBadge } from "@openfront/shared/LevelBadgeWire";
-import { ClientInfo } from "@openfront/shared/WireSchemas";
+import { ClientID, GameID } from "@closefront/engine-api/Schemas";
+import { LevelBadge, unpackLevelBadge } from "@closefront/shared/LevelBadgeWire";
+import { ClientInfo } from "@closefront/shared/WireSchemas";
 import {
   ownHiddenLevelBadge,
   refreshOwnHiddenLevelBadge,

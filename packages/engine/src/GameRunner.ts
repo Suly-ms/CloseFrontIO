@@ -1,4 +1,4 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   AllPlayers,
   BuildableUnit,
@@ -15,16 +15,16 @@ import {
   PlayerProfile,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   ErrorUpdate,
   GameUpdateViewData,
-} from "@openfront/engine-api/game/GameUpdates";
-import { MapFiles } from "@openfront/engine-api/game/MapFiles";
-import { ClientID, GameStartInfo, Turn } from "@openfront/engine-api/Schemas";
-import { loadTerrainMap } from "@openfront/engine-lib/game/TerrainMapLoader";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
-import { simpleHash } from "@openfront/engine-lib/Util";
+} from "@closefront/engine-api/game/GameUpdates";
+import { MapFiles } from "@closefront/engine-api/game/MapFiles";
+import { ClientID, GameStartInfo, Turn } from "@closefront/engine-api/Schemas";
+import { loadTerrainMap } from "@closefront/engine-lib/game/TerrainMapLoader";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
+import { simpleHash } from "@closefront/engine-lib/Util";
 import { EngineConfig } from "./configuration/EngineConfig";
 import { DoomsdayClockExecution } from "./execution/DoomsdayClockExecution";
 import { Executor } from "./execution/ExecutionManager";

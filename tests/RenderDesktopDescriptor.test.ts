@@ -103,7 +103,7 @@ const STAGING_ENV = {
   GAME_ENV: "staging",
   GIT_COMMIT: "a".repeat(40),
   CDN_BASE: "https://cdn.example",
-  DOMAIN: "openfront.dev",
+  DOMAIN: "closefront.dev",
 };
 
 describe("RenderDesktopDescriptor CLI", () => {
@@ -167,7 +167,7 @@ describe("RenderDesktopDescriptor CLI", () => {
       ...STAGING_ENV,
       GAME_ENV: "prod",
       CDN_BASE: "",
-      DOMAIN: "openfront.io",
+      DOMAIN: "closefront.io",
     });
 
     expect(result.status).toBe(1);

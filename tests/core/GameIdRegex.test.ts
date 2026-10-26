@@ -2,8 +2,8 @@ import {
   GAME_ID_REGEX,
   ID,
   isValidGameID,
-} from "@openfront/engine-api/Schemas";
-import { generateID } from "@openfront/shared/SharedUtil";
+} from "@closefront/engine-api/Schemas";
+import { generateID } from "@closefront/shared/SharedUtil";
 import { describe, expect, it } from "vitest";
 
 // Game ids are permanent archive keys, so the accepted range must cover every

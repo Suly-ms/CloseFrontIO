@@ -1,6 +1,6 @@
-import { GameType } from "@openfront/engine-api/game/GameTypes";
-import { ADMIN_BOT_CLIENT_ID } from "@openfront/engine-api/Schemas";
-import { GameEnv } from "@openfront/shared/configuration/Env";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
+import { ADMIN_BOT_CLIENT_ID } from "@closefront/engine-api/Schemas";
+import { GameEnv } from "@closefront/shared/configuration/Env";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ServerEnv } from "../../src/server/ServerEnv";
 import { createAdmissionGuard } from "../../src/server/Worker";

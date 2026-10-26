@@ -1,4 +1,4 @@
-import { PublicLobbyMessage } from "@openfront/shared/WireSchemas";
+import { PublicLobbyMessage } from "@closefront/shared/WireSchemas";
 import EventEmitter from "events";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { WebSocket } from "ws";

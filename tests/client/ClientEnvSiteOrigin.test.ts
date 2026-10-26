@@ -7,7 +7,7 @@ import { ClientEnv } from "../../src/client/ClientEnv";
 // siteOrigin() names the WEBSITE a page belongs to, for links that leave the
 // game (the desktop shell opening account settings in a browser). A
 // server-rendered web page carries BOTH serverHost (one deployment,
-// blue.openfront.io) and siteHost (the apex it was rendered behind), and only
+// blue.closefront.io) and siteHost (the apex it was rendered behind), and only
 // the second is a site; the desktop shell injects serverHost alone, and there
 // it is the site.
 function setBootstrapConfig(
@@ -17,7 +17,7 @@ function setBootstrapConfig(
     gameEnv: "prod",
     numWorkers: 1,
     turnstileSiteKey: "x",
-    jwtAudience: "openfront.io",
+    jwtAudience: "closefront.io",
     instanceId: "d",
     gitCommit: "t",
     ...overrides,
@@ -33,15 +33,15 @@ afterEach(() => {
 describe("ClientEnv.siteOrigin", () => {
   it("prefers the apex over the deployment host on a server-rendered page", () => {
     setBootstrapConfig({
-      serverHost: "blue.openfront.io",
-      siteHost: "openfront.io",
+      serverHost: "blue.closefront.io",
+      siteHost: "closefront.io",
     });
-    expect(ClientEnv.siteOrigin()).toBe("https://openfront.io");
+    expect(ClientEnv.siteOrigin()).toBe("https://closefront.io");
   });
 
   it("falls back to serverHost, which is the site on the desktop shell", () => {
-    setBootstrapConfig({ serverHost: "nightly.openfront.dev" });
-    expect(ClientEnv.siteOrigin()).toBe("https://nightly.openfront.dev");
+    setBootstrapConfig({ serverHost: "nightly.closefront.dev" });
+    expect(ClientEnv.siteOrigin()).toBe("https://nightly.closefront.dev");
   });
 
   it("is undefined when the page names no site at all", () => {

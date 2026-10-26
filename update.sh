@@ -32,7 +32,7 @@ echo "======================================================"
 # a container name when both "machines" are names for one box. The fallback
 # keeps a hand-written env file working.
 DEPLOYMENT_NAME="${DEPLOYMENT_NAME:-$SUBDOMAIN}"
-CONTAINER_NAME="openfront-${ENV}-${DEPLOYMENT_NAME}"
+CONTAINER_NAME="closefront-${ENV}-${DEPLOYMENT_NAME}"
 
 echo "Pulling ${GHCR_IMAGE} from GitHub Container Registry..."
 # --- BEGIN pull image (tested) ---
@@ -43,7 +43,7 @@ echo "Pulling ${GHCR_IMAGE} from GitHub Container Registry..."
 # Without a token, pull anonymously, as a hand-run update.sh against a public
 # image would.
 if [ -n "${GHCR_TOKEN:-}" ]; then
-    printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "${GHCR_USER:-openfront}" --password-stdin
+    printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "${GHCR_USER:-closefront}" --password-stdin
     pull_status=0
     docker pull "${GHCR_IMAGE}" || pull_status=$?
     docker logout ghcr.io >/dev/null || true
@@ -78,7 +78,7 @@ for cmd in jq curl xargs; do
     fi
 done
 
-EXTRACT_DIR="$(mktemp -d -t openfront-assets-XXXXXX)"
+EXTRACT_DIR="$(mktemp -d -t closefront-assets-XXXXXX)"
 trap 'rm -rf "$EXTRACT_DIR"' EXIT
 
 TMP_CONTAINER="$(docker create "${GHCR_IMAGE}")"
@@ -449,7 +449,7 @@ remove_container "${CONTAINER_NAME}"
 # for the long-lived slots, with restart=always keeping it up. The two
 # shapes are exclusive for one slot on one box, so retire it here.
 if [ "${DEPLOYMENT_NAME}" != "${SUBDOMAIN}" ]; then
-    remove_container "openfront-${ENV}-${SUBDOMAIN}"
+    remove_container "closefront-${ENV}-${SUBDOMAIN}"
 fi
 
 # Docker restart policy. `always` means the daemon brings this container back

@@ -1,10 +1,10 @@
-import { GameMapSize, GameMapType } from "@openfront/engine-api/game/GameTypes";
-import { loadTerrainMap } from "@openfront/engine-lib/game/TerrainMapLoader";
-import { createGameRunner } from "@openfront/engine/GameRunner";
+import { GameMapSize, GameMapType } from "@closefront/engine-api/game/GameTypes";
+import { loadTerrainMap } from "@closefront/engine-lib/game/TerrainMapLoader";
+import { createGameRunner } from "@closefront/engine/GameRunner";
 import {
   loadMapFiles,
   mapFilesTransfer,
-} from "@openfront/shared/GameMapLoader";
+} from "@closefront/shared/GameMapLoader";
 import path from "path";
 import { fileURLToPath } from "url";
 import { NodeGameMapLoader } from "../../perf/fullgame/NodeGameMapLoader";

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { GameType } from "@openfront/engine-api/game/GameTypes";
-import { createGameWireContext } from "@openfront/shared/ZbinWire";
+import { GameType } from "@closefront/engine-api/game/GameTypes";
+import { createGameWireContext } from "@closefront/shared/ZbinWire";
 import { Client } from "../../src/server/Client";
 import { GameServer } from "../../src/server/GameServer";
 import {

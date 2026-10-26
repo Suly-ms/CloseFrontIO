@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
-import { GameMapType, GameMode } from "@openfront/engine-api/game/GameTypes";
-import type { GameConfig } from "@openfront/engine-api/Schemas";
+import { GameMapType, GameMode } from "@closefront/engine-api/game/GameTypes";
+import type { GameConfig } from "@closefront/engine-api/Schemas";
 import type {
   PublicGameInfo,
   PublicGames,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import {
   afterEach,
   beforeEach,
@@ -94,7 +94,7 @@ function publicLobby(gameID: string): PublicGameInfo {
 /**
  * Mounts the real <desktop-status-bar> against a bridge that ALREADY holds
  * `state`, replaying it synchronously on subscribe exactly as
- * openfront-desktop's updater does. The publish therefore happens here, during
+ * closefront-desktop's updater does. The publish therefore happens here, during
  * the bar's upgrade -- before any consumer in these tests exists.
  */
 function publishBeforeAnyConsumerMounts(state: DesktopUpdateState): void {
@@ -106,7 +106,7 @@ function publishBeforeAnyConsumerMounts(state: DesktopUpdateState): void {
     apply: async () => {},
     retry: async () => {},
   };
-  (window as { openfrontDesktop?: unknown }).openfrontDesktop = {
+  (window as { closefrontDesktop?: unknown }).closefrontDesktop = {
     update: bridge,
   };
   document.body.appendChild(document.createElement("desktop-status-bar"));
@@ -185,7 +185,7 @@ beforeEach(() => {
 afterEach(() => {
   document.removeEventListener("join-lobby", joinLobby as EventListener);
   document.body.innerHTML = "";
-  (window as { openfrontDesktop?: unknown }).openfrontDesktop = undefined;
+  (window as { closefrontDesktop?: unknown }).closefrontDesktop = undefined;
   window.BOOTSTRAP_CONFIG = undefined;
   ClientEnv.reset();
   vi.restoreAllMocks();

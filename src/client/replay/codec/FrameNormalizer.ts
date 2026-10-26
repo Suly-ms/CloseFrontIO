@@ -14,17 +14,17 @@
  * out: frames keep theirs.
  */
 
-import type { PlayerID } from "@openfront/engine-api/game/GameTypes";
+import type { PlayerID } from "@closefront/engine-api/game/GameTypes";
 import {
   GameUpdateType,
   type GameUpdateViewData,
   type PlayerUpdate,
   type UnitUpdate,
-} from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameUpdates";
 import {
   unpackMotionPlans,
   type MotionPlanRecord,
-} from "@openfront/engine-lib/game/MotionPlans";
+} from "@closefront/engine-lib/game/MotionPlans";
 import type {
   NameEntry,
   PlayerState,

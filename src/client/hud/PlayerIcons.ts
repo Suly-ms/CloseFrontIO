@@ -1,5 +1,5 @@
-import { AllPlayers, Nukes } from "@openfront/engine-api/game/GameTypes";
-import { assetUrl } from "@openfront/shared/AssetUrls";
+import { AllPlayers, Nukes } from "@closefront/engine-api/game/GameTypes";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 import { GameView, PlayerView } from "../view";
 const allianceRequestBlackIcon = assetUrl(
   "images/AllianceRequestBlackIcon.svg",

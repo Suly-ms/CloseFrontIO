@@ -21,7 +21,7 @@
 import {
   GameUpdateType,
   type GameUpdateViewData,
-} from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameUpdates";
 import { computeAllianceClusters } from "../render/frame/derive/AllianceClusters";
 import { extractNukeTelegraphs } from "../render/frame/derive/NukeTelegraphs";
 import { computePlayerStatus } from "../render/frame/derive/PlayerStatus";

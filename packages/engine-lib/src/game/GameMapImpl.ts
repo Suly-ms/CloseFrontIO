@@ -1,5 +1,5 @@
-import { GameMap, TileRef } from "@openfront/engine-api/game/GameMap";
-import { Cell, TerrainType } from "@openfront/engine-api/game/GameTypes";
+import { GameMap, TileRef } from "@closefront/engine-api/game/GameMap";
+import { Cell, TerrainType } from "@closefront/engine-api/game/GameTypes";
 import { z } from "zod";
 import { snapshotType, zBytes, zInt, zTiles } from "../snapshot/SnapshotType";
 

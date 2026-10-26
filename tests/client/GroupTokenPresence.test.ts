@@ -1,10 +1,10 @@
-import { GameMode, GameType } from "@openfront/engine-api/game/GameTypes";
-import { EventBus } from "@openfront/shared/EventBus";
+import { GameMode, GameType } from "@closefront/engine-api/game/GameTypes";
+import { EventBus } from "@closefront/shared/EventBus";
 import {
   GroupTokenEvent,
   type ServerMessage,
   type ServerStartGameMessage,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { describe, expect, it, vi } from "vitest";
 import type { PresencePayload } from "../../src/client/DesktopPresence";
 import {

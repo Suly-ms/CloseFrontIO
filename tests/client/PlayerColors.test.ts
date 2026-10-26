@@ -1,4 +1,4 @@
-import type { PlayerCosmetics } from "@openfront/shared/WireSchemas";
+import type { PlayerCosmetics } from "@closefront/shared/WireSchemas";
 import { colord } from "colord";
 import { resolvePlayerColors } from "../../src/client/view/PlayerColors";
 

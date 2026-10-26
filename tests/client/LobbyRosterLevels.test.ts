@@ -1,5 +1,5 @@
-import type { UserMeResponse } from "@openfront/shared/ApiSchemas";
-import { packLevelBadge } from "@openfront/shared/LevelBadgeWire";
+import type { UserMeResponse } from "@closefront/shared/ApiSchemas";
+import { packLevelBadge } from "@closefront/shared/LevelBadgeWire";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   lobbyLevelBadge,

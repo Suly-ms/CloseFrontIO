@@ -1,15 +1,15 @@
-import { Tick } from "@openfront/engine-api/game/GameTypes";
-import { ClientID, Winner } from "@openfront/engine-api/Schemas";
-import { TokenPayload } from "@openfront/shared/ApiSchemas";
+import { Tick } from "@closefront/engine-api/game/GameTypes";
+import { ClientID, Winner } from "@closefront/engine-api/Schemas";
+import { TokenPayload } from "@closefront/shared/ApiSchemas";
 import {
   type LevelBadge,
   packLevelBadge,
-} from "@openfront/shared/LevelBadgeWire";
+} from "@closefront/shared/LevelBadgeWire";
 import {
   ClientDevice,
   ClientPlatform,
   PlayerCosmetics,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import WebSocket from "ws";
 
 export class Client {

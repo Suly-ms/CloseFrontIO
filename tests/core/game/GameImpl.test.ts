@@ -1,16 +1,16 @@
-import { GameID } from "@openfront/engine-api/Schemas";
-import { AttackExecution } from "@openfront/engine/execution/AttackExecution";
-import { SpawnExecution } from "@openfront/engine/execution/SpawnExecution";
-//import { TransportShipExecution } from "@openfront/engine/execution/TransportShipExecution";
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { GameID } from "@closefront/engine-api/Schemas";
+import { AttackExecution } from "@closefront/engine/execution/AttackExecution";
+import { SpawnExecution } from "@closefront/engine/execution/SpawnExecution";
+//import { TransportShipExecution } from "@closefront/engine/execution/TransportShipExecution";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   GameType,
   PlayerInfo,
   PlayerType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameUpdateType } from "@openfront/engine-api/game/GameUpdates";
-import { AllianceRequestExecution } from "@openfront/engine/execution/alliance/AllianceRequestExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameUpdateType } from "@closefront/engine-api/game/GameUpdates";
+import { AllianceRequestExecution } from "@closefront/engine/execution/alliance/AllianceRequestExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "../../util/Setup";
 
 const gameID: GameID = "game_id";

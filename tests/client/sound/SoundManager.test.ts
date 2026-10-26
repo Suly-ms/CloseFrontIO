@@ -67,7 +67,7 @@ vi.mock("howler", () => {
   return { Howl: MockHowl, Howler: { volume: howlerVolume } };
 });
 
-import { EventBus } from "@openfront/shared/EventBus";
+import { EventBus } from "@closefront/shared/EventBus";
 import { Platform } from "../../../src/client/Platform";
 import {
   AudioMixer,

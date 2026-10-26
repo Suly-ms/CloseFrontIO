@@ -2,10 +2,10 @@ import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { SubmarineExecution } from "@openfront/engine/execution/SubmarineExecution";
-import { WarshipExecution } from "@openfront/engine/execution/WarshipExecution";
-import { Game, Player, Unit } from "@openfront/engine/game/Game";
+} from "@closefront/engine-api/game/GameTypes";
+import { SubmarineExecution } from "@closefront/engine/execution/SubmarineExecution";
+import { WarshipExecution } from "@closefront/engine/execution/WarshipExecution";
+import { Game, Player, Unit } from "@closefront/engine/game/Game";
 import { setup } from "../../util/Setup";
 import { expectSnapshotRoundTrip } from "../../util/Snapshot";
 import { executeTicks } from "../../util/utils";

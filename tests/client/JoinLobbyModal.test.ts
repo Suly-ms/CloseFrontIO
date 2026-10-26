@@ -42,7 +42,7 @@ import {
   GameMapType,
   GameMode,
   GameType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import { ClientEnv } from "../../src/client/ClientEnv";
 import { JoinLobbyModal } from "../../src/client/JoinLobbyModal";
 import { UserSettings } from "../../src/client/UserSettings";
@@ -465,10 +465,10 @@ describe("JoinLobbyModal checkActiveLobby resilience", () => {
       gameEnv: "prod",
       numWorkers: 1,
       turnstileSiteKey: "x",
-      jwtAudience: "openfront.io",
+      jwtAudience: "closefront.io",
       instanceId: "test",
       gitCommit: "test",
-      serverHost: "blue.openfront.io",
+      serverHost: "blue.closefront.io",
     };
   });
 
@@ -501,7 +501,7 @@ describe("JoinLobbyModal checkActiveLobby resilience", () => {
     (window as any).BOOTSTRAP_CONFIG = {
       gameEnv: "prod",
       turnstileSiteKey: "x",
-      jwtAudience: "openfront.io",
+      jwtAudience: "closefront.io",
       instanceId: "test",
       gitCommit: "test",
     };

@@ -1,5 +1,5 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { PlayerType, Structures } from "@openfront/engine-api/game/GameTypes";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { PlayerType, Structures } from "@closefront/engine-api/game/GameTypes";
 import { Game, Player } from "../../game/Game";
 
 // What a bot's territory touches, seen from the player planning to take it

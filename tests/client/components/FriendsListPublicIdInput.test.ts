@@ -11,11 +11,11 @@ describe("extractPublicIdFromUrl", () => {
   });
 
   it("keeps only the id from the canonical /player/<id> link", () => {
-    expect(extractPublicIdFromUrl("https://openfront.io/player/95UoOPh3")).toBe(
+    expect(extractPublicIdFromUrl("https://closefront.io/player/95UoOPh3")).toBe(
       "95UoOPh3",
     );
     expect(
-      extractPublicIdFromUrl("https://openfront.io/player/95UoOPh3/?tab=games"),
+      extractPublicIdFromUrl("https://closefront.io/player/95UoOPh3/?tab=games"),
     ).toBe("95UoOPh3");
     expect(
       extractPublicIdFromUrl("http://localhost:9000/w0/player/95UoOPh3"),
@@ -25,7 +25,7 @@ describe("extractPublicIdFromUrl", () => {
   it("handles https links and other hash params in any order", () => {
     expect(
       extractPublicIdFromUrl(
-        "https://openfront.io/#publicID=95UoOPh3&modal=profile&tab=games",
+        "https://closefront.io/#publicID=95UoOPh3&modal=profile&tab=games",
       ),
     ).toBe("95UoOPh3");
   });
@@ -33,7 +33,7 @@ describe("extractPublicIdFromUrl", () => {
   it("decodes percent-encoded ids", () => {
     expect(
       extractPublicIdFromUrl(
-        "https://openfront.io/#modal=profile&publicID=a%2Bb",
+        "https://closefront.io/#modal=profile&publicID=a%2Bb",
       ),
     ).toBe("a+b");
   });
@@ -41,7 +41,7 @@ describe("extractPublicIdFromUrl", () => {
   it("accepts an uppercase scheme", () => {
     expect(
       extractPublicIdFromUrl(
-        "HTTPS://openfront.io/#modal=profile&publicID=95UoOPh3",
+        "HTTPS://closefront.io/#modal=profile&publicID=95UoOPh3",
       ),
     ).toBe("95UoOPh3");
   });
@@ -55,7 +55,7 @@ describe("extractPublicIdFromUrl", () => {
   });
 
   it("returns the input when the url carries no publicID", () => {
-    const url = "https://openfront.io/#modal=leaderboard";
+    const url = "https://closefront.io/#modal=leaderboard";
     expect(extractPublicIdFromUrl(url)).toBe(url);
   });
 
@@ -68,7 +68,7 @@ describe("extractPublicIdFromUrl", () => {
 
   it("leaves a non-http scheme untouched", () => {
     expect(
-      extractPublicIdFromUrl("ftp://openfront.io/#publicID=95UoOPh3"),
-    ).toBe("ftp://openfront.io/#publicID=95UoOPh3");
+      extractPublicIdFromUrl("ftp://closefront.io/#publicID=95UoOPh3"),
+    ).toBe("ftp://closefront.io/#publicID=95UoOPh3");
   });
 });

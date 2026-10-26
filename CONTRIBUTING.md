@@ -1,15 +1,15 @@
-# Contributing to OpenFront.io
+# Contributing to CloseFront.io
 
-First off, thank you for considering contributing to OpenFront.io! It's people like you that make OpenFront such a great game.
+First off, thank you for considering contributing to CloseFront.io! It's people like you that make CloseFront such a great game.
 
 We welcome contributions from everyone. By participating in this project, you agree to abide by our code of conduct and treat all community members with respect.
 
 ## Quick Links
 
-- **Game**: [https://openfront.io/](https://openfront.io/)
+- **Game**: [https://closefront.io/](https://closefront.io/)
 - **Discord**: [Join the Development Discord](https://discord.gg/K9zernJB5z)
-- **Translations**: [Crowdin Project](https://crowdin.com/project/openfront-mls)
-- **Issues**: [GitHub Issues](https://github.com/openfrontio/OpenFrontIO/issues)
+- **Translations**: [Crowdin Project](https://crowdin.com/project/closefront-mls)
+- **Issues**: [GitHub Issues](https://github.com/closefrontio/CloseFrontIO/issues)
 
 ## Project Governance
 
@@ -33,7 +33,7 @@ To ensure code quality and project stability, we use a progressive contribution 
 Before writing any code:
 
 1. Request to join the development [Discord](https://discord.gg/K9zernJB5z).
-2. Find an issue labelled [`approved`](https://github.com/openfrontio/OpenFrontIO/issues?q=is%3Aissue%20state%3Aopen%20label%3Aapproved), or open a new issue and wait for it to be labelled `approved`.
+2. Find an issue labelled [`approved`](https://github.com/closefrontio/CloseFrontIO/issues?q=is%3Aissue%20state%3Aopen%20label%3Aapproved), or open a new issue and wait for it to be labelled `approved`.
 3. Comment on the issue asking to be assigned.
 4. Wait to be assigned before investing significant time.
 
@@ -62,8 +62,8 @@ Using AI tools is fine — but you **MUST** understand the code you are submitti
 1. **Fork the repository** on GitHub.
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/OpenFrontIO.git
-   cd OpenFrontIO
+   git clone https://github.com/YOUR_USERNAME/CloseFrontIO.git
+   cd CloseFrontIO
    ```
 3. **Install dependencies**:
 
@@ -157,10 +157,10 @@ Before submitting, ensure you have:
 
 ## Translations
 
-Translators are welcome! We use Crowdin for translations. To help translate OpenFront.io:
+Translators are welcome! We use Crowdin for translations. To help translate CloseFront.io:
 
 1. Join the [Translation Discord](https://discord.gg/3zZzacjWFr).
-2. Visit our [Crowdin Project](https://crowdin.com/project/openfront-mls).
+2. Visit our [Crowdin Project](https://crowdin.com/project/closefront-mls).
 3. Sign up or log in, then join the project.
 4. Select the language you want to translate. If your language isn't listed, click "Request New Language".
 5. Translate the strings.
@@ -181,4 +181,4 @@ By contributing, you agree that your contributions will be licensed under the [G
 
 Remember that maintaining this project requires significant effort. The maintainer appreciates your contributions but must prioritize long-term project health and stability. Not all contributions will be accepted, and that's okay.
 
-Thank you for helping make OpenFront better!
+Thank you for helping make CloseFront better!

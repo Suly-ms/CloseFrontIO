@@ -1,5 +1,5 @@
-import { UsernameSchema } from "@openfront/engine-api/Schemas";
-import { ANON_WORDS, anonWordName } from "@openfront/shared/AnonNames";
+import { UsernameSchema } from "@closefront/engine-api/Schemas";
+import { ANON_WORDS, anonWordName } from "@closefront/shared/AnonNames";
 import { MAX_USERNAME_LENGTH } from "../src/client/validations/username";
 
 describe("ANON_WORDS", () => {

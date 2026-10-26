@@ -1,4 +1,4 @@
-import { GameMap, TileRef } from "@openfront/engine-api/game/GameMap";
+import { GameMap, TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   Cell,
   ColoredTeams,
@@ -21,30 +21,30 @@ import {
   Tick,
   Trios,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
+} from "@closefront/engine-api/game/GameTypes";
 import {
   GameUpdate,
   GameUpdateType,
-} from "@openfront/engine-api/game/GameUpdates";
-import { UnitPredicate } from "@openfront/engine-api/game/ReadViews";
+} from "@closefront/engine-api/game/GameUpdates";
+import { UnitPredicate } from "@closefront/engine-api/game/ReadViews";
 import {
   AllPlayersStats,
   ClientID,
   Winner,
-} from "@openfront/engine-api/Schemas";
-import { ATTACK_INDEX_SENT } from "@openfront/engine-api/StatsSchemas";
-import { renderNumber } from "@openfront/engine-lib/Format";
-import { GameMapImpl } from "@openfront/engine-lib/game/GameMapImpl";
+} from "@closefront/engine-api/Schemas";
+import { ATTACK_INDEX_SENT } from "@closefront/engine-api/StatsSchemas";
+import { renderNumber } from "@closefront/engine-lib/Format";
+import { GameMapImpl } from "@closefront/engine-lib/game/GameMapImpl";
 import {
   MotionPlanRecord,
   packMotionPlans,
-} from "@openfront/engine-lib/game/MotionPlans";
+} from "@closefront/engine-lib/game/MotionPlans";
 import {
   assignTeams,
   resolveTeamsList,
-} from "@openfront/engine-lib/game/TeamAssignment";
-import { TerraNulliusImpl } from "@openfront/engine-lib/game/TerraNulliusImpl";
-import { UnitGrid } from "@openfront/engine-lib/game/UnitGrid";
+} from "@closefront/engine-lib/game/TeamAssignment";
+import { TerraNulliusImpl } from "@closefront/engine-lib/game/TerraNulliusImpl";
+import { UnitGrid } from "@closefront/engine-lib/game/UnitGrid";
 import {
   readVersioned,
   snapshotType,
@@ -52,8 +52,8 @@ import {
   zInt,
   zPlayerRef,
   zRef,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
-import { simpleHash } from "@openfront/engine-lib/Util";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
+import { simpleHash } from "@closefront/engine-lib/Util";
 import { z } from "zod";
 import { EngineConfig } from "../configuration/EngineConfig";
 import {

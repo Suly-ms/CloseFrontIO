@@ -1,12 +1,12 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
 import {
   PlayerInfo,
   PlayerType,
   UnitType,
-} from "@openfront/engine-api/game/GameTypes";
-import { TrainExecution } from "@openfront/engine/execution/TrainExecution";
-import { Railroad } from "@openfront/engine/game/Railroad";
-import { TrainStation } from "@openfront/engine/game/TrainStation";
+} from "@closefront/engine-api/game/GameTypes";
+import { TrainExecution } from "@closefront/engine/execution/TrainExecution";
+import { Railroad } from "@closefront/engine/game/Railroad";
+import { TrainStation } from "@closefront/engine/game/TrainStation";
 import { describe, expect, it, vi } from "vitest";
 import { setup } from "../../util/Setup";
 

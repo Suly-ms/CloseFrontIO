@@ -1,13 +1,13 @@
-import { Tick } from "@openfront/engine-api/game/GameTypes";
+import { Tick } from "@closefront/engine-api/game/GameTypes";
 import {
   AllianceRequestUpdate,
   GameUpdateType,
-} from "@openfront/engine-api/game/GameUpdates";
+} from "@closefront/engine-api/game/GameUpdates";
 import {
   snapshotType,
   zInt,
   zPlayerRef,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
 import { z } from "zod";
 import type {
   SnapshotReader,

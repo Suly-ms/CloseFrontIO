@@ -4,11 +4,11 @@
  * they were at that tick once later ticks have run.
  */
 
-import { GameMapType } from "@openfront/engine-api/game/GameTypes";
-import { GameUpdateViewData } from "@openfront/engine-api/game/GameUpdates";
-import { createGameRunner } from "@openfront/engine/GameRunner";
-import { loadMapFiles } from "@openfront/shared/GameMapLoader";
-import { toWireGameStartInfo } from "@openfront/shared/SharedUtil";
+import { GameMapType } from "@closefront/engine-api/game/GameTypes";
+import { GameUpdateViewData } from "@closefront/engine-api/game/GameUpdates";
+import { createGameRunner } from "@closefront/engine/GameRunner";
+import { loadMapFiles } from "@closefront/shared/GameMapLoader";
+import { toWireGameStartInfo } from "@closefront/shared/SharedUtil";
 import {
   config,
   human,

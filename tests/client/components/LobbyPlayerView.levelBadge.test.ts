@@ -1,11 +1,11 @@
 import {
   GameMode,
   HumansVsNations,
-} from "@openfront/engine-api/game/GameTypes";
-import type { UserMeResponse } from "@openfront/shared/ApiSchemas";
-import type { LevelBadge } from "@openfront/shared/LevelBadgeWire";
-import { packLevelBadge } from "@openfront/shared/LevelBadgeWire";
-import type { ClientInfo } from "@openfront/shared/WireSchemas";
+} from "@closefront/engine-api/game/GameTypes";
+import type { UserMeResponse } from "@closefront/shared/ApiSchemas";
+import type { LevelBadge } from "@closefront/shared/LevelBadgeWire";
+import { packLevelBadge } from "@closefront/shared/LevelBadgeWire";
+import type { ClientInfo } from "@closefront/shared/WireSchemas";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import "../../../src/client/components/LobbyPlayerView";
 import type { LobbyTeamView } from "../../../src/client/components/LobbyPlayerView";

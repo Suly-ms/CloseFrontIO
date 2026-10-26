@@ -1,13 +1,13 @@
-import { UserMeResponse } from "@openfront/shared/ApiSchemas";
-import { assetUrl } from "@openfront/shared/AssetUrls";
+import { UserMeResponse } from "@closefront/shared/ApiSchemas";
+import { assetUrl } from "@closefront/shared/AssetUrls";
 import {
   Cosmetics,
   Effect,
   Flag,
   isNukeExplosionEffect,
   Skin,
-} from "@openfront/shared/CosmeticSchemas";
-import { PlayerPattern } from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/CosmeticSchemas";
+import { PlayerPattern } from "@closefront/shared/WireSchemas";
 import type { TemplateResult } from "lit";
 import { html, nothing } from "lit";
 import { customElement, state } from "lit/decorators.js";

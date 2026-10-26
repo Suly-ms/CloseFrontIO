@@ -1,4 +1,4 @@
-import type { TrackFlare } from "@openfront/shared/ApiSchemas";
+import type { TrackFlare } from "@closefront/shared/ApiSchemas";
 import { html, TemplateResult } from "lit";
 import {
   fetchCosmetics,

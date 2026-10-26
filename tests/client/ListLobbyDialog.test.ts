@@ -1,7 +1,7 @@
 import {
   MAX_HOSTED_LOBBY_PLAYERS,
   MIN_HOSTED_LOBBY_PLAYERS,
-} from "@openfront/shared/WireSchemas";
+} from "@closefront/shared/WireSchemas";
 import { describe, expect, it } from "vitest";
 import "../../src/client/components/ListLobbyDialog";
 import { ListLobbyDialog } from "../../src/client/components/ListLobbyDialog";

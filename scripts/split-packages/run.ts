@@ -12,7 +12,7 @@
  *   }
  *
  * File moves rewrite every specifier that points at a moved file (or sits in
- * one): relative inside a package, `@openfront/<pkg>/<path>` across packages.
+ * one): relative inside a package, `@closefront/<pkg>/<path>` across packages.
  * Symbol moves split import/export declarations by name so each name comes
  * from the file that now declares it; the declarations themselves are moved
  * by hand beforehand. Anything it can't rewrite safely (namespace imports or

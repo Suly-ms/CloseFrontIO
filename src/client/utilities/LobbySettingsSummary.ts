@@ -3,8 +3,8 @@ import {
   GameMapSize,
   GameMode,
   GameType,
-} from "@openfront/engine-api/game/GameTypes";
-import { GameConfig } from "@openfront/engine-api/Schemas";
+} from "@closefront/engine-api/game/GameTypes";
+import { GameConfig } from "@closefront/engine-api/Schemas";
 import { html, TemplateResult } from "lit";
 import { renderDuration, translateText } from "../../client/Utils";
 

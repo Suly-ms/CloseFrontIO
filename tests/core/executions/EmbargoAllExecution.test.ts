@@ -1,6 +1,6 @@
-import { PlayerInfo, PlayerType } from "@openfront/engine-api/game/GameTypes";
-import { EmbargoAllExecution } from "@openfront/engine/execution/EmbargoAllExecution";
-import { Game, Player } from "@openfront/engine/game/Game";
+import { PlayerInfo, PlayerType } from "@closefront/engine-api/game/GameTypes";
+import { EmbargoAllExecution } from "@closefront/engine/execution/EmbargoAllExecution";
+import { Game, Player } from "@closefront/engine/game/Game";
 import { setup } from "../../util/Setup";
 import { executeTicks } from "../../util/utils";
 

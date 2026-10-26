@@ -1,4 +1,4 @@
-import { Cell } from "@openfront/engine-api/game/GameTypes";
+import { Cell } from "@closefront/engine-api/game/GameTypes";
 import { describe, expect, test } from "vitest";
 import {
   alignClusterOrder,

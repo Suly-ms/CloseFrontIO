@@ -1,6 +1,6 @@
-import { TileRef } from "@openfront/engine-api/game/GameMap";
-import { UnitType } from "@openfront/engine-api/game/GameTypes";
-import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
+import { TileRef } from "@closefront/engine-api/game/GameMap";
+import { UnitType } from "@closefront/engine-api/game/GameTypes";
+import { PseudoRandom } from "@closefront/engine-lib/PseudoRandom";
 import {
   zInt,
   zNum,
@@ -8,8 +8,8 @@ import {
   zRandom,
   zRef,
   zTile,
-} from "@openfront/engine-lib/snapshot/SnapshotType";
-import { findMinimumBy } from "@openfront/engine-lib/Util";
+} from "@closefront/engine-lib/snapshot/SnapshotType";
+import { findMinimumBy } from "@closefront/engine-lib/Util";
 import { z } from "zod";
 import {
   Execution,

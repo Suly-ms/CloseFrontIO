@@ -1,7 +1,7 @@
-import { GameMapSize, GameMapType } from "@openfront/engine-api/game/GameTypes";
-import type { MapFiles, MapLayer } from "@openfront/engine-api/game/MapFiles";
-import { loadTerrainMap } from "@openfront/engine-lib/game/TerrainMapLoader";
-import type { GameMapLoader, MapData } from "@openfront/shared/GameMapLoader";
+import { GameMapSize, GameMapType } from "@closefront/engine-api/game/GameTypes";
+import type { MapFiles, MapLayer } from "@closefront/engine-api/game/MapFiles";
+import { loadTerrainMap } from "@closefront/engine-lib/game/TerrainMapLoader";
+import type { GameMapLoader, MapData } from "@closefront/shared/GameMapLoader";
 import { describe, expect, test, vi } from "vitest";
 import { loadLayerImages } from "../src/client/controllers/MapLayerController";
 import { GraphicsOverridesSchema } from "../src/client/render/gl/GraphicsOverrides";

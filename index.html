@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <title data-i18n="main.title">OpenFront (ALPHA)</title>
+    <title data-i18n="main.title">CloseFront (ALPHA)</title>
     <link rel="manifest" href="<%- manifestHref %>" />
     <link rel="icon" type="image/svg+xml" href="<%- faviconHref %>" />
 
@@ -61,15 +61,15 @@
     </style>
 
     <!-- SEO -->
-    <link rel="canonical" href="https://openfront.io/" />
+    <link rel="canonical" href="https://closefront.io/" />
     <meta
       name="description"
       content="Conquer the world in this multiplayer battle royale! Expand your nation, eliminate opponents, and dominate the map in this fast-paced IO game."
     />
 
     <!-- Open Graph -->
-    <meta property="og:url" content="https://openfront.io/" />
-    <meta property="og:title" content="OpenFront - Battle Royale" />
+    <meta property="og:url" content="https://closefront.io/" />
+    <meta property="og:title" content="CloseFront - Battle Royale" />
     <meta
       property="og:description"
       content="Conquer the world in this multiplayer battle royale! Expand your nation, eliminate opponents, and dominate the map in this fast-paced IO game."
@@ -82,9 +82,9 @@
       {
         "@context": "https://schema.org",
         "@type": "VideoGame",
-        "name": "OpenFront",
-        "alternateName": "OpenFront.io",
-        "url": "https://openfront.io/",
+        "name": "CloseFront",
+        "alternateName": "CloseFront.io",
+        "url": "https://closefront.io/",
         "description": "Conquer the world in this multiplayer battle royale! Expand your nation, eliminate opponents, and dominate the map in this fast-paced IO game.",
         "applicationCategory": "Game",
         "operatingSystem": "Any",
@@ -94,9 +94,9 @@
         "inLanguage": "en",
         "isAccessibleForFree": true,
         "sameAs": [
-          "https://github.com/openfrontio/OpenFrontIO",
-          "https://discord.gg/openfront",
-          "https://www.reddit.com/r/OpenFront/"
+          "https://github.com/closefrontio/CloseFrontIO",
+          "https://discord.gg/closefront",
+          "https://www.reddit.com/r/CloseFront/"
         ]
       }
     </script>
@@ -112,7 +112,7 @@
       (v2)"); a game server supplies them all and gets exactly the page it
       always served.
 
-      Never add a placeholder the Steam shell does not supply: openfront-desktop
+      Never add a placeholder the Steam shell does not supply: closefront-desktop
       renders this same template itself and a missing local is a ReferenceError,
       i.e. a blank window. Guarding an existing one is safe — the shell supplies
       a value and the line still emits.
@@ -128,10 +128,10 @@
         jwtAudience: <%- jwtAudience %>,<%- typeof stripePublishableKey !== "undefined" && stripePublishableKey ? "\n        stripePublishableKey: " + stripePublishableKey + "," : "" %><%- typeof faroCollectorUrl !== "undefined" && faroCollectorUrl ? "\n        faroCollectorUrl: " + faroCollectorUrl + "," : "" %><%- typeof instanceId !== "undefined" && instanceId ? "\n        instanceId: " + instanceId + "," : "" %><%- typeof serverHost !== "undefined" && serverHost ? "\n        serverHost: " + serverHost + "," : "" %><%- typeof siteHost !== "undefined" && siteHost ? "\n        siteHost: " + siteHost + "," : "" %>
       };
       // Set here rather than from the bundle so the first paint already has the
-      // desktop layout. The shell's preload defines openfrontDesktop before
+      // desktop layout. The shell's preload defines closefrontDesktop before
       // any page script runs. ?desktop-layout previews it outside prod.
       if (
-        window.openfrontDesktop ||
+        window.closefrontDesktop ||
         (window.BOOTSTRAP_CONFIG.gameEnv !== "prod" &&
           new URLSearchParams(location.search).has("desktop-layout"))
       ) {
